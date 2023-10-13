@@ -10,7 +10,7 @@ export default function DreamyScreen({navigation}: {navigation: any}) {
     'https://dreamy.jejunu.ac.kr/frame/sysUserPwd.do?changepw=y',
     'https://dreamy.jejunu.ac.kr/frame/main.do',
   ];
-  const InfoURL = 'https://dreamy.jejunu.ac.kr/hjju/hj/sta_hj_1010q.jejunu';
+  const InfoURL = 'https://dreamy.jejunu.ac.kr/frame/sysLeftmenu.do';
 
   return (
     <View className="flex-1">
@@ -26,25 +26,33 @@ export default function DreamyScreen({navigation}: {navigation: any}) {
           "const meta = document.createElement('meta'); meta.setAttribute('content', 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0'); meta.setAttribute('name', 'viewport'); document.getElementsByTagName('head')[0].appendChild(meta); const scrollContainer = document.documentElement; const currentScrollLeft = scrollContainer.scrollLeft; const viewportWidth = window.innerWidth; const desiredScrollLeft = (scrollContainer.scrollWidth - viewportWidth) / 8; scrollContainer.scrollLeft = desiredScrollLeft;"
         }
         onNavigationStateChange={navState => {
-          if (validURLs.includes(navState.url)) {
-            setIsLogin(true);
-            webview.current?.injectJavaScript(
-              'window.location.href = "https://dreamy.jejunu.ac.kr/hjju/hj/sta_hj_1010q.jejunu";',
-            );
-          }
-          if (navState.url === InfoURL) {
-            webview.current?.injectJavaScript(
-              'window.ReactNativeWebView.postMessage(JSON.stringify({member_no:document.getElementById("member_no").value,"user_dept_nm":document.getElementById("user_dept_nm").value}));',
-            );
+          if (navState.loading === false) {
+            if (validURLs.includes(navState.url)) {
+              setIsLogin(true);
+              webview.current?.injectJavaScript(
+                'window.location.href = "https://dreamy.jejunu.ac.kr/frame/sysLeftmenu.do";',
+              );
+            }
+            if (navState.url === InfoURL) {
+              webview.current?.injectJavaScript(
+                'window.ReactNativeWebView.postMessage(document.getElementsByClassName("li-personal2")[0].innerText+document.getElementsByClassName("li-personal2")[1].innerText+document.getElementsByClassName("li-personal2")[2].innerText);',
+              );
+            }
           }
         }}
         onMessage={event => {
           if (event.nativeEvent.data) {
-            const data = JSON.parse(event.nativeEvent.data);
-            if (data.member_no && data.user_dept_nm) {
-              console.log(data.member_no);
-              console.log(data.user_dept_nm);
-            }
+            const parts = event.nativeEvent.data?.split(/\s+/);
+
+            const name = parts[1];
+            const studentID = parts[3].replace(/\(|\)/g, ''); // 괄호 제거
+            const major = parts[5];
+            const status = parts[8];
+
+            console.log('이름: ' + name);
+            console.log('학번: ' + studentID);
+            console.log('전공: ' + major);
+            console.log('상태: ' + status);
           }
         }}
       />
