@@ -20,7 +20,7 @@ export default function HomeScreen({navigation}: {navigation: any}) {
         </View>
       </Pressable>
       <View className="flex w-full h-full bg-red-300">
-        <Text className="text-2xl">This is a Home Screen</Text>
+        <Text className="text-2xl text-center mt-56">메인화면입니다.</Text>
       </View>
     </View>
   );
