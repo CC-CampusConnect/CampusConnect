@@ -1,9 +1,12 @@
 import React, {useRef} from 'react';
+import {set} from 'react-hook-form';
 import {View, Text} from 'react-native';
 import WebView from 'react-native-webview';
 
 export default function DreamyScreen({navigation}: {navigation: any}) {
   const [isLogin, setIsLogin] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [data, setData] = React.useState({}); // [name, studentID, major, status
   const webview = useRef<WebView>(null);
 
   const validURLs = [
@@ -15,9 +18,19 @@ export default function DreamyScreen({navigation}: {navigation: any}) {
   return (
     <View className="flex-1">
       {isLogin ? (
-        <View className="flex w-full h-full bg-red-300">
-          <Text className="text-2xl">This is a Loading Screen</Text>
-        </View>
+        isLoading ? (
+          <View className="flex w-full h-full bg-red-300">
+            <Text className="text-2xl">This is a Loading Screen</Text>
+          </View>
+        ) : (
+          <View className="flex w-full h-full bg-blue-300">
+            {Object.values(data).map((item: any, index: any) => (
+              <Text key={index} className="text-2xl">
+                {item}
+              </Text>
+            ))}
+          </View>
+        )
       ) : null}
       <WebView
         ref={webview}
@@ -29,6 +42,7 @@ export default function DreamyScreen({navigation}: {navigation: any}) {
           if (navState.loading === false) {
             if (validURLs.includes(navState.url)) {
               setIsLogin(true);
+              setIsLoading(true);
               webview.current?.injectJavaScript(
                 'window.location.href = "https://dreamy.jejunu.ac.kr/frame/sysLeftmenu.do";',
               );
@@ -48,6 +62,14 @@ export default function DreamyScreen({navigation}: {navigation: any}) {
             const studentID = parts[3].replace(/\(|\)/g, ''); // 괄호 제거
             const major = parts[5];
             const status = parts[8];
+
+            setData({
+              name,
+              studentID,
+              major,
+              status,
+            });
+            setIsLoading(false);
 
             console.log('이름: ' + name);
             console.log('학번: ' + studentID);
