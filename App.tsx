@@ -1,9 +1,10 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import LoginScreen from './src/LoginScreen';
 import DreamyScreen from './src/DreamyScreen';
 import HomeScreen from './src/HomeScreen';
+import SignUpScreen from './src/SignUpScreen';
+import SignInScreen from './src/SignInScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -12,7 +13,8 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="SignUp" component={SignUpScreen} />
+        <Stack.Screen name="SignIn" component={SignInScreen} />
         <Stack.Screen name="Dreamy" component={DreamyScreen} />
       </Stack.Navigator>
     </NavigationContainer>

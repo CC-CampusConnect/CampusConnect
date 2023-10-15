@@ -1,7 +1,38 @@
-import React from 'react';
-import {View, Text, Pressable} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {View, Text, Pressable, Button} from 'react-native';
+import auth from '@react-native-firebase/auth';
 
 export default function HomeScreen({navigation}: {navigation: any}) {
+  // Set an initializing state whilst Firebase connects
+  const [initializing, setInitializing] = useState(true);
+  const [user, setUser] = useState();
+
+  const logout = async () => {
+    try {
+      await auth().signOut();
+    } catch (error: any) {
+      console.log(error);
+    }
+  };
+
+  // Handle user state changes
+  function onAuthStateChanged(user: any) {
+    console.log(user);
+    setUser(user);
+    if (initializing) {
+      setInitializing(false);
+    }
+  }
+
+  useEffect(() => {
+    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    return subscriber; // unsubscribe on unmount
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  if (initializing) {
+    return null;
+  }
+
   return (
     <View className="flex">
       <Pressable onPress={() => navigation.navigate('Home')}>
@@ -10,17 +41,31 @@ export default function HomeScreen({navigation}: {navigation: any}) {
         </View>
       </Pressable>
       <Pressable onPress={() => navigation.navigate('Dreamy')}>
-        <View className="w-full h-10 bg-blue-400">
+        <View className="w-full h-10 bg-blue-300">
           <Text>Dreamy</Text>
         </View>
       </Pressable>
-      <Pressable onPress={() => navigation.navigate('Login')}>
-        <View className="w-full h-10 bg-blue-600">
-          <Text>Login</Text>
+      <Pressable onPress={() => navigation.navigate('SignUp')}>
+        <View className="w-full h-10 bg-blue-400">
+          <Text>SignUp</Text>
+        </View>
+      </Pressable>
+      <Pressable onPress={() => navigation.navigate('SignIn')}>
+        <View className="w-full h-10 bg-blue-500">
+          <Text>SignIn</Text>
         </View>
       </Pressable>
       <View className="flex w-full h-full bg-red-300">
-        <Text className="text-2xl text-center mt-56">메인화면입니다.</Text>
+        {user ? (
+          <View>
+            <Text className="text-2xl text-center mt-56">
+              안녕하세요 {user.email}
+            </Text>
+            <Button title="로그아웃" onPress={logout} />
+          </View>
+        ) : (
+          <Text className="text-2xl text-center mt-56">로그인 해주세요</Text>
+        )}
       </View>
     </View>
   );

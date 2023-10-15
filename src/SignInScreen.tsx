@@ -1,21 +1,32 @@
 import React from 'react';
 import {View, Text, TextInput, Button} from 'react-native';
 import {useForm, Controller} from 'react-hook-form';
+import auth from '@react-native-firebase/auth';
 
 type FormData = {
-  email: string;
+  id: string;
   password: string;
 };
 
-export default function LoginScreen({navigation}: {navigation: any}) {
+export default function SignInScreen({navigation}: {navigation: any}) {
   const {control, handleSubmit, formState} = useForm<FormData>();
 
-  const onSubmit = (data: FormData) => {
-    // 여기에서 로그인 로직을 구현합니다.
-    console.log(data);
-    navigation.navigate('Home');
-    // 예를 들어, 서버로 로그인 정보를 전송할 수 있습니다.
-    // axios 또는 fetch 등을 사용하여 API 요청을 보낼 수 있습니다.
+  const onSubmit = async (data: FormData) => {
+    if (await signIn(data)) {
+      console.log('로그인이 완료되었습니다.');
+      navigation.navigate('Home');
+    }
+  };
+
+  const signIn = async (data: FormData) => {
+    const id = data.id + '@cc.com';
+    const password = data.password;
+
+    try {
+      return await auth().signInWithEmailAndPassword(id, password);
+    } catch (error: any) {
+      console.log(error);
+    }
   };
 
   return (
@@ -23,12 +34,12 @@ export default function LoginScreen({navigation}: {navigation: any}) {
       <Text className="text-2xl">로그인</Text>
       <View className="mt-4 mb-2">
         <Controller
-          name="email"
+          name="id"
           control={control}
           render={({field: {onChange, onBlur, value}}) => (
             <TextInput
               className="border-2 border-gray-400"
-              placeholder="Email"
+              placeholder="Id"
               onChangeText={onChange}
               onBlur={onBlur}
               value={value}
