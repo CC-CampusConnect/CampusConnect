@@ -1,5 +1,4 @@
 import React, {useRef} from 'react';
-import {set} from 'react-hook-form';
 import {View, Text} from 'react-native';
 import WebView from 'react-native-webview';
 
@@ -56,12 +55,16 @@ export default function DreamyScreen({navigation}: {navigation: any}) {
         }}
         onMessage={event => {
           if (event.nativeEvent.data) {
-            const parts = event.nativeEvent.data?.split(/\s+/);
+            console.log(event.nativeEvent.data);
 
-            const name = parts[1];
-            const studentID = parts[3].replace(/\(|\)/g, ''); // 괄호 제거
-            const major = parts[5];
-            const status = parts[8];
+            const regex = / \(\s*|\s*\)\s*|\s*\/\s*/;
+            const result = event.nativeEvent.data.split(regex);
+
+            // 이름, 학생 ID, 전공, 상태로 할당
+            const name = result[0].trim();
+            const studentID = result[1];
+            const major = result[2].replace(/\s+/g, ' ');
+            const status = result[3];
 
             setData({
               name,
