@@ -8,6 +8,7 @@ import {FirebaseAuthTypes} from '@react-native-firebase/auth';
 export default function DreamyScreen({navigation}: {navigation: any}) {
   const [isLogin, setIsLogin] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
+  const [isCertified, setIsCertified] = React.useState(false);
   const [user, setUser] = React.useState<FirebaseAuthTypes.User | null>(null);
   const webview = useRef<WebView>(null);
 
@@ -42,16 +43,24 @@ export default function DreamyScreen({navigation}: {navigation: any}) {
           <Text className="text-2xl">Done!</Text>
         </View>
       )} */}
+      {isCertified ? (
+        <View className="flex w-full h-full bg-blue-300">
+          <Text className="text-2xl">Done!</Text>
+        </View>
+      ) : isLoading ? (
+        <View className="flex w-full h-full bg-red-300">
+          <Text className="text-2xl">This is a Loading Screen</Text>
+        </View>
+      ) : null}
       <WebView
         ref={webview}
         source={{uri: 'https://dreamy.jejunu.ac.kr/frame/index.do'}}
         injectedJavaScript={
-          "const meta = document.createElement('meta'); meta.setAttribute('content', 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0'); meta.setAttribute('name', 'viewport'); document.getElementsByTagName('head')[0].appendChild(meta); const scrollContainer = document.documentElement; const currentScrollLeft = scrollContainer.scrollLeft; const viewportWidth = window.innerWidth; const desiredScrollLeft = (scrollContainer.scrollWidth - viewportWidth) / 8; scrollContainer.scrollLeft = desiredScrollLeft;"
+          "const meta = document.createElement('meta'); meta.setAttribute('content', 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0'); meta.setAttribute('name', 'viewport'); document.getElementsByTagName('head')[0].appendChild(meta); const scrollContainer = document.documentElement; const currentScrollLeft = scrollContainer.scrollLeft; const viewportWidth = window.innerWidth; const desiredScrollLeft = (scrollContainer.scrollWidth - viewportWidth) / 2; scrollContainer.scrollLeft = desiredScrollLeft;"
         }
         onNavigationStateChange={navState => {
           if (navState.loading === false) {
             if (validURLs.includes(navState.url)) {
-              setIsLogin(true);
               setIsLoading(true);
               webview.current?.injectJavaScript(
                 'window.location.href = "https://dreamy.jejunu.ac.kr/frame/sysLeftmenu.do";',
@@ -76,6 +85,7 @@ export default function DreamyScreen({navigation}: {navigation: any}) {
             const status = result[3];
 
             setIsLoading(false);
+            setIsCertified(true);
 
             console.log('이름: ' + name);
             console.log('학번: ' + studentID);
@@ -89,7 +99,7 @@ export default function DreamyScreen({navigation}: {navigation: any}) {
                   studentID: studentID,
                   major: major,
                   status: status,
-                  // is_certified: true,
+                  is_certified: true,
                 });
               } else {
                 console.log('유저 정보를 찾을 수 없습니다.');
