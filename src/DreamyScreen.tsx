@@ -1,11 +1,14 @@
-import React, {useRef} from 'react';
+import React, {useEffect, useRef} from 'react';
 import {View, Text} from 'react-native';
 import WebView from 'react-native-webview';
+import auth from '@react-native-firebase/auth';
+import {db} from './util/firestore';
+import {FirebaseAuthTypes} from '@react-native-firebase/auth';
 
 export default function DreamyScreen({navigation}: {navigation: any}) {
   const [isLogin, setIsLogin] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
-  const [data, setData] = React.useState({}); // [name, studentID, major, status
+  const [user, setUser] = React.useState<FirebaseAuthTypes.User | null>(null);
   const webview = useRef<WebView>(null);
 
   const validURLs = [
@@ -14,23 +17,31 @@ export default function DreamyScreen({navigation}: {navigation: any}) {
   ];
   const InfoURL = 'https://dreamy.jejunu.ac.kr/frame/sysLeftmenu.do';
 
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', async () => {
+      const currentUser = await auth().currentUser;
+      if (currentUser) {
+        setIsLogin(true);
+        setUser(currentUser);
+      } else {
+        console.log('유저 정보를 찾을 수 없습니다.');
+        navigation.navigate('Home');
+      }
+    });
+    return unsubscribe;
+  }, [navigation]);
+
   return (
     <View className="flex-1">
-      {isLogin ? (
-        isLoading ? (
-          <View className="flex w-full h-full bg-red-300">
-            <Text className="text-2xl">This is a Loading Screen</Text>
-          </View>
-        ) : (
-          <View className="flex w-full h-full bg-blue-300">
-            {Object.values(data).map((item: any, index: any) => (
-              <Text key={index} className="text-2xl">
-                {item}
-              </Text>
-            ))}
-          </View>
-        )
-      ) : null}
+      {/* {isLoading ? (
+        <View className="flex w-full h-full bg-red-300">
+          <Text className="text-2xl">This is a Loading Screen</Text>
+        </View>
+      ) : (
+        <View className="flex w-full h-full bg-blue-300">
+          <Text className="text-2xl">Done!</Text>
+        </View>
+      )} */}
       <WebView
         ref={webview}
         source={{uri: 'https://dreamy.jejunu.ac.kr/frame/index.do'}}
@@ -53,10 +64,8 @@ export default function DreamyScreen({navigation}: {navigation: any}) {
             }
           }
         }}
-        onMessage={event => {
+        onMessage={async event => {
           if (event.nativeEvent.data) {
-            console.log(event.nativeEvent.data);
-
             const regex = / \(\s*|\s*\)\s*|\s*\/\s*/;
             const result = event.nativeEvent.data.split(regex);
 
@@ -66,18 +75,30 @@ export default function DreamyScreen({navigation}: {navigation: any}) {
             const major = result[2].replace(/\s+/g, ' ');
             const status = result[3];
 
-            setData({
-              name,
-              studentID,
-              major,
-              status,
-            });
             setIsLoading(false);
 
             console.log('이름: ' + name);
             console.log('학번: ' + studentID);
             console.log('전공: ' + major);
             console.log('상태: ' + status);
+
+            try {
+              if (user) {
+                await db.collection('Users').doc(user.uid).update({
+                  name: name,
+                  studentID: studentID,
+                  major: major,
+                  status: status,
+                  // is_certified: true,
+                });
+              } else {
+                console.log('유저 정보를 찾을 수 없습니다.');
+                navigation.navigate('Home');
+              }
+              navigation.navigate('Home');
+            } catch (error: any) {
+              console.log(error);
+            }
           }
         }}
       />

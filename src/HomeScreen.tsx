@@ -17,7 +17,6 @@ export default function HomeScreen({navigation}: {navigation: any}) {
 
   // Handle user state changes
   function onAuthStateChanged(user: any) {
-    console.log(user);
     setUser(user);
     if (initializing) {
       setInitializing(false);
