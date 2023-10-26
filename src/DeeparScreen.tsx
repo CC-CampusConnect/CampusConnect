@@ -1,10 +1,18 @@
-import React, {useEffect, useRef} from 'react';
-import {View, Text, Button} from 'react-native';
+import React, {useEffect, useRef, useState, useMemo} from 'react';
+import {View, Text, Button, Platform} from 'react-native';
 import {Camera} from 'react-native-deepar';
 import DeepAR, {IDeepARHandle} from 'react-native-deepar';
+import Effects from './constants/Effects';
 
 export default function DeeparScreen({navigation}: {navigation: any}) {
+  const [isStatsEnabled, setIsStatsEnabled] = useState(false);
   const deepARRef = useRef<IDeepARHandle>(null);
+  const [currEffectIndex, setCurrEffectIndex] = useState(0);
+
+  const isCurrEffectSupported = useMemo(
+    () => Effects[currEffectIndex as number]?.platforms.includes(Platform.OS),
+    [currEffectIndex],
+  );
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', async () => {
@@ -21,15 +29,82 @@ export default function DeeparScreen({navigation}: {navigation: any}) {
     return unsubscribe;
   }, [navigation]);
 
+  const changeEffect = (direction: number) => {
+    if (!deepARRef) {
+      return;
+    }
+
+    let newIndex = direction > 0 ? currEffectIndex + 1 : currEffectIndex - 1;
+
+    if (newIndex >= Effects.length) {
+      newIndex = 0;
+    }
+
+    if (newIndex < 0) {
+      newIndex = Effects.length - 1;
+    }
+
+    const newEffect = Effects[newIndex];
+
+    if (newEffect?.platforms.includes(Platform.OS)) {
+      deepARRef?.current?.switchEffect({
+        mask: newEffect?.name as string,
+        slot: 'effect',
+      });
+    } else {
+      deepARRef?.current?.switchEffect({
+        mask: Effects[0]?.name as string,
+        slot: 'effect',
+      });
+    }
+
+    setCurrEffectIndex(newIndex);
+  };
+
   return (
     <>
-      <View className="flex w-20 h-20">
-        <Button
-          title="Switch Effect"
-          onPress={() => {
-            deepARRef?.current?.switchEffect({mask: 'Vendetta', slot: 'mask'});
-          }}
-        />
+      <View className="flex w-full">
+        <View className="flex w-12 h-12">
+          <Button
+            title="Show Stats"
+            onPress={() => {
+              setIsStatsEnabled(!isStatsEnabled);
+              deepARRef?.current?.showStats(!isStatsEnabled);
+            }}
+          />
+        </View>
+        <View className="flex w-12 h-12">
+          <Button
+            title="Clear All Effects"
+            onPress={() => {
+              setCurrEffectIndex(0);
+              deepARRef?.current?.switchEffect({
+                mask: Effects[0]?.name as string,
+                slot: 'effect',
+              });
+              deepARRef?.current?.switchEffect({
+                mask: Effects[0]?.name as string,
+                slot: 'mask',
+              });
+            }}
+          />
+        </View>
+        <View className="flex w-12 h-12">
+          <Button
+            title="Next Effect"
+            onPress={() => {
+              changeEffect(1);
+            }}
+          />
+        </View>
+        <View className="flex w-12 h-12">
+          <Button
+            title="Previous Effect"
+            onPress={() => {
+              changeEffect(1);
+            }}
+          />
+        </View>
       </View>
       <DeepAR
         ref={deepARRef}
@@ -37,7 +112,10 @@ export default function DeeparScreen({navigation}: {navigation: any}) {
         // eslint-disable-next-line react-native/no-inline-styles
         style={{flex: 1}}
         onInitialized={() => {
-          // ..
+          deepARRef?.current?.switchEffect({
+            mask: 'Vendetta_Mask.deepar',
+            slot: 'mask',
+          });
         }}
       />
     </>

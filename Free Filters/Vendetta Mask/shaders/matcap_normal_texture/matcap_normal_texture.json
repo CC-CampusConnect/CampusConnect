@@ -1,0 +1,29 @@
+{
+	"name" : "matcap_normal_texture",
+	"displayName" : "MatCap Normal Map Tex",
+	"textures" : [
+		{
+			"name" : "s_texColor",
+			"displayName" : "Input texture",
+			"stage" : 0
+		},
+    	{
+			"name" : "s_texNormal",
+			"displayName" : "Normal map",
+			"stage" : 1
+		},
+        {
+			"name" : "s_texMult",
+			"displayName" : "Color",
+			"stage" : 2
+		},
+        
+	], "uniforms" : [
+		{
+			"name" : "u_color",
+			"displayName" : "Color",
+			"type" : "Vec4",
+			"defaultValue" : [1.0, 1.0, 1.0, 1.0]
+		}
+	]
+}

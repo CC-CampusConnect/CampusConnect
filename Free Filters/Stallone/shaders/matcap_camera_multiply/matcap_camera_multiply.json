@@ -1,0 +1,45 @@
+{
+	"name" : "matcap_camera_multiply",
+	"displayName" : "Matcap Camera Multiply",
+	"textures" : [
+		{
+			"name" : "s_texCamera",
+			"displayName" : "Camera texture",
+			"stage" : 0
+		},
+		{
+			"name" : "s_texDiffuseMultiply",
+			"displayName" : "Diffuse multiply texture",
+			"stage" : 1
+		},
+		{
+			"name" : "s_texMatcapInput",
+			"displayName" : "Matcap input",
+			"stage" : 2
+		},
+    	{
+			"name" : "s_texMatcapNormal",
+			"displayName" : "Matcap normals",
+			"stage" : 3
+		},
+        {
+			"name" : "s_texMatcapMult",
+			"displayName" : "Matcap multiply texture",
+			"stage" : 4
+		},
+        
+	], "uniforms" : [
+		{
+			"name" : "u_multiplyColor",
+			"displayName" : "Multiply color",
+			"type" : "Vec4",
+			"defaultValue" : [1.0, 1.0, 1.0, 1.0]
+		},
+		{
+			"name" : "u_matcapColor",
+			"displayName" : "Matcap color",
+			"type" : "Vec4",
+			"defaultValue" : [1.0, 1.0, 1.0, 1.0]
+		}
+	]
+}
