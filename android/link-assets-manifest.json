@@ -2,75 +2,75 @@
   "migIndex": 1,
   "data": [
     {
-      "path": "assets/effects/8bitHearts.deepar",
+      "path": "assets/effects/8bitHearts",
       "sha1": "d6d048c369cec2a943ad483b14681d1dd72f5bb0"
     },
     {
-      "path": "assets/effects/Elephant_Trunk.deepar",
+      "path": "assets/effects/Elephant_Trunk",
       "sha1": "95f91debb4a5beb3f673e9ee1f183a881c3f0b27"
     },
     {
-      "path": "assets/effects/Emotion_Meter.deepar",
+      "path": "assets/effects/Emotion_Meter",
       "sha1": "395a8f5443e03c477a706eff3bb0c09e150b6dc5"
     },
     {
-      "path": "assets/effects/Emotions_Exaggerator.deepar",
+      "path": "assets/effects/Emotions_Exaggerator",
       "sha1": "4a4a8fb8f163c6fd7b9f6a50c519e91fddb81570"
     },
     {
-      "path": "assets/effects/Fire_Effect.deepar",
+      "path": "assets/effects/Fire_Effect",
       "sha1": "29b48e40730acd702e526fc80943de7b6fc31d4a"
     },
     {
-      "path": "assets/effects/Hope.deepar",
+      "path": "assets/effects/Hope",
       "sha1": "73b8ca558412c380bc7aa9fb42eec9fdd244dac2"
     },
     {
-      "path": "assets/effects/Humanoid.deepar",
+      "path": "assets/effects/Humanoid",
       "sha1": "d55892fe97d2adc83768a83fef4ca2979cd8966f"
     },
     {
-      "path": "assets/effects/MakeupLook.deepar",
+      "path": "assets/effects/MakeupLook",
       "sha1": "4c675e9adafe9464365fdfcd4c7d35bb58072046"
     },
     {
-      "path": "assets/effects/Neon_Devil_Horns.deepar",
+      "path": "assets/effects/Neon_Devil_Horns",
       "sha1": "22a5b00c55000d1532e1ef0074f5940d573032ef"
     },
     {
-      "path": "assets/effects/Ping_Pong.deepar",
+      "path": "assets/effects/Ping_Pong",
       "sha1": "116b85b69cd831a8946e957ef8c8657eccf3af6b"
     },
     {
-      "path": "assets/effects/Snail.deepar",
+      "path": "assets/effects/Snail",
       "sha1": "66865c0757c028b858a31efc43d67c7d34c0746f"
     },
     {
-      "path": "assets/effects/Split_View_Look.deepar",
+      "path": "assets/effects/Split_View_Look",
       "sha1": "868ad0479ae16155e8b401863f428fc1154e0f2d"
     },
     {
-      "path": "assets/effects/Stallone.deepar",
+      "path": "assets/effects/Stallone",
       "sha1": "e28b9a49242d968d5e194f7fecfa8e83c8b2882a"
     },
     {
-      "path": "assets/effects/Vendetta_Mask.deepar",
+      "path": "assets/effects/Vendetta_Mask",
       "sha1": "d7c46e58d09a542699be5a55e8f3d92195bc54e1"
     },
     {
-      "path": "assets/effects/burning_effect.deepar",
+      "path": "assets/effects/burning_effect",
       "sha1": "5891abde7778699f4de0bfadf85b96a49ff24826"
     },
     {
-      "path": "assets/effects/flower_face.deepar",
+      "path": "assets/effects/flower_face",
       "sha1": "fcbc4eeb12a9c8373b80f4854f93fdafb1a500ca"
     },
     {
-      "path": "assets/effects/galaxy_background.deepar",
+      "path": "assets/effects/galaxy_background",
       "sha1": "2959c76c4fba9171717d2b16ee228308b1241af7"
     },
     {
-      "path": "assets/effects/viking_helmet.deepar",
+      "path": "assets/effects/viking_helmet",
       "sha1": "4fe4d10e9dcf910d87e2eb96135762c18c6d3bcd"
     }
   ]

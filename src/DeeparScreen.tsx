@@ -9,11 +9,6 @@ export default function DeeparScreen({navigation}: {navigation: any}) {
   const deepARRef = useRef<IDeepARHandle>(null);
   const [currEffectIndex, setCurrEffectIndex] = useState(0);
 
-  const isCurrEffectSupported = useMemo(
-    () => Effects[currEffectIndex as number]?.platforms.includes(Platform.OS),
-    [currEffectIndex],
-  );
-
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', async () => {
       const cameraPermission = await Camera.getCameraPermissionStatus();
@@ -63,8 +58,8 @@ export default function DeeparScreen({navigation}: {navigation: any}) {
 
   return (
     <>
-      <View className="flex w-full">
-        <View className="flex w-12 h-12">
+      <View className="flex flex-col w-full">
+        <View className="flex w-full h-8">
           <Button
             title="Show Stats"
             onPress={() => {
@@ -73,7 +68,7 @@ export default function DeeparScreen({navigation}: {navigation: any}) {
             }}
           />
         </View>
-        <View className="flex w-12 h-12">
+        <View className="flex w-full h-8">
           <Button
             title="Clear All Effects"
             onPress={() => {
@@ -89,7 +84,7 @@ export default function DeeparScreen({navigation}: {navigation: any}) {
             }}
           />
         </View>
-        <View className="flex w-12 h-12">
+        <View className="flex w-full h-8">
           <Button
             title="Next Effect"
             onPress={() => {
@@ -97,26 +92,29 @@ export default function DeeparScreen({navigation}: {navigation: any}) {
             }}
           />
         </View>
-        <View className="flex w-12 h-12">
+        <View className="flex w-full h-8">
           <Button
             title="Previous Effect"
             onPress={() => {
-              changeEffect(1);
+              changeEffect(-1);
             }}
           />
         </View>
+        <Text className="text-lg bg-red-200 text-center">
+          Current Effect : {Effects[currEffectIndex]?.title}
+        </Text>
       </View>
       <DeepAR
         ref={deepARRef}
         apiKey="7ee374d76fb9e39fcc7e2fb2f5e139de294db2f3dce41ec076d4889099d54c979b749b9811d69024"
         // eslint-disable-next-line react-native/no-inline-styles
         style={{flex: 1}}
-        onInitialized={() => {
-          deepARRef?.current?.switchEffect({
-            mask: 'Vendetta_Mask.deepar',
-            slot: 'mask',
-          });
-        }}
+        // onInitialized={() => {
+        //   deepARRef?.current?.switchEffect({
+        //     mask: 'Vendetta_Mask',
+        //     slot: 'mask',
+        //   });
+        // }}
       />
     </>
   );
