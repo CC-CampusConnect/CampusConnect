@@ -60,6 +60,21 @@ export default function HomeScreen({navigation}: {navigation: any}) {
           <Text>Deepar</Text>
         </View>
       </Pressable>
+      <Pressable onPress={() => navigation.navigate('WebRTCRoom')}>
+        <View className="w-full h-10 bg-blue-700">
+          <Text>WebRTCRoom</Text>
+        </View>
+      </Pressable>
+      {/* <Pressable onPress={() => navigation.navigate('WebRTCCall')}>
+        <View className="w-full h-10 bg-blue-800">
+          <Text>WebRTCCall</Text>
+        </View>
+      </Pressable>
+      <Pressable onPress={() => navigation.navigate('WebRTCJoin')}>
+        <View className="w-full h-10 bg-blue-900">
+          <Text>WebRTCJoin</Text>
+        </View>
+      </Pressable> */}
       <View className="flex w-full h-full bg-red-300">
         {user ? (
           <View>
