@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, TextInput, Button} from 'react-native';
+import {View, Text, TextInput, Button, Image} from 'react-native';
 import {useForm, Controller} from 'react-hook-form';
 import auth from '@react-native-firebase/auth';
 
@@ -31,6 +31,7 @@ export default function SignInScreen({navigation}: {navigation: any}) {
 
   return (
     <View className="flex justify-center w-full h-full p-4">
+      <Image source={require('images/CCLogo.jpg')} />
       <Text className="text-2xl">로그인</Text>
       <View className="mt-4 mb-2">
         <Controller
