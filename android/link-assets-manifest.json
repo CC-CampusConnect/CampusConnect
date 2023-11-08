@@ -6,20 +6,32 @@
       "sha1": "d6d048c369cec2a943ad483b14681d1dd72f5bb0"
     },
     {
-      "path": "assets/effects/Elephant_Trunk",
-      "sha1": "95f91debb4a5beb3f673e9ee1f183a881c3f0b27"
+      "path": "assets/effects/burning_effect",
+      "sha1": "5891abde7778699f4de0bfadf85b96a49ff24826"
     },
     {
-      "path": "assets/effects/Emotion_Meter",
-      "sha1": "395a8f5443e03c477a706eff3bb0c09e150b6dc5"
+      "path": "assets/effects/Elephant_Trunk",
+      "sha1": "95f91debb4a5beb3f673e9ee1f183a881c3f0b27"
     },
     {
       "path": "assets/effects/Emotions_Exaggerator",
       "sha1": "4a4a8fb8f163c6fd7b9f6a50c519e91fddb81570"
     },
     {
+      "path": "assets/effects/Emotion_Meter",
+      "sha1": "395a8f5443e03c477a706eff3bb0c09e150b6dc5"
+    },
+    {
       "path": "assets/effects/Fire_Effect",
       "sha1": "29b48e40730acd702e526fc80943de7b6fc31d4a"
+    },
+    {
+      "path": "assets/effects/flower_face",
+      "sha1": "fcbc4eeb12a9c8373b80f4854f93fdafb1a500ca"
+    },
+    {
+      "path": "assets/effects/galaxy_background",
+      "sha1": "2959c76c4fba9171717d2b16ee228308b1241af7"
     },
     {
       "path": "assets/effects/Hope",
@@ -56,18 +68,6 @@
     {
       "path": "assets/effects/Vendetta_Mask",
       "sha1": "d7c46e58d09a542699be5a55e8f3d92195bc54e1"
-    },
-    {
-      "path": "assets/effects/burning_effect",
-      "sha1": "5891abde7778699f4de0bfadf85b96a49ff24826"
-    },
-    {
-      "path": "assets/effects/flower_face",
-      "sha1": "fcbc4eeb12a9c8373b80f4854f93fdafb1a500ca"
-    },
-    {
-      "path": "assets/effects/galaxy_background",
-      "sha1": "2959c76c4fba9171717d2b16ee228308b1241af7"
     },
     {
       "path": "assets/effects/viking_helmet",
