@@ -1,7 +1,10 @@
+// SignInScreen.tsx
+
 import React from 'react';
 import {View, Text, TextInput, TouchableOpacity , Button, Image, StyleSheet} from 'react-native';
 import {useForm, Controller} from 'react-hook-form';
 import auth from '@react-native-firebase/auth';
+
 
 type FormData = {
   id: string;
@@ -47,6 +50,7 @@ export default function SignInScreen({navigation}: {navigation: any}) {
       fontFamily: "Nunito-Italic-VariableFont_wght",
       // textAlign: 'center', 
     },
+
     buttonSignUp: {
       alignContent: 'center',
       justifyContent: 'center',
@@ -78,25 +82,26 @@ export default function SignInScreen({navigation}: {navigation: any}) {
       fontSize: 14,
       fontFamily: "Nunito-Italic-VariableFont_wght",
       color:"black",
-    }, 
+    },
   });
 
   return (
-    <View className="flex justify-center w-full h-full p-4" style={styles.background}>
-      <View className = "p-10" style={{alignItems: 'center'}}>
+    <View className='flex w-full h-full bg-white-gray'>
+      <View className='w-full'>
         <Image 
+          className='mx-auto mt-[91px] w-96'
           style={styles.LogoImage}
           source={require('images/CCLogo.png')} />
       </View>
-      <Text className="text-2xl ml-5 p-4" style={styles.text}>로그인</Text>
-      <View className="mt-4 mb-2" style={{alignItems: 'center'}}>
+      <Text className='justify-center'>로그인</Text>
+      <View>
         <Controller
           name="id"
           control={control}
           render={({field: {onChange, onBlur, value}}) => (
             <TextInput
-              className="border-2 border-gray-200"
-              style={styles.FormInput}
+              
+              
               placeholder="  아이디"
               onChangeText={onChange}
               onBlur={onBlur}
@@ -106,14 +111,14 @@ export default function SignInScreen({navigation}: {navigation: any}) {
           rules={{required: true}}
         />
       </View>
-      <View className="mb-5" style={{alignItems: 'center'}}>
+      <View>
         <Controller
           name="password"
           control={control}
           render={({field: {onChange, onBlur, value}}) => (
             <TextInput
-              className="border-2 border-gray-200"
-              style={styles.FormInput}
+              
+              
               placeholder="  비밀번호"
               onChangeText={onChange}
               onBlur={onBlur}
@@ -124,14 +129,9 @@ export default function SignInScreen({navigation}: {navigation: any}) {
           rules={{required: true}}
         />
       </View>
-      {/*<Button title="로그인 하기" onPress={handleSubmit(onSubmit)} /> */}
-      <View className="ml-9 mt-4" style={styles.buttonStyle}>
-        <TouchableOpacity
-          style={styles.buttonStyle}
-          onPress={() => {handleSubmit(onSubmit)}}>
-          <Text style={styles.buttonText}>로그인 하기</Text>
-        </TouchableOpacity>
-      </View>
+
+        <Button title="로그인 하기" onPress={handleSubmit(onSubmit)} />
+
       {/*<Text className="ml-20" style={styles.SignUp}>가입하기</Text> */}
     </View>
   );
