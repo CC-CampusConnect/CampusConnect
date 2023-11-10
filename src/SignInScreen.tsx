@@ -32,105 +32,69 @@ export default function SignInScreen({navigation}: {navigation: any}) {
     }
   };
 
-  // 스타일
+  // 이미지 크기를 위한 styleSheet
   const styles = StyleSheet.create({
-    background:{
-      backgroundColor: "#F8F8F8",
-    },
-    buttonStyle: {
-      alignItems: 'center',
-      justifyContent: 'center',
-      width: 327,
-      height: 57,
-      backgroundColor:'#FF8967',
-    },
-    buttonText: {
-      fontSize: 26,
-      color: 'white',
-      fontFamily: "Nunito-Italic-VariableFont_wght",
-      // textAlign: 'center', 
-    },
-
-    buttonSignUp: {
-      alignContent: 'center',
-      justifyContent: 'center',
-      width: 327,
-      height: 57,
-      color: 'black',
-    },
-
-    text: {
-      fontSize: 32,
-      color: "#FF9730",
-      
-    },
     LogoImage:{
       width: 270,
       height: 334,
-    },
-    FormInput:{
-      width: 327,
-      height: 40,
-      color:"#FFFFFF",
-    },
-    FormInputText:{
-      fontSize: 16,
-      color: "#A6A6A6",
-      fontFamily: "Nunito-Italic-VariableFont_wght",
-    },
-    SignUp:{
-      fontSize: 14,
-      fontFamily: "Nunito-Italic-VariableFont_wght",
-      color:"black",
     },
   });
 
   return (
     <View className='flex w-full h-full bg-white-gray'>
-      <View className='w-full'>
+      <View className='w-full space-y-[50px]'>
         <Image 
           className='mx-auto mt-[91px]'
           style={styles.LogoImage}
           source={require('images/CCLogo.png')} />
+        <Text className='ml-[42px] font-sans text-xxl text-orange-600'>
+          로그인
+        </Text>
       </View>
-      <Text className='justify-center font-sans text-xxl text-orange-600'>로그인</Text>
-      <View className='bg-pink-500 '>
-        <Controller
-          name="id"
-          control={control}
-          render={({field: {onChange, onBlur, value}}) => (
-            <TextInput
-              className='mx-auto bg-white border-2 w-[327px]'
-              placeholder="  아이디"
-              onChangeText={onChange}
-              onBlur={onBlur}
-              value={value}
-            />
-          )}
-          rules={{required: true}}
-        />
+      
+      <View className='space-y-[22px] mt-[21px] mb-[45px]'>
+        <View>
+          <Controller
+            name="id"
+            control={control}
+            render={({field: {onChange, onBlur, value}}) => (
+              <TextInput
+                className='mx-auto bg-white w-[327px] h-[40px]'
+                placeholder="  아이디"
+                onChangeText={onChange}
+                onBlur={onBlur}
+                value={value}
+              />
+            )}
+            rules={{required: true}}
+          />
+        </View>
+        <View>
+          <Controller
+            name="password"
+            control={control}
+            render={({field: {onChange, onBlur, value}}) => (
+              <TextInput
+                className='mx-auto bg-white w-[327px] h-[40px]'
+                placeholder="  비밀번호"
+                onChangeText={onChange}
+                onBlur={onBlur}
+                value={value}
+                secureTextEntry
+              />
+            )}
+            rules={{required: true}}
+          />
+        </View>
       </View>
-      <View className='bg-orange-600'>
-        <Controller
-          name="password"
-          control={control}
-          render={({field: {onChange, onBlur, value}}) => (
-            <TextInput
-              className='mx-auto bg-white border-2 w-[327px]'
-              placeholder="  비밀번호"
-              onChangeText={onChange}
-              onBlur={onBlur}
-              value={value}
-              secureTextEntry
-            />
-          )}
-          rules={{required: true}}
-        />
-      </View>
-
-        <Button title="로그인 하기" onPress={handleSubmit(onSubmit)} />
-
-      {/*<Text className="ml-20" style={styles.SignUp}>가입하기</Text> */}
+      <TouchableOpacity
+        className='mx-auto w-[327px] h-[57px] bg-pink-500'
+        onPress={() => {handleSubmit(onSubmit)}}>
+          <Text className='mx-auto my-auto font-sans text-md text-white'>로그인 하기</Text>
+      </TouchableOpacity>
+      <TouchableOpacity>
+        <Text className='mx-auto mt-[16px] text-xs text-black underline'>가입하기!</Text>
+      </TouchableOpacity>
     </View>
   );
 }
