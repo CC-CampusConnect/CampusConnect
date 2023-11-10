@@ -89,19 +89,18 @@ export default function SignInScreen({navigation}: {navigation: any}) {
     <View className='flex w-full h-full bg-white-gray'>
       <View className='w-full'>
         <Image 
-          className='mx-auto mt-[91px] w-96'
+          className='mx-auto mt-[91px]'
           style={styles.LogoImage}
           source={require('images/CCLogo.png')} />
       </View>
-      <Text className='justify-center'>로그인</Text>
-      <View>
+      <Text className='justify-center font-sans text-xxl text-orange-600'>로그인</Text>
+      <View className='bg-pink-500 '>
         <Controller
           name="id"
           control={control}
           render={({field: {onChange, onBlur, value}}) => (
             <TextInput
-              
-              
+              className='mx-auto bg-white border-2 w-[327px]'
               placeholder="  아이디"
               onChangeText={onChange}
               onBlur={onBlur}
@@ -111,14 +110,13 @@ export default function SignInScreen({navigation}: {navigation: any}) {
           rules={{required: true}}
         />
       </View>
-      <View>
+      <View className='bg-orange-600'>
         <Controller
           name="password"
           control={control}
           render={({field: {onChange, onBlur, value}}) => (
             <TextInput
-              
-              
+              className='mx-auto bg-white border-2 w-[327px]'
               placeholder="  비밀번호"
               onChangeText={onChange}
               onBlur={onBlur}
