@@ -1,7 +1,7 @@
 // SignInScreen.tsx
 
 import React from 'react';
-import {View, Text, TextInput, TouchableOpacity , Button, Image, StyleSheet} from 'react-native';
+import {View, Text, TextInput, TouchableOpacity , Button, Image, StyleSheet, ScrollView} from 'react-native';
 import {useForm, Controller} from 'react-hook-form';
 import auth from '@react-native-firebase/auth';
 
@@ -41,7 +41,7 @@ export default function SignInScreen({navigation}: {navigation: any}) {
   });
 
   return (
-    <View className='flex w-full h-full bg-white-gray'>
+    <ScrollView className='flex w-full h-full bg-white-gray'>
       <View className='w-full space-y-[50px]'>
         <Image 
           className='mx-auto mt-[91px]'
@@ -53,14 +53,14 @@ export default function SignInScreen({navigation}: {navigation: any}) {
       </View>
       
       <View className='space-y-[22px] mt-[21px] mb-[45px]'>
-        <View>
+         <View className="mt-4 mb-2">
           <Controller
             name="id"
             control={control}
             render={({field: {onChange, onBlur, value}}) => (
               <TextInput
                 className='mx-auto bg-white w-[327px] h-[40px]'
-                placeholder="  아이디"
+                placeholder="아이디"
                 onChangeText={onChange}
                 onBlur={onBlur}
                 value={value}
@@ -69,14 +69,14 @@ export default function SignInScreen({navigation}: {navigation: any}) {
             rules={{required: true}}
           />
         </View>
-        <View>
+        <View className="mb-5">
           <Controller
             name="password"
             control={control}
             render={({field: {onChange, onBlur, value}}) => (
               <TextInput
                 className='mx-auto bg-white w-[327px] h-[40px]'
-                placeholder="  비밀번호"
+                placeholder="비밀번호"
                 onChangeText={onChange}
                 onBlur={onBlur}
                 value={value}
@@ -93,8 +93,8 @@ export default function SignInScreen({navigation}: {navigation: any}) {
           <Text className='mx-auto my-auto font-sans text-md text-white'>로그인 하기</Text>
       </TouchableOpacity>
       <TouchableOpacity>
-        <Text className='mx-auto mt-[16px] text-xs text-black underline'>가입하기!</Text>
+        <Text className='mx-auto mt-[16px] mb-[144px] text-xs text-black underline'>가입하기!</Text>
       </TouchableOpacity>
-    </View>
+    </ScrollView>
   );
 }

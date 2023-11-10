@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, TextInput, Button} from 'react-native';
+import {View, Text, TextInput, Button, TouchableOpacity, Image, StyleSheet, ScrollView } from 'react-native';
 import {useForm, Controller} from 'react-hook-form';
 import auth from '@react-native-firebase/auth';
 import {db} from './util/firestore';
@@ -64,43 +64,87 @@ export default function SignUpScreen({navigation}: {navigation: any}) {
     }
   };
 
+    // 이미지 크기를 위한 styleSheet
+    const styles = StyleSheet.create({
+      LogoImage:{
+        width: 270,
+        height: 334,
+      },
+    });
+
   return (
-    <View className="flex justify-center w-full h-full p-4">
-      <Text className="text-2xl">회원가입</Text>
-      <View className="mt-4 mb-2">
-        <Controller
-          name="id"
-          control={control}
-          render={({field: {onChange, onBlur, value}}) => (
-            <TextInput
-              className="border-2 border-gray-400"
-              placeholder="Id"
-              onChangeText={onChange}
-              onBlur={onBlur}
-              value={value}
-            />
-          )}
-          rules={{required: true}}
-        />
+    <ScrollView className='flex w-full h-full bg-white-gray'>
+      <View className='w-full space-y-[50px]'>
+        <Image 
+          className='mx-auto mt-[91px]'
+          style={styles.LogoImage}
+          source={require('images/CCLogo.png')} />
+        <Text className='ml-[42px] font-sans text-xxl text-orange-600'>
+          회원가입
+        </Text>
       </View>
-      <View className="mb-5">
-        <Controller
-          name="password"
-          control={control}
-          render={({field: {onChange, onBlur, value}}) => (
-            <TextInput
-              className="border-2 border-gray-400"
-              placeholder="Password"
-              onChangeText={onChange}
-              onBlur={onBlur}
-              value={value}
-              secureTextEntry
-            />
-          )}
-          rules={{required: true}}
-        />
+  
+
+      <View className='space-y-[18px] mt-[21px] mb-[48px]'>
+        <View className="mt-4">
+          <Controller
+            name="id"
+            control={control}
+            render={({field: {onChange, onBlur, value}}) => (
+              <TextInput
+                className='mx-auto bg-white w-[327px] h-[40px]'
+                placeholder="아이디"
+                onChangeText={onChange}
+                onBlur={onBlur}
+                value={value}
+              />
+            )}
+            rules={{required: true}}
+          />
+        </View>
+        <View>
+          <Controller
+            name="password"
+            control={control}
+            render={({field: {onChange, onBlur, value}}) => (
+              <TextInput
+                className='mx-auto bg-white w-[327px] h-[40px]'
+                placeholder="비밀번호"
+                onChangeText={onChange}
+                onBlur={onBlur}
+                value={value}
+                secureTextEntry
+              />
+            )}
+            rules={{required: true}}
+          />
+        </View>
+        <View>
+          <Controller
+            name="password"
+            control={control}
+            render={({field: {onChange, onBlur, value}}) => (
+              <TextInput
+                className='mx-auto bg-white w-[327px] h-[40px]'
+                placeholder="비밀번호 확인"
+                onChangeText={onChange}
+                onBlur={onBlur}
+                value={value}
+                secureTextEntry
+              />
+            )}
+            rules={{required: true}}
+          />
+        </View>
       </View>
-      <Button title="회원가입" onPress={handleSubmit(onSubmit)} />
-    </View>
+      <Text className='mx-auto mb-[14px]'>
+        CC에 가입함으로써 이용약관과 개인보호정책에 수락합니다
+      </Text>
+      <TouchableOpacity
+        className='mx-auto mb-[103px] w-[327px] h-[57px] bg-pink-500'
+        onPress={handleSubmit(onSubmit)}>
+          <Text className='mx-auto my-auto font-sans text-md text-white'>가입하기</Text>
+      </TouchableOpacity>
+    </ScrollView>
   );
 }
