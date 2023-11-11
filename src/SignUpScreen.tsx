@@ -7,18 +7,22 @@ import {db} from './util/firestore';
 type FormData = {
   id: string;
   password: string;
+  passwordCheck: string;
 };
 
 export default function SignUpScreen({navigation}: {navigation: any}) {
   const {control, handleSubmit, formState} = useForm<FormData>();
+  const [errorMessage, setErrorMessage] = React.useState<string>(''); // 에러 메시지
 
   const onSubmit = async (data: FormData) => {
     if (!(await validateId(data))) {
       console.log('id를 확인해주세요.');
+      setErrorMessage('id를 확인해주세요.');
       return;
     }
     if (!(await validatePassword(data))) {
       console.log('password를 확인해주세요.');
+      setErrorMessage('password를 확인해주세요.');
       return;
     }
     if (await signup(data)) {
@@ -26,6 +30,7 @@ export default function SignUpScreen({navigation}: {navigation: any}) {
       navigation.navigate('Home');
     } else {
       console.log('알 수 없는 오류로 회원가입에 실패하였습니다.');
+      setErrorMessage('알 수 없는 오류로 회원가입에 실패하였습니다.');
     }
   };
 
@@ -101,6 +106,9 @@ export default function SignUpScreen({navigation}: {navigation: any}) {
             )}
             rules={{required: true}}
           />
+          {errorMessage ?(
+            <Text className='mx-auto text-14'>{errorMessage}</Text>
+          ):null}
         </View>
         <View>
           <Controller
