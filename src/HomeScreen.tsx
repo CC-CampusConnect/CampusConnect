@@ -65,6 +65,11 @@ export default function HomeScreen({navigation}: {navigation: any}) {
           <Text>WebRTCRoom</Text>
         </View>
       </Pressable>
+      <Pressable onPress={() => navigation.navigate('Timer')}>
+        <View className="w-full h-10 bg-blue-800">
+          <Text>Timer</Text>
+        </View>
+      </Pressable>
       {/* <Pressable onPress={() => navigation.navigate('WebRTCCall')}>
         <View className="w-full h-10 bg-blue-800">
           <Text>WebRTCCall</Text>

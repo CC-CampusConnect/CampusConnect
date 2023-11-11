@@ -29,6 +29,7 @@ const configuration = {
 export default function CallScreen({navigation, route}: any) {
   const roomId = route.params.roomId;
 
+  // 통화 종료
   function onBackPress() {
     if (cachedLocalPC) {
       const sender = cachedLocalPC.getSenders()[0];
@@ -58,6 +59,7 @@ export default function CallScreen({navigation, route}: any) {
     startLocalStream();
   }, []);
 
+  // 카메라 및 마이크 스트림 설정
   const startLocalStream = async () => {
     // isFront will determine if the initial camera should face user or environment
     const isFront = true;
@@ -84,6 +86,7 @@ export default function CallScreen({navigation, route}: any) {
     setLocalStream(newStream);
   };
 
+  // 통화 시작
   const startCall = async (id: string) => {
     const roomRef = await db.collection('rooms').doc(id);
 
