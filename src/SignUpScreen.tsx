@@ -1,3 +1,5 @@
+// SignUpScreen.tsx
+
 import React from 'react';
 import {View, Text, TextInput, Button, TouchableOpacity, Image, StyleSheet, ScrollView } from 'react-native';
 import {useForm, Controller} from 'react-hook-form';
@@ -12,17 +14,19 @@ type FormData = {
 
 export default function SignUpScreen({navigation}: {navigation: any}) {
   const {control, handleSubmit, formState} = useForm<FormData>();
+  const [IdError, setIdError] = React.useState<string>(''); // 아이디 에러 메시지
+  const [PasswordError, setPasswordError] = React.useState<string>(''); // 비밀번호 에러 메시지
   const [errorMessage, setErrorMessage] = React.useState<string>(''); // 에러 메시지
 
   const onSubmit = async (data: FormData) => {
     if (!(await validateId(data))) {
       console.log('id를 확인해주세요.');
-      setErrorMessage('id를 확인해주세요.');
+      setIdError('id를 확인해주세요.');
       return;
     }
     if (!(await validatePassword(data))) {
       console.log('password를 확인해주세요.');
-      setErrorMessage('password를 확인해주세요.');
+      setPasswordError('password를 확인해주세요.');
       return;
     }
     if (await signup(data)) {
@@ -69,13 +73,13 @@ export default function SignUpScreen({navigation}: {navigation: any}) {
     }
   };
 
-    // 이미지 크기를 위한 styleSheet
-    const styles = StyleSheet.create({
-      LogoImage:{
-        width: 270,
-        height: 334,
-      },
-    });
+  // 이미지 크기를 위한 styleSheet
+  const styles = StyleSheet.create({
+    LogoImage:{
+      width: 270,
+      height: 334,
+    },
+  });
 
   return (
     <ScrollView className='flex w-full h-full bg-white-gray'>
@@ -106,8 +110,8 @@ export default function SignUpScreen({navigation}: {navigation: any}) {
             )}
             rules={{required: true}}
           />
-          {errorMessage ?(
-            <Text className='mx-auto text-14'>{errorMessage}</Text>
+          {IdError ?(
+            <Text className='ml-[55px] text-14'>{IdError}</Text>
           ):null}
         </View>
         <View>
@@ -126,6 +130,9 @@ export default function SignUpScreen({navigation}: {navigation: any}) {
             )}
             rules={{required: true}}
           />
+          {PasswordError ?(
+            <Text className='ml-[55px] text-14'>{PasswordError}</Text>
+          ):null}
         </View>
         <View>
           <Controller
@@ -143,6 +150,9 @@ export default function SignUpScreen({navigation}: {navigation: any}) {
             )}
             rules={{required: true}}
           />
+          {PasswordError ?(
+            <Text className='ml-[55px] text-14'>{PasswordError}</Text>
+          ):null}
         </View>
       </View>
       <Text className='mx-auto mb-[14px]'>
