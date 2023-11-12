@@ -11,6 +11,7 @@ import {
 } from 'react-native-webrtc';
 
 import {db} from './util/firestore';
+import Timer from './Timer';
 
 const configuration = {
   iceServers: [
@@ -58,6 +59,13 @@ export default function CallScreen({navigation, route}: any) {
   useEffect(() => {
     startLocalStream();
   }, []);
+
+  useEffect(() => {
+    if (localStream && remoteStream) {
+      saveCallStartTime();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [localStream, remoteStream]);
 
   // 카메라 및 마이크 스트림 설정
   const startLocalStream = async () => {
@@ -165,6 +173,15 @@ export default function CallScreen({navigation, route}: any) {
     });
   };
 
+  // 통화를 시작한 시간을 Firestore에 저장하는 함수
+  const saveCallStartTime = async () => {
+    const roomRef = await db.collection('rooms').doc(roomId);
+    const callStartTime = new Date();
+    await roomRef.update({
+      created_date: callStartTime,
+    });
+  };
+
   return (
     <View className="w-full h-full flex flex-col">
       <Text>Call Screen</Text>
@@ -198,6 +215,9 @@ export default function CallScreen({navigation, route}: any) {
           />
         </View>
       )}
+      <View>
+        <Timer onBackPress={onBackPress} roomId={roomId} />
+      </View>
       <View className="w-full h-full flex flex-col">
         <View className="flex w-full h-[250px]">
           {localStream && (

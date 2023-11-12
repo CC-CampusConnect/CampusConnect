@@ -11,6 +11,7 @@ import {
 } from 'react-native-webrtc';
 
 import {db} from './util/firestore';
+import Timer from './Timer';
 
 const configuration = {
   iceServers: [
@@ -198,6 +199,9 @@ export default function JoinScreen({navigation, route}: any) {
           />
         </View>
       )}
+      <View>
+        <Timer onBackPress={onBackPress} roomId={roomId} />
+      </View>
       <View className="w-full h-full flex flex-col">
         <View className="flex w-full h-[250px]">
           {localStream && (
