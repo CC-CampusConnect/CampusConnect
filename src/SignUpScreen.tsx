@@ -16,7 +16,8 @@ export default function SignUpScreen({navigation}: {navigation: any}) {
   const {control, handleSubmit, formState} = useForm<FormData>();
   const [IdError, setIdError] = React.useState<string>(''); // 아이디 에러 메시지
   const [PasswordError, setPasswordError] = React.useState<string>(''); // 비밀번호 에러 메시지
-  const [errorMessage, setErrorMessage] = React.useState<string>(''); // 에러 메시지
+  const [RePasswordError, setRePasswordError] = React.useState<string>(''); //비밀번호 확인 에러 메시지
+  const [errorMessage, setErrorMessage] = React.useState<string>(''); // 알 수 없는 에러 메시지
 
   const onSubmit = async (data: FormData) => {
     if (!(await validateId(data))) {
@@ -29,12 +30,17 @@ export default function SignUpScreen({navigation}: {navigation: any}) {
       setPasswordError('password를 확인해주세요.');
       return;
     }
+    if (!(await samePassword(data))){
+      console.log('password가 같지 않습니다.');
+      setRePasswordError('password가 같지 않습니다.');
+      return;
+    }
     if (await signup(data)) {
       console.log('회원가입이 완료되었습니다.');
       navigation.navigate('Home');
     } else {
-      console.log('알 수 없는 오류로 회원가입에 실패하였습니다.');
-      setErrorMessage('알 수 없는 오류로 회원가입에 실패하였습니다.');
+      console.log('이미 사용 중인 아이디입니다.');
+      setErrorMessage('이미 사용 중인 아이디입니다.');
     }
   };
 
@@ -43,7 +49,15 @@ export default function SignUpScreen({navigation}: {navigation: any}) {
     // id는 5글자 이상이어야 합니다.
     const id = data.id;
     const regex = /^[a-z0-9]{5,}$/;
-    return regex.test(id);
+    const isIdValid =  regex.test(id);
+
+    // 아이디 조건이 맞으면 setIdError 상태 업데이트
+    if (isIdValid) {
+      setIdError('');
+    } else {
+      setIdError('id를 확인해주세요.');
+    }
+    return isIdValid;
   };
 
   const validatePassword = async (data: FormData) => {
@@ -51,7 +65,30 @@ export default function SignUpScreen({navigation}: {navigation: any}) {
     // password는 8글자 이상이어야 합니다.
     const password = data.password;
     const regex = /^[a-zA-Z0-9!@#$%^&*]{8,}$/;
-    return regex.test(password);
+    const isPasswordValid = regex.test(password);
+
+    // 비밀번호 조건이 맞으면 setIdError 상태 업데이트
+    if (isPasswordValid) {
+      setPasswordError('');
+    } else {
+      setPasswordError('password를 확인해주세요.');
+    }
+    return isPasswordValid;
+  };
+
+  const samePassword = async (data: FormData): Promise<boolean> => {
+    // password가 같은지 여부를 비동기적으로 확인
+    // password가 같지 않습니다.
+    const password = data.password;
+    const regex = data.passwordCheck; // 비밀번호 확인 필드의 값으로 비교
+    const passwordResult = password === regex;
+
+    if(passwordResult){
+      setRePasswordError('');
+    } else {
+      setRePasswordError('password가 같지 않습니다.');
+    }
+    return passwordResult;
   };
 
   const signup = async (data: FormData) => {
@@ -113,6 +150,9 @@ export default function SignUpScreen({navigation}: {navigation: any}) {
           {IdError ?(
             <Text className='ml-[55px] text-14'>{IdError}</Text>
           ):null}
+          {errorMessage ?(
+            <Text className='ml-[55px] text-14'>{errorMessage}</Text>
+          ):null}
         </View>
         <View>
           <Controller
@@ -136,7 +176,7 @@ export default function SignUpScreen({navigation}: {navigation: any}) {
         </View>
         <View>
           <Controller
-            name="password"
+            name="passwordCheck"
             control={control}
             render={({field: {onChange, onBlur, value}}) => (
               <TextInput
@@ -150,8 +190,8 @@ export default function SignUpScreen({navigation}: {navigation: any}) {
             )}
             rules={{required: true}}
           />
-          {PasswordError ?(
-            <Text className='ml-[55px] text-14'>{PasswordError}</Text>
+          {RePasswordError ?(
+            <Text className='ml-[55px] text-14'>{RePasswordError}</Text>
           ):null}
         </View>
       </View>
