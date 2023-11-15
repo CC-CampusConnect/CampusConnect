@@ -36,8 +36,8 @@ export default function SignUpScreen({navigation}: {navigation: any}) {
       return;
     }
     if (await signup(data)) {
-      console.log('회원가입이 완료되었습니다.');
-      navigation.navigate('Home');
+      console.log('회원가입이 완료되었습니다. 2-2 회원가입 완료 페이지로 이동합니다.');
+      navigation.navigate('SignUpComplete');
     } else {
       console.log('이미 사용 중인 아이디입니다.');
       setErrorMessage('이미 사용 중인 아이디입니다.');

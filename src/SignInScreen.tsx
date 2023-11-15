@@ -16,7 +16,7 @@ export default function SignInScreen({navigation}: {navigation: any}) {
 
   const onSubmit = async (data: FormData) => {
     if (await signIn(data)) {
-      console.log('로그인이 완료되었습니다.');
+      console.log('로그인이 완료되었습니다. 하영드리미 인증 페이지로 이동합니다.');
       navigation.navigate('Home');
     }
   };

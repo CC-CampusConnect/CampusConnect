@@ -1,3 +1,5 @@
+// HomeScreen.tsx
+
 import React, {useState, useEffect} from 'react';
 import {View, Text, Pressable, Button} from 'react-native';
 import auth from '@react-native-firebase/auth';
@@ -58,6 +60,11 @@ export default function HomeScreen({navigation}: {navigation: any}) {
       <Pressable onPress={() => navigation.navigate('Deepar')}>
         <View className="w-full h-10 bg-blue-600">
           <Text>Deepar</Text>
+        </View>
+      </Pressable>
+      <Pressable onPress={() => navigation.navigate('SignUpComplete')}>
+        <View className="w-full h-10 bg-blue-600">
+          <Text>SignUpComplete</Text>
         </View>
       </Pressable>
       <View className="flex w-full h-full bg-red-300">
