@@ -67,6 +67,11 @@ export default function HomeScreen({navigation}: {navigation: any}) {
           <Text>SignUpComplete</Text>
         </View>
       </Pressable>
+      <Pressable onPress={() => navigation.navigate('DreamyComplete')}>
+        <View className="w-full h-10 bg-blue-600">
+          <Text>DreamyComplete</Text>
+        </View>
+      </Pressable>
       <View className="flex w-full h-full bg-red-300">
         {user ? (
           <View>
