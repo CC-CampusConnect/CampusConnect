@@ -8,6 +8,7 @@ import SignInScreen from './src/SignInScreen';
 import DeeparScreen from './src/DeeparScreen';
 import SignUpCompleteScreen from './src/SignUpCompleteScreen';
 import DreamyCompleteScreen from './src/DreamyCompleteScreen';
+import MainPageScreen from './src/MainPageScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -22,6 +23,7 @@ export default function App() {
         <Stack.Screen name="Deepar" component={DeeparScreen} />
         <Stack.Screen name="SignUpComplete" component={SignUpCompleteScreen} />
         <Stack.Screen name="DreamyComplete" component={DreamyCompleteScreen} />
+        <Stack.Screen name="MainPage" component={MainPageScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

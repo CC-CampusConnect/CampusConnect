@@ -8,7 +8,7 @@ export default function DreamyCompleteScreen({navigation}: {navigation: any}) {
     const onSubmit = async (data: FormData) => {
         if(await dreamycomplete(data)){
             console.log('인증 완료. 메인 페이지로 이동');
-            navigation.navigate('DreamyComplete');
+            navigation.navigate('MainPage');
         }
     };
 
