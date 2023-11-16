@@ -16,8 +16,21 @@ export default function MainPageScreen({navigation}: {navigation: any}) {
         return true;
     };
 
+    // 이미지 크기를 위한 styleSheet
+    const styles = StyleSheet.create({
+        LogoImage:{
+        width: 270,
+        height: 334,
+        },
+    });
+
     return(
         <View className='flex w-full h-full relative bg-white-gray'>
+            <Image 
+                className='mx-auto mt-[91px]'
+                style={styles.LogoImage}
+                source={require('images/CCLogo.png')}/>
+
             <View className='flex w-full h-full absolute justify-end mb-0'>
                 <TouchableOpacity
                     className='w-full w-full justify-end h-[65px] bg-pink-500'
