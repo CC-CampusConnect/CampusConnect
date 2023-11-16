@@ -9,6 +9,7 @@ import DeeparScreen from './src/DeeparScreen';
 import WebRTCCallScreen from './src/WebRTCCallScreen';
 import WebRTCJoinScreen from './src/WebRTCJoinScreen';
 import WebRTCRoomScreen from './src/WebRTCRoomScreen';
+import Report from './src/Report';
 
 const Stack = createNativeStackNavigator();
 
@@ -24,6 +25,7 @@ export default function App() {
         <Stack.Screen name="WebRTCCall" component={WebRTCCallScreen} />
         <Stack.Screen name="WebRTCJoin" component={WebRTCJoinScreen} />
         <Stack.Screen name="WebRTCRoom" component={WebRTCRoomScreen} />
+        <Stack.Screen name="Report" component={Report} />
       </Stack.Navigator>
     </NavigationContainer>
   );
