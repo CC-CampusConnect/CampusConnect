@@ -61,6 +61,13 @@ export default function JoinScreen({navigation, route}: any) {
     startLocalStream();
   }, []);
 
+  useEffect(() => {
+    if (localStream && remoteStream) {
+      notifyCallReady();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [localStream, remoteStream]);
+
   const startLocalStream = async () => {
     // isFront will determine if the initial camera should face user or environment
     const isFront = true;
@@ -92,6 +99,7 @@ export default function JoinScreen({navigation, route}: any) {
     const roomSnapshot = await roomRef.get(); // 방 정보 가져오기
 
     if (!roomSnapshot.exists) {
+      console.log('방 없음');
       return;
     }
 
@@ -168,6 +176,20 @@ export default function JoinScreen({navigation, route}: any) {
     });
   };
 
+  const notifyCallReady = async () => {
+    const roomRef = await db.collection('rooms').doc(roomId);
+    await roomRef.update({
+      calleeReady: true,
+    });
+  };
+
+  const extendCall = async () => {
+    const roomRef = await db.collection('rooms').doc(roomId);
+    await roomRef.update({
+      calleeExtensionPressed: true,
+    });
+  };
+
   return (
     <View className="w-full h-full flex flex-col">
       <Text>Join Screen</Text>
@@ -197,6 +219,7 @@ export default function JoinScreen({navigation, route}: any) {
             onPress={toggleMute}
             disabled={!remoteStream}
           />
+          <Button title="Click to extend call" onPress={extendCall} />
         </View>
       )}
       <View>

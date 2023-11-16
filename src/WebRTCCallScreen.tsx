@@ -62,7 +62,7 @@ export default function CallScreen({navigation, route}: any) {
 
   useEffect(() => {
     if (localStream && remoteStream) {
-      saveCallStartTime();
+      notifyCallReady();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [localStream, remoteStream]);
@@ -173,12 +173,18 @@ export default function CallScreen({navigation, route}: any) {
     });
   };
 
-  // 통화를 시작한 시간을 Firestore에 저장하는 함수
-  const saveCallStartTime = async () => {
+  const notifyCallReady = async () => {
     const roomRef = await db.collection('rooms').doc(roomId);
-    const callStartTime = new Date();
     await roomRef.update({
-      created_date: callStartTime,
+      callerReady: true,
+    });
+    console.log('callerReady');
+  };
+
+  const extendCall = async () => {
+    const roomRef = await db.collection('rooms').doc(roomId);
+    await roomRef.update({
+      callerExtensionPressed: true,
     });
   };
 
@@ -213,6 +219,7 @@ export default function CallScreen({navigation, route}: any) {
             onPress={toggleMute}
             disabled={!remoteStream}
           />
+          <Button title="Click to extend call" onPress={extendCall} />
         </View>
       )}
       <View>
