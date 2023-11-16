@@ -53,6 +53,7 @@ export default function CallScreen({navigation, route}: any) {
   const [cachedLocalPC, setCachedLocalPC] = useState<RTCPeerConnection | null>(
     null,
   );
+  const [callerReady, setCallerReady] = useState(false);
 
   const [isMuted, setIsMuted] = useState(false);
 
@@ -60,12 +61,19 @@ export default function CallScreen({navigation, route}: any) {
     startLocalStream();
   }, []);
 
+  // useEffect(() => {
+  //   if (localStream && remoteStream) {
+  //     notifyCallReady();
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [localStream, remoteStream]);
+
   useEffect(() => {
-    if (localStream && remoteStream) {
+    if (callerReady) {
       notifyCallReady();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [localStream, remoteStream]);
+  }, [callerReady]);
 
   // 카메라 및 마이크 스트림 설정
   const startLocalStream = async () => {
@@ -114,6 +122,7 @@ export default function CallScreen({navigation, route}: any) {
       // icecandidate 이벤트는 로컬 RTCPeerConnection이 ICE candidate를 생성할 때마다 발생
 
       if (!e.candidate) {
+        setCallerReady(true);
         console.log('Got final candidate!');
         return;
       }
@@ -177,6 +186,7 @@ export default function CallScreen({navigation, route}: any) {
     const roomRef = await db.collection('rooms').doc(roomId);
     await roomRef.update({
       callerReady: true,
+      init: true,
     });
     console.log('callerReady');
   };

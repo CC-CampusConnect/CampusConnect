@@ -51,6 +51,7 @@ export default function JoinScreen({navigation, route}: any) {
   const [remoteStream, setRemoteStream] = useState<MediaStream | null>(
     null,
   ); /* When a call is connected, the video stream from the receiver is appended to this state in the stream*/
+  const [calleeReady, setCalleeReady] = useState(false); // Callee is ready to join the call
   const [cachedLocalPC, setCachedLocalPC] = useState<RTCPeerConnection | null>( // 로컬 PeerConnection
     null,
   );
@@ -61,12 +62,19 @@ export default function JoinScreen({navigation, route}: any) {
     startLocalStream();
   }, []);
 
+  // useEffect(() => {
+  //   if (localStream && remoteStream) {
+  //     notifyCallReady();
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [localStream, remoteStream]);
+
   useEffect(() => {
-    if (localStream && remoteStream) {
+    if (calleeReady) {
       notifyCallReady();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [localStream, remoteStream]);
+  }, [calleeReady]);
 
   const startLocalStream = async () => {
     // isFront will determine if the initial camera should face user or environment
@@ -119,6 +127,7 @@ export default function JoinScreen({navigation, route}: any) {
       //icecandidate 이벤트는 RTCPeerConnection의 로컬 ICE 에이전트가 새로운 ICE candidate를 생성했을 때 발생합니다.
       if (!e.candidate) {
         console.log('Got final candidate!');
+        setCalleeReady(true);
         return;
       }
       calleeCandidatesCollection.add(e.candidate.toJSON());

@@ -44,7 +44,6 @@ const Timer: React.FC<TimerProps> = ({onBackPress, roomId}) => {
   const [callStartTime, setCallStartTime] = useState<number | null>(null); // 통화 시작 시간
   const [callEndTime, setCallEndTime] = useState<number | null>(null); // 통화 종료 시간
   const [delay, setDelay] = useState<number | null>(1); // 1 밀리초 간격
-  const [init, setInit] = useState(true); // 타이머 초기화 여부
 
   /**
    * 통화 시작 시간, 종료 시간 가져오기
@@ -58,18 +57,23 @@ const Timer: React.FC<TimerProps> = ({onBackPress, roomId}) => {
       const roomRef = await db.collection('rooms').doc(roomId);
 
       roomRef.onSnapshot(async snapshot => {
+        console.log('데이터 변경 감지');
         const data = snapshot.data();
-        if (data && data.callerReady && data.calleeReady && init) {
+        if (data && data.callerReady && data.calleeReady && data.init) {
           if (!data.callStartTime || !data.callEndTime) {
-            // 통화 시작 시간시간 또는 종료 시간이 없을 때
+            // 통화 시작 시간 또는 종료 시간이 없을 때
             await roomRef.update({
               callStartTime: Math.floor(new Date().getTime()) + 5000,
               callEndTime: Math.floor(new Date().getTime()) + 15000,
+              extensionCount: 0,
             });
             console.log('callStartTime, callEndTime 업데이트');
           }
           if (data.callStartTime && data.callEndTime) {
-            setInit(false);
+            await roomRef.update({
+              init: false,
+            });
+            // setInit(false);
             setCallStartTime(data.callStartTime);
             setCallEndTime(data.callEndTime);
             setTimerStarted(true);
@@ -77,6 +81,23 @@ const Timer: React.FC<TimerProps> = ({onBackPress, roomId}) => {
           } else {
             console.log('오류 발생, callStartTime, callEndTime 없음');
           }
+        }
+        // 시간 연장 관련 데이터
+        if (
+          data &&
+          data.callerExtensionPressed &&
+          data.calleeExtensionPressed &&
+          data.extensionCount < 2
+        ) {
+          // 연장 버튼 눌렀을 때
+          await roomRef.update({
+            callerExtensionPressed: false,
+            calleeExtensionPressed: false,
+            callEndTime: data.callEndTime + 5000,
+            extensionCount: data.extensionCount + 1,
+          });
+          setCallEndTime(data.callEndTime + 5000);
+          console.log('callEndTime 연장');
         }
       });
     } catch (error) {
@@ -118,9 +139,10 @@ const Timer: React.FC<TimerProps> = ({onBackPress, roomId}) => {
     }
   };
   useInterval(handleCountdown, timerStarted ? delay : null);
+
   useEffect(() => {
     fetchTimerData();
-  }, [timerStarted]);
+  }, []);
 
   return (
     <>
