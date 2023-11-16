@@ -23,6 +23,7 @@ module.exports = {
       /* Background-Button 색상 토큰 */
       'pink-500':'#FF8967',
     },
+
     /* 폰트 크기 토큰 */
     fontSize:{
       'xxl':'45px',
@@ -32,6 +33,12 @@ module.exports = {
       'sm':'20px',
       'ssm':'16px',
       'xs':'14px',
+    },
+
+    /* 폰트 토큰 */
+    fontFamily:{
+      EmblemaOne: ["EmblemaOne-Regular"],
+
     },
 
     extend: {

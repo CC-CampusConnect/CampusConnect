@@ -14,6 +14,7 @@ type FormData = {
 export default function SignInScreen({navigation}: {navigation: any}) {
   const {control, handleSubmit, formState} = useForm<FormData>();
 
+  // 로그인 하기 버튼
   const onSubmit = async (data: FormData) => {
     if (await signIn(data)) {
       console.log('로그인이 완료되었습니다. 하영드리미 인증 페이지로 이동합니다.');
@@ -98,3 +99,18 @@ export default function SignInScreen({navigation}: {navigation: any}) {
     </ScrollView>
   );
 }
+
+
+{/* 
+  // 가입하기! 버튼
+  const onSubmit2 = async (data: FormData) => {
+    if (await signIn2(data)) {
+      console.log('회원가입 페이지로 이동합니다.');
+      navigation.navigate('SignUp');
+    }
+  };
+
+  const signIn2 = async (data: FormData) => {
+    return true;
+  };
+*/}

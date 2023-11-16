@@ -19,12 +19,24 @@ export default function SignUpCompleteScreen({navigation}: {navigation: any}) {
     };
 
     return(
-        <View>
-            <TouchableOpacity
-                className='mx-auto w-[327px] h-[57px] bg-pink-500'
-                onPress={handleSubmit(onSubmit)}>
-                <Text className='mx-auto my-auto font-sans text-md text-white'>시작하기</Text>
-            </TouchableOpacity>
+        <View className='flex w-full h-full relative bg-white-gray'>
+            <View className='ml-[29px]'>
+                <Text className="absolute mt-[140px] text-orange-400 text-[32px] font-EmblemaOne">Campus Connect</Text>
+                <Text className='absolute pt-[262px] text-brown text-[32px] font-EmblemaOne'>회원가입 완료!</Text>
+                <View className='mt-[313px]'>
+                    <Text className='text-gray text-ssm'>CC회원이 되신 것을 환영해요.</Text>
+                    <Text className='text-gray text-ssm'>다양한 학과 사람들을 만나보세요!</Text>
+                    <Text className='text-gray text-ssm'>시작하기 버튼을 누르면 로그인 페이지로 이동합니다.</Text>
+                </View>
+            </View>
+
+            <View className='flex w-full h-full absolute justify-end mb-0'>
+                <TouchableOpacity
+                    className='w-full w-full justify-end h-[65px] bg-pink-500'
+                    onPress={handleSubmit(onSubmit)}>
+                    <Text className='mx-auto my-auto font-sans text-sm text-white'>시작하기</Text>
+                </TouchableOpacity>
+            </View>
         </View>
     )
 }

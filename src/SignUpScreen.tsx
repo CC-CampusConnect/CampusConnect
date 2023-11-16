@@ -195,9 +195,11 @@ export default function SignUpScreen({navigation}: {navigation: any}) {
           ):null}
         </View>
       </View>
+
       <Text className='mx-auto mb-[14px]'>
         CC에 가입함으로써 이용약관과 개인보호정책에 수락합니다
       </Text>
+      
       <TouchableOpacity
         className='mx-auto mb-[103px] w-[327px] h-[57px] bg-pink-500'
         onPress={handleSubmit(onSubmit)}>
