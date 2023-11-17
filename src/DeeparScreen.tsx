@@ -70,6 +70,7 @@ export default function DeeparScreen({navigation}: {navigation: any}) {
             }}
           />
         </View>
+
         <View className="flex w-full h-8">
           <Button
             title="Clear All Effects"

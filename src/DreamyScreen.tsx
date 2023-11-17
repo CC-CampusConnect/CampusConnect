@@ -63,7 +63,6 @@ export default function DreamyScreen({navigation}: {navigation: any}) {
         <WebView
           ref={webview}
           source={{uri: 'https://dreamy.jejunu.ac.kr/frame/index.do'}}
-          
           injectedJavaScript={
             "const meta = document.createElement('meta'); meta.setAttribute('content', 'width=device-width, initial-scale=0.8, maximum-scale=0.8, user-scalable=0'); meta.setAttribute('name', 'viewport'); document.getElementsByTagName('head')[0].appendChild(meta); const scrollContainer = document.documentElement; const currentScrollLeft = scrollContainer.scrollLeft; const viewportWidth = window.innerWidth; const desiredScrollLeft = (scrollContainer.scrollWidth - viewportWidth) / 2; scrollContainer.scrollLeft = desiredScrollLeft;"
           }
@@ -113,9 +112,9 @@ export default function DreamyScreen({navigation}: {navigation: any}) {
                   });
                 } else {
                   console.log('유저 정보를 찾을 수 없습니다.');
-                  navigation.navigate('Home');
+                  navigation.navigate('DreamyRequest');
                 }
-                navigation.navigate('Home');
+                navigation.navigate('DreamyComplete');
               } catch (error: any) {
                 console.log(error);
               }

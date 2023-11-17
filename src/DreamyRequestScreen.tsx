@@ -11,7 +11,7 @@ export default function DreamyRequestScreen({navigation}: {navigation: any}) {
     const onSubmit = async (data: FormData) => {
         if(await dreamyrequest(data)){
             console.log('로그인 완료. 하영드리미 인증 요청 페이지로 이동합니다.');
-            navigation.navigate('SignIn'); // 여기 바꾸기
+            navigation.navigate('Dreamy');
         }
     };
 
