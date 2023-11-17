@@ -9,14 +9,8 @@ export default function DreamyCompleteScreen({navigation}: {navigation: any}) {
     const {control, handleSubmit, formState} = useForm<FormData>();
 
     const onSubmit = async (data: FormData) => {
-        if(await dreamycomplete(data)){
-            console.log('인증 완료. 메인 페이지로 이동');
-            navigation.navigate('MainPage');
-        }
-    };
-
-    const dreamycomplete = async (data: FormData) => {
-        return true;
+        console.log('인증 완료. 메인 페이지로 이동');
+        navigation.navigate('MainPage');
     };
 
     return(

@@ -4,20 +4,30 @@
 import React from 'react';
 import {View, Text, TextInput, Button, TouchableOpacity, Image, StyleSheet, ScrollView } from 'react-native';
 import {useForm, Controller} from 'react-hook-form';
+import auth from '@react-native-firebase/auth';
 
 export default function MainPageScreen({navigation}: {navigation: any}) {
     const {control, handleSubmit, formState} = useForm<FormData>();
 
+    // 매칭 시작 버튼 누르면 Deepar로 이동
     const onSubmit = async (data: FormData) => {
-        if(await mainpage(data)){
-            console.log('화상 통화 시작.');
-            navigation.navigate('Deepar');
+        console.log('화상 통화 시작.');
+        navigation.navigate('Deepar');
+
+    };
+
+    // 로그아웃 버튼
+    const logout = async () => {
+        try {
+            await auth().signOut();
+            console.log('로그아웃 되었습니다.');
+            navigation.navigate('Home');
+            
+        } catch (error: any) {
+            console.log(error);
         }
     };
 
-    const mainpage = async (data: FormData) => {
-        return true;
-    };
 
     // 이미지 크기를 위한 styleSheet
     const styles = StyleSheet.create({
@@ -41,6 +51,10 @@ export default function MainPageScreen({navigation}: {navigation: any}) {
                     <Text className='mx-auto my-auto font-sans text-sm text-white'>매칭 시작</Text>
                 </TouchableOpacity>
             </View>
+            <TouchableOpacity
+                onPress={logout}>
+                <Text className='mx-auto mt-[16px] mb-[144px] text-xs text-black underline'>로그아웃</Text>
+            </TouchableOpacity>
         </View>
     )
 }

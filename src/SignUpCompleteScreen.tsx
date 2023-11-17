@@ -9,14 +9,8 @@ export default function SignUpCompleteScreen({navigation}: {navigation: any}) {
     const {control, handleSubmit, formState} = useForm<FormData>();
 
     const onSubmit = async (data: FormData) => {
-        if(await signupcomplete(data)){
-            console.log('회원가입 완료. 로그인 페이지로 이동합니다.');
-            navigation.navigate('SignIn');
-        }
-    };
-
-    const signupcomplete = async (data: FormData) => {
-        return true;
+        console.log('회원가입 완료. 로그인 페이지로 이동합니다.');
+        navigation.navigate('SignIn');
     };
 
     return(

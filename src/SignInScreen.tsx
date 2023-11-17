@@ -19,7 +19,7 @@ export default function SignInScreen({navigation}: {navigation: any}) {
   const onSubmit = async (data: FormData) => {
     if (await signIn(data)) {
       console.log('로그인이 완료되었습니다. 하영드리미 인증 페이지로 이동합니다.');
-      navigation.navigate('Home');
+      navigation.navigate('DreamyRequest');
     }
   };
 
@@ -35,16 +35,8 @@ export default function SignInScreen({navigation}: {navigation: any}) {
   };
 
   const onSubmit2 = async(data: FormData) => {
-    if(await signup2(data)){
-      console.log('회원가입 페이지로 이동합니다.');
-      navigation.navigate('SignUp');
-    }else {
-      console.log('알 수 없는 오류');
-    }
-  };
-
-  const signup2 = async (data: FormData) => {
-    return true;
+    console.log('회원가입 페이지로 이동합니다.');
+    navigation.navigate('SignUp');
   };
 
   // 이미지 크기를 위한 styleSheet
