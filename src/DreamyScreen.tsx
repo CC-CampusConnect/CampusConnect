@@ -57,71 +57,68 @@ export default function DreamyScreen({navigation}: {navigation: any}) {
           <Text className="text-2xl">{errorText}</Text>
         </View>
       ) : (
-        <View className='flex-1'>
-          <WebView
-            ref={webview}
-            source={{uri: 'https://dreamy.jejunu.ac.kr/frame/index.do'}}
-            
-            injectedJavaScript={
-              "const meta = document.createElement('meta'); meta.setAttribute('content', 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0'); meta.setAttribute('name', 'viewport'); document.getElementsByTagName('head')[0].appendChild(meta); const scrollContainer = document.documentElement; const currentScrollLeft = scrollContainer.scrollLeft; const viewportWidth = window.innerWidth; const desiredScrollLeft = (scrollContainer.scrollWidth - viewportWidth) / 2; scrollContainer.scrollLeft = desiredScrollLeft;"
+        <WebView
+          ref={webview}
+          source={{uri: 'https://dreamy.jejunu.ac.kr/frame/index.do'}}
+          
+          injectedJavaScript={
+            "const meta = document.createElement('meta'); meta.setAttribute('content', 'width=device-width, initial-scale=0.8, maximum-scale=0.8, user-scalable=0'); meta.setAttribute('name', 'viewport'); document.getElementsByTagName('head')[0].appendChild(meta); const scrollContainer = document.documentElement; const currentScrollLeft = scrollContainer.scrollLeft; const viewportWidth = window.innerWidth; const desiredScrollLeft = (scrollContainer.scrollWidth - viewportWidth) / 2; scrollContainer.scrollLeft = desiredScrollLeft;"
+          }
+          onError={handleError}
+          onNavigationStateChange={navState => {
+            if (navState.loading === false) {
+              if (validURLs.includes(navState.url)) {
+                setIsLoading(true);
+                webview.current?.injectJavaScript(
+                  'window.location.href = "https://dreamy.jejunu.ac.kr/frame/sysLeftmenu.do";',
+                );
+              }
+              if (navState.url === InfoURL) {
+                webview.current?.injectJavaScript(
+                  'window.ReactNativeWebView.postMessage(document.getElementsByClassName("li-personal2")[0].innerText+document.getElementsByClassName("li-personal2")[1].innerText+document.getElementsByClassName("li-personal2")[2].innerText);',
+                );
+              }
             }
-            onError={handleError}
-            onNavigationStateChange={navState => {
-              if (navState.loading === false) {
-                if (validURLs.includes(navState.url)) {
-                  setIsLoading(true);
-                  webview.current?.injectJavaScript(
-                    'window.location.href = "https://dreamy.jejunu.ac.kr/frame/sysLeftmenu.do";',
-                  );
-                }
-                if (navState.url === InfoURL) {
-                  webview.current?.injectJavaScript(
-                    'window.ReactNativeWebView.postMessage(document.getElementsByClassName("li-personal2")[0].innerText+document.getElementsByClassName("li-personal2")[1].innerText+document.getElementsByClassName("li-personal2")[2].innerText);',
-                  );
-                }
-              }
-            }}
-            onMessage={async event => {
-              if (event.nativeEvent.data) {
-                const regex = / \(\s*|\s*\)\s*|\s*\/\s*/;
-                const result = event.nativeEvent.data.split(regex);
+          }}
+          onMessage={async event => {
+            if (event.nativeEvent.data) {
+              const regex = / \(\s*|\s*\)\s*|\s*\/\s*/;
+              const result = event.nativeEvent.data.split(regex);
 
-                // 이름, 학생 ID, 전공, 상태로 할당
-                const name = result[0].trim();
-                const studentID = result[1];
-                const major = result[2].replace(/\s+/g, ' ');
-                const status = result[3];
+              // 이름, 학생 ID, 전공, 상태로 할당
+              const name = result[0].trim();
+              const studentID = result[1];
+              const major = result[2].replace(/\s+/g, ' ');
+              const status = result[3];
 
-                setIsLoading(false);
-                setIsCertified(true);
+              setIsLoading(false);
+              setIsCertified(true);
 
-                console.log('이름: ' + name);
-                console.log('학번: ' + studentID);
-                console.log('전공: ' + major);
-                console.log('상태: ' + status);
+              console.log('이름: ' + name);
+              console.log('학번: ' + studentID);
+              console.log('전공: ' + major);
+              console.log('상태: ' + status);
 
-                try {
-                  if (user) {
-                    await db.collection('Users').doc(user.uid).update({
-                      name: name,
-                      studentID: studentID,
-                      major: major,
-                      status: status,
-                      is_certified: true,
-                    });
-                  } else {
-                    console.log('유저 정보를 찾을 수 없습니다.');
-                    navigation.navigate('Home');
-                  }
+              try {
+                if (user) {
+                  await db.collection('Users').doc(user.uid).update({
+                    name: name,
+                    studentID: studentID,
+                    major: major,
+                    status: status,
+                    is_certified: true,
+                  });
+                } else {
+                  console.log('유저 정보를 찾을 수 없습니다.');
                   navigation.navigate('Home');
-                } catch (error: any) {
-                  console.log(error);
                 }
+                navigation.navigate('Home');
+              } catch (error: any) {
+                console.log(error);
               }
-            }}
-            
-          />
-        </View>
+            }
+          }}
+        />
       )}
     </View>
   );
