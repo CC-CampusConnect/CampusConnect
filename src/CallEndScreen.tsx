@@ -52,7 +52,6 @@ const CallEndScreen: React.FC = () => {
       <View>
         <Modal
           visible={modalVisible}
-          animationType={'slide'}
           // 안드로이드의 뒤로가기 버튼 클릭 시 모달 비활성화
           onRequestClose={() => {
             setModalVisible(!modalVisible);
@@ -68,8 +67,8 @@ const CallEndScreen: React.FC = () => {
           <TextInput
             className="bg-white h-lg"
             value={text}
-            onChangeText={text => {
-              setText(text);
+            onChangeText={t => {
+              setText(t);
             }}
             placeholder="기타 사유를 입력해주세요."
           />
