@@ -65,9 +65,9 @@ export default function HomeScreen({navigation}: {navigation: any}) {
           <Text>WebRTCRoom</Text>
         </View>
       </Pressable>
-      <Pressable onPress={() => navigation.navigate('Report')}>
-        <View className="w-full h-10 bg-blue-700">
-          <Text>Report</Text>
+      <Pressable onPress={() => navigation.navigate('CallEndScreen')}>
+        <View className="w-full h-10 bg-blue-800">
+          <Text>CallEndScreen</Text>
         </View>
       </Pressable>
       {/* <Pressable onPress={() => navigation.navigate('WebRTCCall')}>
