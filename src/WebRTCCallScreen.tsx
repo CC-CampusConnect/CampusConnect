@@ -48,32 +48,17 @@ export default function CallScreen({navigation, route}: any) {
     navigation.navigate('WebRTCRoom');
   }
 
-  const [localStream, setLocalStream] = useState<MediaStream | null>();
-  const [remoteStream, setRemoteStream] = useState<MediaStream | null>();
+  const [localStream, setLocalStream] = useState<MediaStream | null>(null); // Stream of local user
+  const [remoteStream, setRemoteStream] = useState<MediaStream | null>(null); // When a call is connected, the video stream from the receiver is appended to this state in the stream
   const [cachedLocalPC, setCachedLocalPC] = useState<RTCPeerConnection | null>(
     null,
   );
-  const [callerReady, setCallerReady] = useState(false);
 
   const [isMuted, setIsMuted] = useState(false);
 
   useEffect(() => {
     startLocalStream();
   }, []);
-
-  // useEffect(() => {
-  //   if (localStream && remoteStream) {
-  //     notifyCallReady();
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [localStream, remoteStream]);
-
-  useEffect(() => {
-    if (callerReady) {
-      notifyCallReady();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [callerReady]);
 
   // 카메라 및 마이크 스트림 설정
   const startLocalStream = async () => {
@@ -118,11 +103,16 @@ export default function CallScreen({navigation, route}: any) {
 
     const callerCandidatesCollection = roomRef.collection('callerCandidates');
 
-    localPC.addEventListener('icecandidate', e => {
+    localPC.addEventListener('icecandidate', async e => {
       // icecandidate 이벤트는 로컬 RTCPeerConnection이 ICE candidate를 생성할 때마다 발생
 
       if (!e.candidate) {
-        setCallerReady(true);
+        // 타이머 초기값 설정
+        await roomRef.update({
+          callerReady: true,
+          init: true,
+        });
+
         console.log('Got final candidate!');
         return;
       }
@@ -180,15 +170,6 @@ export default function CallScreen({navigation, route}: any) {
       track.enabled = !track.enabled;
       setIsMuted(!track.enabled);
     });
-  };
-
-  const notifyCallReady = async () => {
-    const roomRef = await db.collection('rooms').doc(roomId);
-    await roomRef.update({
-      callerReady: true,
-      init: true,
-    });
-    console.log('callerReady');
   };
 
   const extendCall = async () => {

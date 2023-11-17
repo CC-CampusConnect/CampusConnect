@@ -48,11 +48,8 @@ export default function JoinScreen({navigation, route}: any) {
   }
 
   const [localStream, setLocalStream] = useState<MediaStream | null>(null); // Stream of local user
-  const [remoteStream, setRemoteStream] = useState<MediaStream | null>(
-    null,
-  ); /* When a call is connected, the video stream from the receiver is appended to this state in the stream*/
-  const [calleeReady, setCalleeReady] = useState(false); // Callee is ready to join the call
-  const [cachedLocalPC, setCachedLocalPC] = useState<RTCPeerConnection | null>( // 로컬 PeerConnection
+  const [remoteStream, setRemoteStream] = useState<MediaStream | null>(null); // When a call is connected, the video stream from the receiver is appended to this state in the stream
+  const [cachedLocalPC, setCachedLocalPC] = useState<RTCPeerConnection | null>(
     null,
   );
 
@@ -61,20 +58,6 @@ export default function JoinScreen({navigation, route}: any) {
   useEffect(() => {
     startLocalStream();
   }, []);
-
-  // useEffect(() => {
-  //   if (localStream && remoteStream) {
-  //     notifyCallReady();
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [localStream, remoteStream]);
-
-  useEffect(() => {
-    if (calleeReady) {
-      notifyCallReady();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [calleeReady]);
 
   const startLocalStream = async () => {
     // isFront will determine if the initial camera should face user or environment
@@ -123,11 +106,16 @@ export default function JoinScreen({navigation, route}: any) {
 
     const calleeCandidatesCollection = roomRef.collection('calleeCandidates');
 
-    localPC.addEventListener('icecandidate', e => {
+    localPC.addEventListener('icecandidate', async e => {
       //icecandidate 이벤트는 RTCPeerConnection의 로컬 ICE 에이전트가 새로운 ICE candidate를 생성했을 때 발생합니다.
       if (!e.candidate) {
+        // 타이머 초기값 설정
+        await roomRef.update({
+          calleeReady: true,
+          init: true,
+        });
+
         console.log('Got final candidate!');
-        setCalleeReady(true);
         return;
       }
       calleeCandidatesCollection.add(e.candidate.toJSON());
@@ -182,13 +170,6 @@ export default function JoinScreen({navigation, route}: any) {
       // console.log(track.enabled ? 'muting' : 'unmuting', ' local track', track);
       track.enabled = !track.enabled;
       setIsMuted(!track.enabled);
-    });
-  };
-
-  const notifyCallReady = async () => {
-    const roomRef = await db.collection('rooms').doc(roomId);
-    await roomRef.update({
-      calleeReady: true,
     });
   };
 
