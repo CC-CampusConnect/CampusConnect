@@ -13,6 +13,29 @@ export default function DreamyCompleteScreen({navigation}: {navigation: any}) {
         navigation.navigate('MainPage');
     };
 
+    // 이미지 크기를 위한 styleSheet
+    const styles = StyleSheet.create({
+        LogoImage:{
+            width: 270,
+            height: 334,
+        },
+
+        catImage:{
+        width: 46,
+        height: 35,
+        },
+
+        dogImage:{
+            width: 53,
+            height: 35,
+        },
+
+        rabbitImage:{
+            width: 64,
+            height: 36,
+        },
+    });
+
     return(
         <View className='flex w-full h-full relative bg-white-gray'>
             <View className='ml-[29px]'>
@@ -29,6 +52,10 @@ export default function DreamyCompleteScreen({navigation}: {navigation: any}) {
                     className='w-full w-full justify-end h-[65px] bg-pink-500'
                     onPress={handleSubmit(onSubmit)}>
                     <Text className='mx-auto my-auto font-sans text-sm text-white'>확인</Text>
+                    <Image 
+                className='mx-auto mt-[91px]'
+                style={styles.LogoImage}
+                source={require('images/CCLogo.png')}/>
                 </TouchableOpacity>
             </View>
         </View>

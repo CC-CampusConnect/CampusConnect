@@ -17,10 +17,10 @@ export default function SignInScreen({navigation}: {navigation: any}) {
 
   // 로그인 하기 버튼
   const onSubmit = async (data: FormData) => {
-    if (await signIn(data)) {
-      console.log('로그인이 완료되었습니다. 하영드리미 인증 페이지로 이동합니다.');
-      navigation.navigate('DreamyRequest');
-    }
+      if (await signIn(data)) {
+        console.log('로그인이 완료되었습니다. 하영드리미 인증 페이지로 이동합니다.');
+        navigation.navigate('DreamyRequest');
+      }
   };
 
   const signIn = async (data: FormData) => {
