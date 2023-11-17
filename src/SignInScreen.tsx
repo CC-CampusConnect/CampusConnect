@@ -33,6 +33,19 @@ export default function SignInScreen({navigation}: {navigation: any}) {
     }
   };
 
+  const onSubmit2 = async(data: FormData) => {
+    if(await signup2(data)){
+      console.log('회원가입 페이지로 이동합니다.');
+      navigation.navigate('SignUp');
+    }else {
+      console.log('알 수 없는 오류');
+    }
+  };
+
+  const signup2 = async (data: FormData) => {
+    return true;
+  };
+
   // 이미지 크기를 위한 styleSheet
   const styles = StyleSheet.create({
     LogoImage:{
@@ -88,29 +101,17 @@ export default function SignInScreen({navigation}: {navigation: any}) {
           />
         </View>
       </View>
+
       <TouchableOpacity
         className='mx-auto w-[327px] h-[57px] bg-pink-500'
-        onPress={() => {handleSubmit(onSubmit)}}>
+        onPress={handleSubmit(onSubmit)}>
           <Text className='mx-auto my-auto font-sans text-md text-white'>로그인 하기</Text>
       </TouchableOpacity>
-      <TouchableOpacity>
+
+      <TouchableOpacity
+        onPress={handleSubmit(onSubmit2)}>
         <Text className='mx-auto mt-[16px] mb-[144px] text-xs text-black underline'>가입하기!</Text>
       </TouchableOpacity>
     </ScrollView>
   );
 }
-
-
-{/* 
-  // 가입하기! 버튼
-  const onSubmit2 = async (data: FormData) => {
-    if (await signIn2(data)) {
-      console.log('회원가입 페이지로 이동합니다.');
-      navigation.navigate('SignUp');
-    }
-  };
-
-  const signIn2 = async (data: FormData) => {
-    return true;
-  };
-*/}
