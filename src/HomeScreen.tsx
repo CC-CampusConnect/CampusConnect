@@ -78,6 +78,11 @@ export default function HomeScreen({navigation}: {navigation: any}) {
           <Text>MainPage</Text>
         </View>
       </Pressable>
+      <Pressable onPress={() => navigation.navigate('DreamyRequest')}>
+        <View className="w-full h-10 bg-blue-600">
+          <Text>DreamyRequest</Text>
+        </View>
+      </Pressable>
       <View className="flex w-full h-full bg-red-300">
         {user ? (
           <View>
