@@ -30,7 +30,7 @@
             <a href="">
               <img src="" width="100">
               <br />
-              <b>김민수</br> ()</b>
+              <b>김민수</br> (kimminsu31415)</b>
             </a>
         </td>
         <td style="min-width: 150px;">
