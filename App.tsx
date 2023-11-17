@@ -10,6 +10,10 @@ import SignUpCompleteScreen from './src/SignUpCompleteScreen';
 import DreamyCompleteScreen from './src/DreamyCompleteScreen';
 import MainPageScreen from './src/MainPageScreen';
 import DreamyRequestScreen from './src/DreamyRequestScreen';
+import WebRTCCallScreen from './src/WebRTCCallScreen';
+import WebRTCJoinScreen from './src/WebRTCJoinScreen';
+import WebRTCRoomScreen from './src/WebRTCRoomScreen';
+import CallEndScreen from './src/CallEndScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -26,6 +30,10 @@ export default function App() {
         <Stack.Screen name="DreamyComplete" component={DreamyCompleteScreen} />
         <Stack.Screen name="MainPage" component={MainPageScreen} />
         <Stack.Screen name="DreamyRequest" component={DreamyRequestScreen} />
+        <Stack.Screen name="WebRTCCall" component={WebRTCCallScreen} />
+        <Stack.Screen name="WebRTCJoin" component={WebRTCJoinScreen} />
+        <Stack.Screen name="WebRTCRoom" component={WebRTCRoomScreen} />
+        <Stack.Screen name="CallEndScreen" component={CallEndScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

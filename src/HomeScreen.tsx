@@ -74,13 +74,23 @@ export default function HomeScreen({navigation}: {navigation: any}) {
         </View>
       </Pressable>
       <Pressable onPress={() => navigation.navigate('MainPage')}>
-        <View className="w-full h-10 bg-blue-600">
+        <View className="w-full h-10 bg-blue-700">
           <Text>MainPage</Text>
         </View>
       </Pressable>
       <Pressable onPress={() => navigation.navigate('DreamyRequest')}>
-        <View className="w-full h-10 bg-blue-600">
+        <View className="w-full h-10 bg-blue-800">
           <Text>DreamyRequest</Text>
+        </View>
+      </Pressable>
+      <Pressable onPress={() => navigation.navigate('WebRTCRoom')}>
+        <View className="w-full h-10 bg-red-400">
+          <Text>WebRTCRoom</Text>
+        </View>
+      </Pressable>
+      <Pressable onPress={() => navigation.navigate('CallEndScreen')}>
+        <View className="w-full h-10 bg-red-500">
+          <Text>CallEndScreen</Text>
         </View>
       </Pressable>
       <View className="flex w-full h-full bg-red-300">
