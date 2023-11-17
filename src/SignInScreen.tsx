@@ -1,4 +1,5 @@
 // SignInScreen.tsx
+// 1. 로그인 페이지
 
 import React from 'react';
 import {View, Text, TextInput, TouchableOpacity , Button, Image, StyleSheet, ScrollView} from 'react-native';

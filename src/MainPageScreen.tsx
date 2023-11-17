@@ -1,3 +1,6 @@
+// 4. 메인페이지
+// MainPageScreen.tsx
+
 import React from 'react';
 import {View, Text, TextInput, Button, TouchableOpacity, Image, StyleSheet, ScrollView } from 'react-native';
 import {useForm, Controller} from 'react-hook-form';

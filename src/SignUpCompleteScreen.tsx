@@ -1,3 +1,4 @@
+// 2-2. 회원가입 완료 페이지
 // SignUpCompleteScreen.tsx
 
 import React from 'react';

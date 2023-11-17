@@ -1,3 +1,6 @@
+// 3-2. 하영드리미 인증 페이지
+// DreamyScreen.tsx
+
 import React, {useEffect, useRef, useState} from 'react';
 import {View, Text} from 'react-native';
 import WebView from 'react-native-webview';

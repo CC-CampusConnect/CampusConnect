@@ -1,3 +1,5 @@
+// DeeparScreen.tsx
+
 import React, {useEffect, useRef, useState, useMemo} from 'react';
 import {View, Text, Button, Platform} from 'react-native';
 import {Camera} from 'react-native-deepar';

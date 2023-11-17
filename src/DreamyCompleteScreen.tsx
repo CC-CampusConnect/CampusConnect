@@ -1,3 +1,6 @@
+// 3-3. 인증 완료 페이지
+// DreamyCompleteScreen.tsx
+
 import React from 'react';
 import {View, Text, TextInput, Button, TouchableOpacity, Image, StyleSheet, ScrollView } from 'react-native';
 import {useForm, Controller} from 'react-hook-form';
