@@ -2,7 +2,16 @@
 // SignUpScreen.tsx
 
 import React from 'react';
-import {View, Text, TextInput, Button, TouchableOpacity, Image, StyleSheet, ScrollView } from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  Button,
+  TouchableOpacity,
+  Image,
+  StyleSheet,
+  ScrollView,
+} from 'react-native';
 import {useForm, Controller} from 'react-hook-form';
 import auth from '@react-native-firebase/auth';
 import {db} from './util/firestore';
@@ -31,13 +40,15 @@ export default function SignUpScreen({navigation}: {navigation: any}) {
       setPasswordError('password를 확인해주세요.');
       return;
     }
-    if (!(await samePassword(data))){
+    if (!(await samePassword(data))) {
       console.log('password가 같지 않습니다.');
       setRePasswordError('password가 같지 않습니다.');
       return;
     }
     if (await signup(data)) {
-      console.log('회원가입이 완료되었습니다. 2-2 회원가입 완료 페이지로 이동합니다.');
+      console.log(
+        '회원가입이 완료되었습니다. 2-2 회원가입 완료 페이지로 이동합니다.',
+      );
       navigation.navigate('SignUpComplete');
     } else {
       console.log('이미 사용 중인 아이디입니다.');
@@ -50,7 +61,7 @@ export default function SignUpScreen({navigation}: {navigation: any}) {
     // id는 5글자 이상이어야 합니다.
     const id = data.id;
     const regex = /^[a-z0-9]{5,}$/;
-    const isIdValid =  regex.test(id);
+    const isIdValid = regex.test(id);
 
     // 아이디 조건이 맞으면 setIdError 상태 업데이트
     if (isIdValid) {
@@ -84,7 +95,7 @@ export default function SignUpScreen({navigation}: {navigation: any}) {
     const regex = data.passwordCheck; // 비밀번호 확인 필드의 값으로 비교
     const passwordResult = password === regex;
 
-    if(passwordResult){
+    if (passwordResult) {
       setRePasswordError('');
     } else {
       setRePasswordError('password가 같지 않습니다.');
@@ -113,33 +124,33 @@ export default function SignUpScreen({navigation}: {navigation: any}) {
 
   // 이미지 크기를 위한 styleSheet
   const styles = StyleSheet.create({
-    LogoImage:{
+    LogoImage: {
       width: 270,
       height: 334,
     },
   });
 
   return (
-    <ScrollView className='flex w-full h-full bg-white-gray'>
-      <View className='w-full space-y-[50px]'>
-        <Image 
-          className='mx-auto mt-[91px]'
+    <ScrollView className="flex w-full h-full bg-white-gray">
+      <View className="w-full space-y-[50px]">
+        <Image
+          className="mx-auto mt-[91px]"
           style={styles.LogoImage}
-          source={require('images/CCLogo.png')} />
-        <Text className='ml-[42px] font-sans text-xxl text-orange-600'>
+          source={require('images/CCLogo.png')}
+        />
+        <Text className="ml-[42px] font-sans text-xxl text-orange-600">
           회원가입
         </Text>
       </View>
-  
 
-      <View className='space-y-[18px] mt-[21px] mb-[48px]'>
+      <View className="space-y-[18px] mt-[21px] mb-[48px]">
         <View className="mt-4">
           <Controller
             name="id"
             control={control}
             render={({field: {onChange, onBlur, value}}) => (
               <TextInput
-                className='mx-auto bg-white w-[327px] h-[40px]'
+                className="mx-auto bg-white w-[327px] h-[40px]"
                 placeholder="아이디"
                 onChangeText={onChange}
                 onBlur={onBlur}
@@ -148,12 +159,12 @@ export default function SignUpScreen({navigation}: {navigation: any}) {
             )}
             rules={{required: true}}
           />
-          {IdError ?(
-            <Text className='ml-[55px] text-14'>{IdError}</Text>
-          ):null}
-          {errorMessage ?(
-            <Text className='ml-[55px] text-14'>{errorMessage}</Text>
-          ):null}
+          {IdError ? (
+            <Text className="ml-[55px] text-14">{IdError}</Text>
+          ) : null}
+          {errorMessage ? (
+            <Text className="ml-[55px] text-14">{errorMessage}</Text>
+          ) : null}
         </View>
         <View>
           <Controller
@@ -161,7 +172,7 @@ export default function SignUpScreen({navigation}: {navigation: any}) {
             control={control}
             render={({field: {onChange, onBlur, value}}) => (
               <TextInput
-                className='mx-auto bg-white w-[327px] h-[40px]'
+                className="mx-auto bg-white w-[327px] h-[40px]"
                 placeholder="비밀번호"
                 onChangeText={onChange}
                 onBlur={onBlur}
@@ -171,9 +182,9 @@ export default function SignUpScreen({navigation}: {navigation: any}) {
             )}
             rules={{required: true}}
           />
-          {PasswordError ?(
-            <Text className='ml-[55px] text-14'>{PasswordError}</Text>
-          ):null}
+          {PasswordError ? (
+            <Text className="ml-[55px] text-14">{PasswordError}</Text>
+          ) : null}
         </View>
         <View>
           <Controller
@@ -181,7 +192,7 @@ export default function SignUpScreen({navigation}: {navigation: any}) {
             control={control}
             render={({field: {onChange, onBlur, value}}) => (
               <TextInput
-                className='mx-auto bg-white w-[327px] h-[40px]'
+                className="mx-auto bg-white w-[327px] h-[40px]"
                 placeholder="비밀번호 확인"
                 onChangeText={onChange}
                 onBlur={onBlur}
@@ -191,20 +202,22 @@ export default function SignUpScreen({navigation}: {navigation: any}) {
             )}
             rules={{required: true}}
           />
-          {RePasswordError ?(
-            <Text className='ml-[55px] text-14'>{RePasswordError}</Text>
-          ):null}
+          {RePasswordError ? (
+            <Text className="ml-[55px] text-14">{RePasswordError}</Text>
+          ) : null}
         </View>
       </View>
 
-      <Text className='mx-auto mb-[14px]'>
+      <Text className="mx-auto mb-[14px]">
         CC에 가입함으로써 이용약관과 개인보호정책에 수락합니다
       </Text>
-      
+
       <TouchableOpacity
-        className='mx-auto mb-[103px] w-[327px] h-[57px] bg-pink-500'
+        className="mx-auto mb-[103px] w-[327px] h-[57px] bg-pink-500"
         onPress={handleSubmit(onSubmit)}>
-          <Text className='mx-auto my-auto font-sans text-md text-white'>가입하기</Text>
+        <Text className="mx-auto my-auto font-sans text-md text-white">
+          가입하기
+        </Text>
       </TouchableOpacity>
     </ScrollView>
   );

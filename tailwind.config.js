@@ -6,7 +6,7 @@ module.exports = {
     /* 색상 토큰 */
     colors: {
       /* Text 색상 토큰 */
-      'orange-600':'#FF9730',
+      'orange-600': '#FF9730',
       'brown':'#643D18',
       'white':'#FFFFFF', /* +) Background-Button 토큰 */
       'black':'000000', /* +) Background-Button 토큰 */

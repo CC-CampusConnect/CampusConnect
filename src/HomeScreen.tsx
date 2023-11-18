@@ -39,7 +39,7 @@ export default function HomeScreen({navigation}: {navigation: any}) {
   return (
     <View className="flex">
       <Pressable onPress={() => navigation.navigate('Home')}>
-        <View className="w-full h-10 bg-blue-200">
+        <View className="w-full h-10 bg-blue-500">
           <Text>Home</Text>
         </View>
       </Pressable>

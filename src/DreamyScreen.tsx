@@ -42,8 +42,6 @@ export default function DreamyScreen({navigation}: {navigation: any}) {
     return unsubscribe;
   }, [navigation]);
 
-  
-
   return (
     <View className="flex-1">
       {isCertified ? (
