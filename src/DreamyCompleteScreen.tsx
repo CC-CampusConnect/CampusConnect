@@ -52,22 +52,24 @@ export default function DreamyCompleteScreen({navigation}: {navigation: any}) {
 
   return (
     <View className="flex w-full h-full relative bg-white-gray">
-      <View className="ml-[29px]">
-        <Text className="absolute mt-[140px] text-orange-400 text-[32px]">
+      <View className="ml-[29px] mr-[29px]">
+        <Text 
+          style={{fontFamily: 'EmblemaOne-Regular',}}
+          className="absolute mt-[140px] text-orange-400 text-[32px]">
           Campus Connect
         </Text>
-        <Text className="absolute pt-[262px] text-brown text-[32px] font-EmblemaOne">
+        <Text 
+          style={{fontFamily: 'GowunDodum-Regular',}}
+          className="absolute pt-[262px] text-brown text-[32px] font-EmblemaOne">
           인증 완료!
         </Text>
-        <Text 
-          style={{
-            fontFamily: 'EmblemaOne-Regular',
-            fontSize: 20,
-            color: 'red',
-        }}>Campus</Text>
         <View className="mt-[313px]">
-          <Text className="text-gray text-ssm">인증이 완료되었어요.</Text>
-          <Text className="text-gray text-ssm">
+          <Text
+            style={{fontFamily: 'GowunDodum-Regular',}} 
+            className="text-gray text-ssm">인증이 완료되었어요.</Text>
+          <Text
+             style={{fontFamily: 'GowunDodum-Regular',}} 
+            className="text-gray text-ssm">
             확인 버튼을 누르면 메인으로 이동합니다.
           </Text>
         </View>
@@ -77,14 +79,9 @@ export default function DreamyCompleteScreen({navigation}: {navigation: any}) {
         <TouchableOpacity
           className="w-full w-full justify-end h-[65px] bg-pink-500"
           onPress={handleSubmit(onSubmit)}>
-          <Text className="mx-auto my-auto font-sans text-sm text-white">
+          <Text className="mx-auto my-auto text-sm text-white">
             확인
           </Text>
-          <Image
-            className="mx-auto mt-[91px]"
-            style={styles.LogoImage}
-            source={require('images/CCLogo.png')}
-          />
         </TouchableOpacity>
       </View>
     </View>

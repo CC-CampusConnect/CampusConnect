@@ -138,7 +138,9 @@ export default function SignUpScreen({navigation}: {navigation: any}) {
           style={styles.LogoImage}
           source={require('images/CCLogo.png')}
         />
-        <Text className="ml-[42px] font-sans text-xxl text-orange-600">
+        <Text
+          style={{fontFamily: 'Nunito-ExtraBold',}}  
+          className="ml-[42px] font-sans text-xxl text-orange-600">
           회원가입
         </Text>
       </View>
@@ -150,6 +152,7 @@ export default function SignUpScreen({navigation}: {navigation: any}) {
             control={control}
             render={({field: {onChange, onBlur, value}}) => (
               <TextInput
+                style={{fontFamily: 'Nunito-Regular',}} 
                 className="mx-auto bg-white w-[327px] h-[40px]"
                 placeholder="아이디"
                 onChangeText={onChange}
@@ -172,6 +175,7 @@ export default function SignUpScreen({navigation}: {navigation: any}) {
             control={control}
             render={({field: {onChange, onBlur, value}}) => (
               <TextInput
+                style={{fontFamily: 'Nunito-Regular',}} 
                 className="mx-auto bg-white w-[327px] h-[40px]"
                 placeholder="비밀번호"
                 onChangeText={onChange}
@@ -192,6 +196,7 @@ export default function SignUpScreen({navigation}: {navigation: any}) {
             control={control}
             render={({field: {onChange, onBlur, value}}) => (
               <TextInput
+                style={{fontFamily: 'Nunito-Regular',}} 
                 className="mx-auto bg-white w-[327px] h-[40px]"
                 placeholder="비밀번호 확인"
                 onChangeText={onChange}
@@ -208,14 +213,18 @@ export default function SignUpScreen({navigation}: {navigation: any}) {
         </View>
       </View>
 
-      <Text className="mx-auto mb-[14px]">
+      <Text
+        style={{fontFamily: 'Nunito-Regular',}}  
+        className="mx-auto mb-[14px]">
         CC에 가입함으로써 이용약관과 개인보호정책에 수락합니다
       </Text>
 
       <TouchableOpacity
         className="mx-auto mb-[103px] w-[327px] h-[57px] bg-pink-500"
         onPress={handleSubmit(onSubmit)}>
-        <Text className="mx-auto my-auto font-sans text-md text-white">
+        <Text
+          style={{fontFamily: 'Nunito-ExtraBold',}}   
+          className="mx-auto my-auto text-md text-white">
           가입하기
         </Text>
       </TouchableOpacity>

@@ -84,8 +84,12 @@ export default function MainPageScreen({navigation}: {navigation: any}) {
             <TouchableOpacity
                 className='mx-auto mt-[160px] w-[217px] h-[217px] bg-pink-500 rounded-full shadow'
                 onPress={handleSubmit(onSubmit)}>
-                <Text className='mx-auto mt-auto font-sans text-xxl text-white'>매칭</Text>
-                <Text className='mx-auto mb-auto font-sans text-xxl text-white'>시작</Text>
+                <Text
+                    style={{fontFamily: 'GowunDodum-Regular',}} 
+                    className='mx-auto mt-auto font-sans text-xxl text-white'>매칭</Text>
+                <Text
+                    style={{fontFamily: 'GowunDodum-Regular',}} 
+                    className='mx-auto mb-auto font-sans text-xxl text-white'>시작</Text>
             </TouchableOpacity>
         </View>
     )

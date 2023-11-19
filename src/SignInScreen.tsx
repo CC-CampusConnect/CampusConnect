@@ -66,7 +66,9 @@ export default function SignInScreen({navigation}: {navigation: any}) {
           style={styles.LogoImage}
           source={require('images/CCLogo.png')}
         />
-        <Text className="ml-[42px] font-sans text-xxl text-orange-600">
+        <Text
+          style={{fontFamily: 'Nunito-ExtraBold',}} 
+          className="ml-[42px] text-xxl text-orange-600">
           로그인
         </Text>
       </View>
@@ -77,7 +79,8 @@ export default function SignInScreen({navigation}: {navigation: any}) {
             name="id"
             control={control}
             render={({field: {onChange, onBlur, value}}) => (
-              <TextInput
+              <TextInput 
+              style={{fontFamily: 'Nunito-Regular',}} 
                 className="mx-auto bg-white w-[327px] h-[40px]"
                 placeholder="아이디"
                 onChangeText={onChange}
@@ -94,6 +97,7 @@ export default function SignInScreen({navigation}: {navigation: any}) {
             control={control}
             render={({field: {onChange, onBlur, value}}) => (
               <TextInput
+              style={{fontFamily: 'Nunito-Regular',}} 
                 className="mx-auto bg-white w-[327px] h-[40px]"
                 placeholder="비밀번호"
                 onChangeText={onChange}
@@ -110,13 +114,17 @@ export default function SignInScreen({navigation}: {navigation: any}) {
       <TouchableOpacity
         className="mx-auto w-[327px] h-[57px] bg-pink-500"
         onPress={handleSubmit(onSubmit)}>
-        <Text className="mx-auto my-auto font-sans text-md text-white">
+        <Text
+          style={{fontFamily: 'Nunito-ExtraBold',}}  
+          className="mx-auto my-auto text-md text-white">
           로그인 하기
         </Text>
       </TouchableOpacity>
 
       <TouchableOpacity onPress={onSubmit2}>
-        <Text className="mx-auto mt-[16px] mb-[144px] text-xs text-black underline">
+        <Text 
+          style={{fontFamily: 'Nunito-ExtraBold',}}  
+          className="mx-auto mt-[16px] mb-[144px] text-xs text-black underline">
           가입하기!
         </Text>
       </TouchableOpacity>

@@ -34,8 +34,11 @@
 		D017E064C607401492457879 /* viking_helmet in Resources */ = {isa = PBXBuildFile; fileRef = A61B0A2F0E424C3999A79FC4 /* viking_helmet */; };
 		B5FFCCA33A1A43DE8140066F /* EmblemaOne-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A9DA0F2856404BE3B82336E2 /* EmblemaOne-Regular.ttf */; };
 		F3B52DDDBDC24B26BAA51CC0 /* GowunDodum-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C160513F88544E4DB14A4CAA /* GowunDodum-Regular.ttf */; };
-		0BEE84A1236D45668DF78870 /* Nunito-Italic-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 56FBD35245624D45A0E51E05 /* Nunito-Italic-VariableFont_wght.ttf */; };
-		44A91AB2CF754ED592A12E19 /* Nunito-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E809BF59B3AE4AA187CC9EB0 /* Nunito-VariableFont_wght.ttf */; };
+		CBB7F911C64A4F88AA611EBC /* Nunito-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A373AAD9905B4CC39F4F1A0A /* Nunito-Bold.ttf */; };
+		28B7663FC3594872B9D2E546 /* Nunito-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 64DECD004A7F4F0687FF35F1 /* Nunito-Medium.ttf */; };
+		7CD981CC3A7941D99094C239 /* Nunito-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BF3B296BC42C47E0A2020A95 /* Nunito-Regular.ttf */; };
+		CFA658B52369415C8C48A3A9 /* BlackHanSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B2F99FE371CC4E64A4E247A0 /* BlackHanSans-Regular.ttf */; };
+		1C3977CE626F4B82A850AFA9 /* Nunito-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 85E1BE2D93F74BC5A4A9E155 /* Nunito-ExtraBold.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,8 +89,11 @@
 		A61B0A2F0E424C3999A79FC4 /* viking_helmet */ = {isa = PBXFileReference; name = "viking_helmet"; path = "../assets/effects/viking_helmet"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		A9DA0F2856404BE3B82336E2 /* EmblemaOne-Regular.ttf */ = {isa = PBXFileReference; name = "EmblemaOne-Regular.ttf"; path = "../assets/fonts/EmblemaOne-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		C160513F88544E4DB14A4CAA /* GowunDodum-Regular.ttf */ = {isa = PBXFileReference; name = "GowunDodum-Regular.ttf"; path = "../assets/fonts/GowunDodum-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		56FBD35245624D45A0E51E05 /* Nunito-Italic-VariableFont_wght.ttf */ = {isa = PBXFileReference; name = "Nunito-Italic-VariableFont_wght.ttf"; path = "../assets/fonts/Nunito-Italic-VariableFont_wght.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		E809BF59B3AE4AA187CC9EB0 /* Nunito-VariableFont_wght.ttf */ = {isa = PBXFileReference; name = "Nunito-VariableFont_wght.ttf"; path = "../assets/fonts/Nunito-VariableFont_wght.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		A373AAD9905B4CC39F4F1A0A /* Nunito-Bold.ttf */ = {isa = PBXFileReference; name = "Nunito-Bold.ttf"; path = "../assets/fonts/Nunito-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		64DECD004A7F4F0687FF35F1 /* Nunito-Medium.ttf */ = {isa = PBXFileReference; name = "Nunito-Medium.ttf"; path = "../assets/fonts/Nunito-Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		BF3B296BC42C47E0A2020A95 /* Nunito-Regular.ttf */ = {isa = PBXFileReference; name = "Nunito-Regular.ttf"; path = "../assets/fonts/Nunito-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		B2F99FE371CC4E64A4E247A0 /* BlackHanSans-Regular.ttf */ = {isa = PBXFileReference; name = "BlackHanSans-Regular.ttf"; path = "../assets/fonts/BlackHanSans-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		85E1BE2D93F74BC5A4A9E155 /* Nunito-ExtraBold.ttf */ = {isa = PBXFileReference; name = "Nunito-ExtraBold.ttf"; path = "../assets/fonts/Nunito-ExtraBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -216,8 +222,11 @@
 				A61B0A2F0E424C3999A79FC4 /* viking_helmet */,
 				A9DA0F2856404BE3B82336E2 /* EmblemaOne-Regular.ttf */,
 				C160513F88544E4DB14A4CAA /* GowunDodum-Regular.ttf */,
-				56FBD35245624D45A0E51E05 /* Nunito-Italic-VariableFont_wght.ttf */,
-				E809BF59B3AE4AA187CC9EB0 /* Nunito-VariableFont_wght.ttf */,
+				A373AAD9905B4CC39F4F1A0A /* Nunito-Bold.ttf */,
+				64DECD004A7F4F0687FF35F1 /* Nunito-Medium.ttf */,
+				BF3B296BC42C47E0A2020A95 /* Nunito-Regular.ttf */,
+				B2F99FE371CC4E64A4E247A0 /* BlackHanSans-Regular.ttf */,
+				85E1BE2D93F74BC5A4A9E155 /* Nunito-ExtraBold.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -339,8 +348,11 @@
 				D017E064C607401492457879 /* viking_helmet in Resources */,
 				B5FFCCA33A1A43DE8140066F /* EmblemaOne-Regular.ttf in Resources */,
 				F3B52DDDBDC24B26BAA51CC0 /* GowunDodum-Regular.ttf in Resources */,
-				0BEE84A1236D45668DF78870 /* Nunito-Italic-VariableFont_wght.ttf in Resources */,
-				44A91AB2CF754ED592A12E19 /* Nunito-VariableFont_wght.ttf in Resources */,
+				CBB7F911C64A4F88AA611EBC /* Nunito-Bold.ttf in Resources */,
+				28B7663FC3594872B9D2E546 /* Nunito-Medium.ttf in Resources */,
+				7CD981CC3A7941D99094C239 /* Nunito-Regular.ttf in Resources */,
+				CFA658B52369415C8C48A3A9 /* BlackHanSans-Regular.ttf in Resources */,
+				1C3977CE626F4B82A850AFA9 /* Nunito-ExtraBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

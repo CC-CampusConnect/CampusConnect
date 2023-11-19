@@ -15,13 +15,17 @@ export default function SignUpCompleteScreen({navigation}: {navigation: any}) {
 
     return(
         <View className='flex w-full h-full relative bg-white-gray'>
-            <View className='ml-[29px]'>
-                <Text className="absolute mt-[140px] text-orange-400 text-[32px] font-EmblemaOne">Campus Connect</Text>
-                <Text className='absolute pt-[262px] text-brown text-[32px] font-EmblemaOne'>회원가입 완료!</Text>
+            <View className='ml-[29px] mr-[29px]'>
+                <Text 
+                    style={{fontFamily: 'EmblemaOne-Regular',}} 
+                    className="absolute mt-[140px] text-orange-400 text-[32px] font-EmblemaOne">Campus Connect</Text>
+                <Text
+                    style={{fontFamily: 'GowunDodum-Regular',}}  
+                    className='absolute pt-[262px] text-brown text-[32px]'>회원가입 완료!</Text>
                 <View className='mt-[313px]'>
-                    <Text className='text-gray text-ssm'>CC회원이 되신 것을 환영해요.</Text>
-                    <Text className='text-gray text-ssm'>다양한 학과 사람들을 만나보세요!</Text>
-                    <Text className='text-gray text-ssm'>시작하기 버튼을 누르면 로그인 페이지로 이동합니다.</Text>
+                    <Text style={{fontFamily: 'GowunDodum-Regular',}} className='text-gray text-ssm'>CC회원이 되신 것을 환영해요.</Text>
+                    <Text style={{fontFamily: 'GowunDodum-Regular',}} className='text-gray text-ssm'>다양한 학과 사람들을 만나보세요!</Text>
+                    <Text style={{fontFamily: 'GowunDodum-Regular',}} className='text-gray text-ssm'>시작하기 버튼을 누르면 로그인 페이지로 이동합니다.</Text>
                 </View>
             </View>
 

@@ -55,8 +55,11 @@
 	<array>
 		<string>EmblemaOne-Regular.ttf</string>
 		<string>GowunDodum-Regular.ttf</string>
-		<string>Nunito-Italic-VariableFont_wght.ttf</string>
-		<string>Nunito-VariableFont_wght.ttf</string>
+		<string>Nunito-Bold.ttf</string>
+		<string>Nunito-Medium.ttf</string>
+		<string>Nunito-Regular.ttf</string>
+		<string>BlackHanSans-Regular.ttf</string>
+		<string>Nunito-ExtraBold.ttf</string>
 	</array>
 </dict>
 </plist>
