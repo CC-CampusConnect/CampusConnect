@@ -51,5 +51,12 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>UIAppFonts</key>
+	<array>
+		<string>EmblemaOne-Regular.ttf</string>
+		<string>GowunDodum-Regular.ttf</string>
+		<string>Nunito-Italic-VariableFont_wght.ttf</string>
+		<string>Nunito-VariableFont_wght.ttf</string>
+	</array>
 </dict>
 </plist>

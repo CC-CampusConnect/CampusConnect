@@ -32,6 +32,10 @@
 		E4CE4E529DD847C69EE9556F /* flower_face in Resources */ = {isa = PBXBuildFile; fileRef = 0274541267FB49D4ACAD5C96 /* flower_face */; };
 		F40868EEFA2D4DC8975A917D /* galaxy_background in Resources */ = {isa = PBXBuildFile; fileRef = B26EC48ED0694DCC89B1BBD8 /* galaxy_background */; };
 		D017E064C607401492457879 /* viking_helmet in Resources */ = {isa = PBXBuildFile; fileRef = A61B0A2F0E424C3999A79FC4 /* viking_helmet */; };
+		B5FFCCA33A1A43DE8140066F /* EmblemaOne-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A9DA0F2856404BE3B82336E2 /* EmblemaOne-Regular.ttf */; };
+		F3B52DDDBDC24B26BAA51CC0 /* GowunDodum-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C160513F88544E4DB14A4CAA /* GowunDodum-Regular.ttf */; };
+		0BEE84A1236D45668DF78870 /* Nunito-Italic-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 56FBD35245624D45A0E51E05 /* Nunito-Italic-VariableFont_wght.ttf */; };
+		44A91AB2CF754ED592A12E19 /* Nunito-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E809BF59B3AE4AA187CC9EB0 /* Nunito-VariableFont_wght.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,6 +84,10 @@
 		0274541267FB49D4ACAD5C96 /* flower_face */ = {isa = PBXFileReference; name = "flower_face"; path = "../assets/effects/flower_face"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		B26EC48ED0694DCC89B1BBD8 /* galaxy_background */ = {isa = PBXFileReference; name = "galaxy_background"; path = "../assets/effects/galaxy_background"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		A61B0A2F0E424C3999A79FC4 /* viking_helmet */ = {isa = PBXFileReference; name = "viking_helmet"; path = "../assets/effects/viking_helmet"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		A9DA0F2856404BE3B82336E2 /* EmblemaOne-Regular.ttf */ = {isa = PBXFileReference; name = "EmblemaOne-Regular.ttf"; path = "../assets/fonts/EmblemaOne-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		C160513F88544E4DB14A4CAA /* GowunDodum-Regular.ttf */ = {isa = PBXFileReference; name = "GowunDodum-Regular.ttf"; path = "../assets/fonts/GowunDodum-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		56FBD35245624D45A0E51E05 /* Nunito-Italic-VariableFont_wght.ttf */ = {isa = PBXFileReference; name = "Nunito-Italic-VariableFont_wght.ttf"; path = "../assets/fonts/Nunito-Italic-VariableFont_wght.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		E809BF59B3AE4AA187CC9EB0 /* Nunito-VariableFont_wght.ttf */ = {isa = PBXFileReference; name = "Nunito-VariableFont_wght.ttf"; path = "../assets/fonts/Nunito-VariableFont_wght.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -206,6 +214,10 @@
 				0274541267FB49D4ACAD5C96 /* flower_face */,
 				B26EC48ED0694DCC89B1BBD8 /* galaxy_background */,
 				A61B0A2F0E424C3999A79FC4 /* viking_helmet */,
+				A9DA0F2856404BE3B82336E2 /* EmblemaOne-Regular.ttf */,
+				C160513F88544E4DB14A4CAA /* GowunDodum-Regular.ttf */,
+				56FBD35245624D45A0E51E05 /* Nunito-Italic-VariableFont_wght.ttf */,
+				E809BF59B3AE4AA187CC9EB0 /* Nunito-VariableFont_wght.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -325,6 +337,10 @@
 				E4CE4E529DD847C69EE9556F /* flower_face in Resources */,
 				F40868EEFA2D4DC8975A917D /* galaxy_background in Resources */,
 				D017E064C607401492457879 /* viking_helmet in Resources */,
+				B5FFCCA33A1A43DE8140066F /* EmblemaOne-Regular.ttf in Resources */,
+				F3B52DDDBDC24B26BAA51CC0 /* GowunDodum-Regular.ttf in Resources */,
+				0BEE84A1236D45668DF78870 /* Nunito-Italic-VariableFont_wght.ttf in Resources */,
+				44A91AB2CF754ED592A12E19 /* Nunito-VariableFont_wght.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

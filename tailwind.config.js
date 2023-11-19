@@ -35,13 +35,12 @@ module.exports = {
       'xs':'14px',
     },
 
-    /* 폰트 토큰 */
-    fontFamily:{
-      EmblemaOne: ["EmblemaOne-Regular"],
-
-    },
-
     extend: {
+      /* 폰트 토큰 
+      fontFamily:{
+        EmblemaOne: ["EmblemaOne-Regular"],
+      },
+      */
     },
   },
   plugins: [],

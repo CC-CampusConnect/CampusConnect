@@ -1,7 +1,7 @@
 // 3-3. 인증 완료 페이지
 // DreamyCompleteScreen.tsx
 
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -14,8 +14,10 @@ import {
 } from 'react-native';
 import {useForm, Controller} from 'react-hook-form';
 
+
 export default function DreamyCompleteScreen({navigation}: {navigation: any}) {
   const {control, handleSubmit, formState} = useForm<FormData>();
+  const [isFont, setIsFont] = useState(false); // 폰트 적요을 위한 state 생성
 
   const onSubmit = async (data: FormData) => {
     console.log('인증 완료. 메인 페이지로 이동');
@@ -42,18 +44,27 @@ export default function DreamyCompleteScreen({navigation}: {navigation: any}) {
     rabbitImage: {
       width: 64,
       height: 36,
-    },
+    },    
   });
+
+  // Loading font
+
 
   return (
     <View className="flex w-full h-full relative bg-white-gray">
       <View className="ml-[29px]">
-        <Text className="absolute mt-[140px] text-orange-400 text-[32px] font-EmblemaOne">
+        <Text className="absolute mt-[140px] text-orange-400 text-[32px]">
           Campus Connect
         </Text>
         <Text className="absolute pt-[262px] text-brown text-[32px] font-EmblemaOne">
           인증 완료!
         </Text>
+        <Text 
+          style={{
+            fontFamily: 'EmblemaOne-Regular',
+            fontSize: 20,
+            color: 'red',
+        }}>Campus</Text>
         <View className="mt-[313px]">
           <Text className="text-gray text-ssm">인증이 완료되었어요.</Text>
           <Text className="text-gray text-ssm">

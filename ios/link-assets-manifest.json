@@ -2,6 +2,22 @@
   "migIndex": 1,
   "data": [
     {
+      "path": "assets/fonts/EmblemaOne-Regular.ttf",
+      "sha1": "fb7f1442cd5ed0cc063637fbd29feef5d44834dd"
+    },
+    {
+      "path": "assets/fonts/GowunDodum-Regular.ttf",
+      "sha1": "b3d99dcfbab59496f2e5f5cba4ba973c8b403167"
+    },
+    {
+      "path": "assets/fonts/Nunito-Italic-VariableFont_wght.ttf",
+      "sha1": "0b4c3a612cf31e069014ede3a502381c034fc736"
+    },
+    {
+      "path": "assets/fonts/Nunito-VariableFont_wght.ttf",
+      "sha1": "c2adb9c3bcb684afc16cab5e70e8da3d3700a91e"
+    },
+    {
       "path": "assets/effects/8bitHearts",
       "sha1": "d6d048c369cec2a943ad483b14681d1dd72f5bb0"
     },
