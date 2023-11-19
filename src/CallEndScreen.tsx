@@ -3,7 +3,7 @@ import {View, Button, TextInput, Modal, Alert} from 'react-native';
 import Checkbox from './Checkbox';
 import {db} from './util/firestore';
 
-const CallEndScreen: React.FC = () => {
+export default function CallEndScreen({navigation}: {navigation: any}) {
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]); // 선택된 옵션
   const [text, setText] = useState<string>(''); // 기타 사유
   const [modalVisible, setModalVisible] = useState(false); // 모달 상태
@@ -80,8 +80,9 @@ const CallEndScreen: React.FC = () => {
       <View>
         <Button title="신고하기" onPress={() => setModalVisible(true)} />
       </View>
+      <View>
+        <Button title="종료" onPress={() => navigation.navigate('MainPage')} />
+      </View>
     </>
   );
-};
-
-export default CallEndScreen;
+}

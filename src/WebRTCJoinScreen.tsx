@@ -40,11 +40,12 @@ export default function JoinScreen({navigation, route}: any) {
 
       cachedLocalPC.close();
     }
+    // cleanup
     setLocalStream(null);
     setRemoteStream(null);
     setCachedLocalPC(null);
-    // cleanup
-    navigation.navigate('WebRTCRoom');
+    // 통화 종료 페이지로 이동
+    navigation.navigate('CallEndScreen');
   }
 
   const [localStream, setLocalStream] = useState<MediaStream | null>(null); // Stream of local user
