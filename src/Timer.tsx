@@ -2,39 +2,12 @@
 import React, {useState, useEffect, useRef} from 'react';
 import {View, Text} from 'react-native';
 import {db} from './util/firestore';
+import useInterval from './hooks/useInterval';
 
 type TimerProps = {
   onBackPress: () => void;
   roomId: any;
 };
-
-// useInterval callback 매개변수 타입
-type IntervalFunction = () => unknown | void;
-
-// useInterval hook
-function useInterval(callback: IntervalFunction, delay: number | null) {
-  const savedCallback = useRef<IntervalFunction | null>(null);
-
-  // Remember the latest callback.
-  useEffect(() => {
-    savedCallback.current = callback;
-  }, [callback]);
-
-  // Set up the interval.
-  useEffect(() => {
-    function tick() {
-      if (savedCallback.current !== null) {
-        savedCallback.current();
-      }
-    }
-
-    if (delay !== null) {
-      const id = setInterval(tick, delay);
-      return () => clearInterval(id);
-    }
-    console.log('delay', delay);
-  }, [delay]);
-}
 
 const Timer: React.FC<TimerProps> = ({onBackPress, roomId}) => {
   const [timerStarted, setTimerStarted] = useState(false); // 타이머 시작 여부
@@ -130,7 +103,7 @@ const Timer: React.FC<TimerProps> = ({onBackPress, roomId}) => {
           setSeconds(remainingSeconds);
         }
 
-        console.log('now', now);
+        // console.log('now', now);
       } else {
         // 통화 종료 시간이 지났을 때
         setDelay(null);
