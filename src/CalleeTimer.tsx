@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, Text} from 'react-native';
 import {db} from './util/firestore';
 import useInterval from './hooks/useInterval';
@@ -9,7 +9,7 @@ type TimerProps = {
   roomId: any;
 };
 
-const Timer: React.FC<TimerProps> = ({onBackPress, roomId}) => {
+export default function Callee({onBackPress, roomId}: TimerProps) {
   const [timerStarted, setTimerStarted] = useState(false); // 타이머 시작 여부
   const [isTimerActive, setTimerActive] = useState(false); // 타이머 활성화 여부
   const [minutes, setMinutes] = useState<number>(0);
@@ -130,6 +130,4 @@ const Timer: React.FC<TimerProps> = ({onBackPress, roomId}) => {
       </View>
     </>
   );
-};
-
-export default Timer;
+}
