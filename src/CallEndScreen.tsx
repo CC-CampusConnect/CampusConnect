@@ -65,16 +65,28 @@ export default function CallEndScreen({navigation}: {navigation: any}) {
             />
           ))}
           <TextInput
-            className="bg-white h-lg"
+            className="w-[330px] h-[147px] bg-white-gray"
             value={text}
             onChangeText={t => {
               setText(t);
             }}
             placeholder="기타 사유를 입력해주세요."
           />
-          <TouchableOpacity onPress={handleReport}><Text>신고하기</Text></TouchableOpacity>
-          <Button title="신고하기" onPress={handleReport} />
-          <Button title="취소" onPress={() => setModalVisible(false)} />
+
+          <TouchableOpacity onPress={handleReport}>
+            <Text 
+              className="mx-auto text-xs text-black underline"
+              style={{fontFamily: 'GowunDodum-Regular'}}>
+                신고하기
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => setModalVisible(false)}>
+            <Text 
+              className="mx-auto text-xs text-black underline"
+              style={{fontFamily: 'GowunDodum-Regular'}}>
+              취소
+            </Text>
+          </TouchableOpacity>
         </Modal>
       </View>
       {/* 신고하기 버튼 클릭 시 모달 활성화 */}
