@@ -24,6 +24,7 @@ export default function MainPageScreen({navigation}: {navigation: any}) {
     navigation.navigate('WebRTCRoom');
   };
 
+  // 임시 Home 이동
   const onSubmit2 = async (data: FormData) => {
     console.log('Home으로 이동');
     navigation.navigate('Home');

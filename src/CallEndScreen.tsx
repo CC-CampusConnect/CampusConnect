@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Button, TextInput, Modal, Alert} from 'react-native';
+import {View, Button, TextInput, Modal, Alert, TouchableOpacity, Text} from 'react-native';
 import Checkbox from './Checkbox';
 import {db} from './util/firestore';
 
@@ -72,6 +72,7 @@ export default function CallEndScreen({navigation}: {navigation: any}) {
             }}
             placeholder="기타 사유를 입력해주세요."
           />
+          <TouchableOpacity onPress={handleReport}><Text>신고하기</Text></TouchableOpacity>
           <Button title="신고하기" onPress={handleReport} />
           <Button title="취소" onPress={() => setModalVisible(false)} />
         </Modal>
