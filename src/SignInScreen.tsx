@@ -58,12 +58,6 @@ export default function SignInScreen({navigation}: {navigation: any}) {
     },
   });
 
-    // 임시 Home 이동
-    const onSubmit3 = () => {
-      console.log('Home으로 이동');
-      navigation.navigate('Home');
-    };
-
   return (
     <ScrollView className="flex w-full h-full bg-white-gray">
       <View className="w-full space-y-[50px]">
@@ -132,13 +126,6 @@ export default function SignInScreen({navigation}: {navigation: any}) {
           style={{fontFamily: 'Nunito-ExtraBold',}}  
           className="mx-auto mt-[16px] mb-[144px] text-xs text-black underline">
           가입하기!
-        </Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={onSubmit3}>
-        <Text 
-          style={{fontFamily: 'Nunito-ExtraBold',}}  
-          className="mx-auto mt-[16px] mb-[90px] text-xs text-black underline">
-          개발자 홈
         </Text>
       </TouchableOpacity>
     </ScrollView>

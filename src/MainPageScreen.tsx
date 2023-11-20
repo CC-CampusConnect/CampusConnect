@@ -24,12 +24,6 @@ export default function MainPageScreen({navigation}: {navigation: any}) {
     navigation.navigate('WebRTCRoom');
   };
 
-  // 임시 Home 이동
-  const onSubmit2 = async (data: FormData) => {
-    console.log('Home으로 이동');
-    navigation.navigate('Home');
-  };
-
   // 로그아웃 버튼
   const logout = async () => {
     try {
@@ -69,11 +63,6 @@ export default function MainPageScreen({navigation}: {navigation: any}) {
       <TouchableOpacity className="absolute top-0 right-5" onPress={logout}>
         <Text className="mx-auto mt-[16px] mb-[144px] text-xs text-black underline">
           로그아웃
-        </Text>
-      </TouchableOpacity>
-      <TouchableOpacity className="absolute top-0 right-[100px]" onPress={handleSubmit(onSubmit2)}>
-        <Text className="mx-auto mt-[16px] mb-[144px] text-xs text-black underline">
-          개발자 홈
         </Text>
       </TouchableOpacity>
 
