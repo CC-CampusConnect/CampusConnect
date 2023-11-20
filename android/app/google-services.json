@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "799166131581",
+    "firebase_url": "https://a-2-cc-default-rtdb.firebaseio.com",
+    "project_id": "a-2-cc",
+    "storage_bucket": "a-2-cc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:799166131581:android:83d30ed6c99bb313587014",
+        "android_client_info": {
+          "package_name": "com.cc"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCWY4fpTIIZ-vEFHZ7wLDMgtB5-9ooizAA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

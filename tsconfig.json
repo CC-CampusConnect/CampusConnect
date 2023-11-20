@@ -1,0 +1,8 @@
+{
+  "extends": "@tsconfig/react-native/tsconfig.json",
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs", 
+    "lib": ["dom", "es2016"],
+  }
+}
