@@ -49,44 +49,52 @@ export default function CallEndScreen({navigation}: {navigation: any}) {
   return (
     <>
       {/* 신고 모달 */}
-      <View>
+      <View className='mx-auto my-auto w-[391px] h-[461px] bg-pink-500'>
         <Modal
           visible={modalVisible}
           // 안드로이드의 뒤로가기 버튼 클릭 시 모달 비활성화
           onRequestClose={() => {
             setModalVisible(!modalVisible);
-          }}>
+        }}>
+          <Text 
+            style={{fontFamily: 'GowunDodum-Regular'}}
+            className='mx-auto text-[26px] mt-[200px] pb-[50px] text-brown'>
+              신고 사유
+          </Text>
+          
           {options.map(option => (
             <Checkbox
               key={option}
               label={option}
               isChecked={selectedOptions.includes(option)}
               onChange={isChecked => handleCheckboxChange(option, isChecked)} // onChange props에 콜백 함수 전달
+           
             />
           ))}
           <TextInput
-            className="w-[330px] h-[147px] bg-white-gray"
+            className="w-[330px] h-[147px] ml-[41px] border border-solid-100 bg-white-gray"
             value={text}
             onChangeText={t => {
               setText(t);
             }}
             placeholder="기타 사유를 입력해주세요."
           />
-
-          <TouchableOpacity onPress={handleReport}>
-            <Text 
-              className="mx-auto text-xs text-black underline"
-              style={{fontFamily: 'GowunDodum-Regular'}}>
-                신고하기
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => setModalVisible(false)}>
-            <Text 
-              className="mx-auto text-xs text-black underline"
-              style={{fontFamily: 'GowunDodum-Regular'}}>
-              취소
-            </Text>
-          </TouchableOpacity>
+          <View className='flex flex-row mx-auto mt-[27px] space-x-24'>
+            <TouchableOpacity onPress={handleReport}>
+              <Text 
+                className="mx-auto text-[16px] text-black underline"
+                style={{fontFamily: 'GowunDodum-Regular'}}>
+                  신고하기
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => setModalVisible(false)}>
+              <Text 
+                className="mx-auto text-[16px] text-black underline"
+                style={{fontFamily: 'GowunDodum-Regular'}}>
+                취소
+              </Text>
+            </TouchableOpacity>
+          </View>
         </Modal>
       </View>
       {/* 신고하기 버튼 클릭 시 모달 활성화 */}
