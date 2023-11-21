@@ -81,8 +81,6 @@ export default function CallEndScreen({navigation}: {navigation: any}) {
         <Image className="w-[53px] h-[35px] left-[293px] top-[470px] absolute" source={require('images/Dog.png')} />
         <Image className="w-[53px] h-[35px] left-[293px] top-[732px] absolute" source={require('images/Dog.png')} />
       </View>
-     
-   
 
       {/* 신고 모달 */}
       <View>
