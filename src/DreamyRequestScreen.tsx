@@ -13,8 +13,21 @@ export default function DreamyRequestScreen({navigation}: {navigation: any}) {
             navigation.navigate('Dreamy');
     };
 
+    // 이미지 크기를 위한 styleSheet
+    const styles = StyleSheet.create({
+        CatImage:{
+        width:46,
+        height:35,
+        },
+    });
+
     return(
         <View className='flex w-full h-full relative bg-white-gray'>
+            <Image
+                className="fixed left-[33px] top-[95px]"
+                style={styles.CatImage}
+                source={require('images/Cat.png')}
+            />
             <View className='ml-[29px] mr-[29px]'>
                 <Text
                     style={{fontFamily: 'EmblemaOne-Regular',}} 
@@ -42,6 +55,8 @@ export default function DreamyRequestScreen({navigation}: {navigation: any}) {
                     <Text className='mx-auto my-auto text-sm text-white'>인증하기</Text>
                 </TouchableOpacity>
             </View>
+            {/* 배경 로고들 */}
+            
         </View>
     )
 }

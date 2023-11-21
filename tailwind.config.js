@@ -36,6 +36,9 @@ module.exports = {
     },
 
     extend: {
+      backgroundImage:{
+        'backCat': "url('./assets/images/Cat.png')"
+      }
       /* 폰트 토큰 
       fontFamily:{
         EmblemaOne: ["EmblemaOne-Regular"],

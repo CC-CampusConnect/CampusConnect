@@ -85,15 +85,16 @@ export default function MainPageScreen({navigation}: {navigation: any}) {
         onPress={handleSubmit(onSubmit)}>
         <Text
           style={{fontFamily: 'GowunDodum-Regular'}}
-          className="mx-auto mt-auto font-sans text-xxl text-white">
+          className="mx-auto mt-auto text-xxl text-white">
           매칭
         </Text>
         <Text
           style={{fontFamily: 'GowunDodum-Regular'}}
-          className="mx-auto mb-auto font-sans text-xxl text-white">
+          className="mx-auto mb-auto text-xxl text-white">
           시작
         </Text>
       </TouchableOpacity>
+      
     </View>
   );
 }
