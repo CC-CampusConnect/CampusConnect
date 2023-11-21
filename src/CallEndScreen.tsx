@@ -91,9 +91,9 @@ export default function CallEndScreen({navigation}: {navigation: any}) {
         <Modal
           visible={modalVisible}
           // 안드로이드의 뒤로가기 버튼 클릭 시 모달 비활성화
-          onRequestClose={() => {
-            setModalVisible(!modalVisible);
-        }}>
+          onRequestClose={() => {setModalVisible(!modalVisible);}}
+          animationType="slide"
+        >
           {/* 배경 이미지 */}
           <View className="w-[346px] h-[767px] left-[33px] top-[30px] absolute">
             <Image className="w-[46px] h-[35px] left-0 top-0 absolute" source={require('images/Cat.png')} />
