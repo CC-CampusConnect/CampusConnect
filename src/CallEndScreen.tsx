@@ -68,6 +68,17 @@ export default function CallEndScreen({navigation}: {navigation: any}) {
 
   return (
     <View className='flex w-full h-full bg-backCat relative bg-white-gray '>
+
+      {/* 신고하기 버튼 클릭 시 모달 활성화 */}
+      <View className='absolute top-[26px] right-[26px]'>
+        <TouchableOpacity
+          className="w-[56px] h-[56px] bg-pink-500 rounded-full shadow-lg"
+          onPress={() => setModalVisible(true)}
+        >
+          <Image style={styles.sirenImage} source={require('images/siren.png')} className='mx-auto my-auto'/>
+        </TouchableOpacity>
+      </View>
+      
       {/* 배경 이미지 */}
       <View className="w-[346px] h-[767px] left-[33px] top-[30px] absolute">
         <Image className="w-[46px] h-[35px] left-0 top-0 absolute" source={require('images/Cat.png')} />
@@ -145,16 +156,6 @@ export default function CallEndScreen({navigation}: {navigation: any}) {
         />  
       </View>
       
-      {/* 신고하기 버튼 클릭 시 모달 활성화 */}
-      <View className='absolute top-[26px] right-[26px]'>
-        <TouchableOpacity
-          className="w-[56px] h-[56px] bg-pink-500 rounded-full shadow-lg"
-          onPress={() => setModalVisible(true)}
-        >
-          <Image style={styles.sirenImage} source={require('images/siren.png')} className='mx-auto my-auto'/>
-        </TouchableOpacity>
-      </View>
-
       <View className="flex w-full h-full absolute justify-end mb-0">
         <TouchableOpacity
           className="w-full w-full justify-end h-[65px] bg-pink-500"
@@ -163,9 +164,14 @@ export default function CallEndScreen({navigation}: {navigation: any}) {
             종료
           </Text>
         </TouchableOpacity>
+        <TouchableOpacity
+          className="w-full w-full justify-end h-[65px] bg-pink-500"
+          onPress={() => setModalVisible(true)}>
+          <Text className="mx-auto my-auto text-sm text-white">
+            임시 신고 버튼
+          </Text>
+        </TouchableOpacity>
       </View>
-
-      
     </View>
   );
 }
