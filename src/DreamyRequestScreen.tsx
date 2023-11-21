@@ -13,8 +13,30 @@ export default function DreamyRequestScreen({navigation}: {navigation: any}) {
             navigation.navigate('Dreamy');
     };
 
+    // 이미지 크기를 위한 styleSheet
+    const styles = StyleSheet.create({
+        CatImage:{
+        width:46,
+        height:35,
+        },
+    });
+
     return(
         <View className='flex w-full h-full relative bg-white-gray'>
+            {/* 배경 이미지 */}
+            <View className="w-[346px] h-[767px] left-[33px] top-[30px] absolute">
+                <Image className="w-[46px] h-[35px] left-0 top-0 absolute" source={require('images/Cat.png')} />
+                <Image className="w-[46px] h-[35px] left-[6px] top-[402px] absolute" source={require('images/Cat.png')} />
+                <Image className="w-[46px] h-[35px] left-[6px] top-[692px] absolute" source={require('images/Cat.png')} />
+
+                <Image className="w-16 h-9 left-[155px] top-[191px] absolute" source={require('images/Rabbit.png')} />
+                <Image className="w-16 h-9 left-[155px] top-[582px] absolute" source={require('images/Rabbit.png')} />
+                
+                <Image className="w-[53px] h-[35px] left-[293px] top-[69px] absolute" source={require('images/Dog.png')} />
+                <Image className="w-[53px] h-[35px] left-[293px] top-[470px] absolute" source={require('images/Dog.png')} />
+                <Image className="w-[53px] h-[35px] left-[293px] top-[732px] absolute" source={require('images/Dog.png')} />
+            </View>
+            
             <View className='ml-[29px] mr-[29px]'>
                 <Text
                     style={{fontFamily: 'EmblemaOne-Regular',}} 
@@ -42,6 +64,8 @@ export default function DreamyRequestScreen({navigation}: {navigation: any}) {
                     <Text className='mx-auto my-auto text-sm text-white'>인증하기</Text>
                 </TouchableOpacity>
             </View>
+            {/* 배경 로고들 */}
+            
         </View>
     )
 }

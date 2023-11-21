@@ -44,10 +44,12 @@ export default function DreamyScreen({navigation}: {navigation: any}) {
 
   return (
     <View className="flex-1">
+      {/* 라우팅 코드로 바꾸기 */}
       {isCertified ? (
         <View className="flex w-full h-full bg-blue-300">
           <Text className="text-2xl">Done!</Text>
         </View>
+        
       ) : isLoading ? (
         <View className="flex w-full h-full bg-red-300">
           <Text className="text-2xl">This is a Loading Screen</Text>
