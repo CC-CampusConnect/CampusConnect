@@ -24,7 +24,7 @@ function useInterval(callback: IntervalFunction, delay: number | null) {
       const id = setInterval(tick, delay);
       return () => clearInterval(id);
     }
-    console.log('delay', delay);
+    // console.log('delay', delay);
   }, [delay]);
 }
 

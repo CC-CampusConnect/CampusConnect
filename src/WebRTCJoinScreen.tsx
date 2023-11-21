@@ -30,7 +30,7 @@ const configuration = {
 export default function JoinScreen({navigation, route}: any) {
   const roomId = route.params.roomId;
 
-  function onBackPress() {
+  async function onBackPress() {
     if (cachedLocalPC) {
       const sender = cachedLocalPC.getSenders()[0];
 
@@ -43,7 +43,12 @@ export default function JoinScreen({navigation, route}: any) {
     setLocalStream(null);
     setRemoteStream(null);
     setCachedLocalPC(null);
-    // cleanup
+
+    const roomRef = await db.collection('rooms').doc(roomId);
+    await roomRef.update({
+      endCaller: true,
+    });
+
     navigation.navigate('WebRTCRoom');
   }
 
@@ -53,11 +58,36 @@ export default function JoinScreen({navigation, route}: any) {
     null,
   );
 
+  const [timerStarted, setTimerStarted] = useState(false); // 타이머 시작 여부
+
   const [isMuted, setIsMuted] = useState(false);
+
+  const [isExtended, setIsExtended] = useState<boolean>(false);
+
+  const [isEnd, setIsEnd] = useState<boolean>(false);
 
   useEffect(() => {
     startLocalStream();
   }, []);
+
+  useEffect(() => {
+    if (isEnd) {
+      if (cachedLocalPC) {
+        const sender = cachedLocalPC.getSenders()[0];
+
+        if (sender) {
+          cachedLocalPC.removeTrack(sender);
+        }
+
+        cachedLocalPC.close();
+      }
+      setLocalStream(null);
+      setRemoteStream(null);
+      setCachedLocalPC(null);
+
+      navigation.navigate('WebRTCRoom');
+    }
+  }, [isEnd, cachedLocalPC, navigation]);
 
   const startLocalStream = async () => {
     // isFront will determine if the initial camera should face user or environment
@@ -110,12 +140,7 @@ export default function JoinScreen({navigation, route}: any) {
       //icecandidate 이벤트는 RTCPeerConnection의 로컬 ICE 에이전트가 새로운 ICE candidate를 생성했을 때 발생합니다.
       if (!e.candidate) {
         // 타이머 초기값 설정
-        await roomRef.update({
-          calleeReady: true,
-          init: true,
-        });
-
-        console.log('Got final candidate!');
+        console.log('Got final candidate! <callee>');
         return;
       }
       calleeCandidatesCollection.add(e.candidate.toJSON());
@@ -125,8 +150,24 @@ export default function JoinScreen({navigation, route}: any) {
       //track 이벤트는 RTCPeerConnection의 연결된 미디어 소스로부터 발생합니다.
 
       if (e.streams[0] && remoteStream !== e.streams[0]) {
-        console.log('RemotePC received the stream', e.streams[0]);
+        if (remoteStream?.id === e.streams[0].id) {
+          console.log('remoteStream update <callee>');
+        } else {
+          console.log('remoteStream recevied <callee>');
+        }
+        // console.log('RemotePC received the stream', e.streams[0]);
         setRemoteStream(e.streams[0]);
+      }
+    });
+
+    localPC.addEventListener('connectionstatechange', async () => {
+      // connectionstatechange 이벤트는 RTCPeerConnection의 connectionState 속성이 바뀔 때마다 발생합니다.
+      console.log('connectionState <callee>', localPC.connectionState);
+      if (localPC.connectionState === 'connected') {
+        console.log('피어 연결 완료 <callee>');
+        await roomRef.update({
+          calleeReady: true,
+        });
       }
     });
 
@@ -142,6 +183,29 @@ export default function JoinScreen({navigation, route}: any) {
 
     const roomWithAnswer = {answer};
     await roomRef.update(roomWithAnswer);
+
+    roomRef.onSnapshot(async snapshot => {
+      const data = snapshot.data();
+      if (!timerStarted && data?.callerReady && data?.calleeReady) {
+        setTimerStarted(true);
+      }
+
+      if (
+        data?.callerExtensionPressed &&
+        data?.calleeExtensionPressed &&
+        !isExtended &&
+        data?.extensionCount < 2
+      ) {
+        console.log('통화 연장 <callee>');
+
+        setIsExtended(true);
+      }
+
+      if (data?.endCallee && !data?.endCaller && !isEnd) {
+        // onbackpress와 동일
+        setIsEnd(true);
+      }
+    });
 
     roomRef.collection('callerCandidates').onSnapshot(snapshot => {
       snapshot.docChanges().forEach(async change => {
@@ -213,7 +277,12 @@ export default function JoinScreen({navigation, route}: any) {
         </View>
       )}
       <View>
-        <Timer onBackPress={onBackPress} roomId={roomId} />
+        <Timer
+          onBackPress={onBackPress}
+          timerStarted={timerStarted}
+          isExtended={isExtended}
+          setIsExtended={setIsExtended}
+        />
       </View>
       <View className="w-full h-full flex flex-col">
         <View className="flex w-full h-[250px]">
