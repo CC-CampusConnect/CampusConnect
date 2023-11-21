@@ -30,7 +30,7 @@ const Checkbox: React.FC<CheckboxProps> = ({label, isChecked, onChange}) => {
           fontFamily: 'GowunDodum-Regular',
           fontSize: 20,
         }}
-        className='ml-[40px] mb-[21px]'
+        className='mt-[10px] ml-[29px]'
       />
     </View>
   );

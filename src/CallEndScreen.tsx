@@ -1,5 +1,5 @@
 // CallEndScreen.tsx
-// 9-1 통화 종료 페이지
+// 9-1 통화 종료 페이지 & 10-1 신고 모달창
 
 import React, {useState} from 'react';
 import {View, Button, TextInput, Modal, Alert, TouchableOpacity, Text, Image, StyleSheet} from 'react-native';
@@ -94,44 +94,60 @@ export default function CallEndScreen({navigation}: {navigation: any}) {
           onRequestClose={() => {
             setModalVisible(!modalVisible);
         }}>
-          <Text 
-            style={{fontFamily: 'GowunDodum-Regular'}}
-            className='mx-auto text-[26px] mt-[200px] pb-[50px] text-brown'>
-              신고 사유
-          </Text>
-          
-          {options.map(option => (
-            <Checkbox
-              key={option}
-              label={option}
-              isChecked={selectedOptions.includes(option)}
-              onChange={isChecked => handleCheckboxChange(option, isChecked)} // onChange props에 콜백 함수 전달
-           
+          {/* 배경 이미지 */}
+          <View className="w-[346px] h-[767px] left-[33px] top-[30px] absolute">
+            <Image className="w-[46px] h-[35px] left-0 top-0 absolute" source={require('images/Cat.png')} />
+            <Image className="w-[46px] h-[35px] left-[6px] top-[402px] absolute" source={require('images/Cat.png')} />
+            <Image className="w-[46px] h-[35px] left-[6px] top-[692px] absolute" source={require('images/Cat.png')} />
+
+            <Image className="w-16 h-9 left-[155px] top-[191px] absolute" source={require('images/Rabbit.png')} />
+            <Image className="w-16 h-9 left-[155px] top-[582px] absolute" source={require('images/Rabbit.png')} />
+            
+            <Image className="w-[53px] h-[35px] left-[293px] top-[69px] absolute" source={require('images/Dog.png')} />
+            <Image className="w-[53px] h-[35px] left-[293px] top-[470px] absolute" source={require('images/Dog.png')} />
+            <Image className="w-[53px] h-[35px] left-[293px] top-[732px] absolute" source={require('images/Dog.png')} />
+          </View>
+
+          <View className='top-[178px] mx-auto w-[391px] h-[499px] bg-white border'>
+            <Text 
+              style={{fontFamily: 'GowunDodum-Regular'}}
+              className='mx-auto text-[26px] mt-[22px] mb-[15px] ml-[29px] text-brown'>
+                신고 사유
+            </Text>
+            
+            {options.map(option => (
+              <Checkbox
+                key={option}
+                label={option}
+                isChecked={selectedOptions.includes(option)}
+                onChange={isChecked => handleCheckboxChange(option, isChecked)} // onChange props에 콜백 함수 전달
+            
+              />
+            ))}
+            <TextInput
+              className="w-[330px] h-[147px] ml-[30px] mt-[27px] border border-solid-100 bg-white-gray"
+              value={text}
+              onChangeText={t => {
+                setText(t);
+              }}
+              placeholder="기타 사유를 입력해주세요."
             />
-          ))}
-          <TextInput
-            className="w-[330px] h-[147px] ml-[41px] border border-solid-100 bg-white-gray"
-            value={text}
-            onChangeText={t => {
-              setText(t);
-            }}
-            placeholder="기타 사유를 입력해주세요."
-          />
-          <View className='flex flex-row mx-auto mt-[27px] space-x-24'>
-            <TouchableOpacity onPress={handleReport}>
-              <Text 
-                className="mx-auto text-[16px] text-black underline"
-                style={{fontFamily: 'GowunDodum-Regular'}}>
-                  신고하기
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => setModalVisible(false)}>
-              <Text 
-                className="mx-auto text-[16px] text-black underline"
-                style={{fontFamily: 'GowunDodum-Regular'}}>
-                취소
-              </Text>
-            </TouchableOpacity>
+            <View className='flex flex-row mx-auto mt-[20px] space-x-24'>
+              <TouchableOpacity onPress={handleReport}>
+                <Text 
+                  className="mx-auto text-[16px] text-black underline"
+                  style={{fontFamily: 'GowunDodum-Regular'}}>
+                    신고하기
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => setModalVisible(false)}>
+                <Text 
+                  className="mx-auto text-[16px] text-black underline"
+                  style={{fontFamily: 'GowunDodum-Regular'}}>
+                  취소
+                </Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </Modal>
       </View>
