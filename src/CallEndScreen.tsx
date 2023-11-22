@@ -176,10 +176,10 @@ export default function CallEndScreen({navigation}: {navigation: any}) {
       </View>
       {/* 신고하기 버튼 클릭 시 모달 활성화 */}
       <TouchableOpacity
-          className="absolute top-[26px] right-[26px] w-[56px] h-[56px] bg-pink-500 rounded-full"
-          onPress={() => setModalVisible(true)}>
+        className="absolute top-[26px] right-[26px] w-[56px] h-[56px] bg-pink-500 rounded-full"
+        onPress={() => setModalVisible(true)}>
           <Image style={styles.sirenImage} source={require('images/siren.png')} className='mx-auto my-auto'/>
-        </TouchableOpacity>
+      </TouchableOpacity>
     </View>
   );
 }

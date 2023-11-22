@@ -2,14 +2,13 @@
 
 import { styled } from 'nativewind';
 import React, {useCallback} from 'react';
-import {View, StyleProp, ViewStyle} from 'react-native';
+import {View, StyleProp, ViewStyle, } from 'react-native';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 
 interface CheckboxProps {
   label: string;
   isChecked: boolean;
   onChange: (isChecked: boolean) => void;
-  // style?: StyleProp<ViewStyle>;
 }
 
 const Checkbox: React.FC<CheckboxProps> = ({label, isChecked, onChange}) => {
