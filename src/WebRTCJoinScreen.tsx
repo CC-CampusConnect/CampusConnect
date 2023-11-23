@@ -86,7 +86,7 @@ export default function JoinScreen({navigation, route}: any) {
       setRemoteStream(null);
       setCachedLocalPC(null);
 
-      navigation.navigate('WebRTCRoom');
+      navigation.navigate('CallEndScreen');
     }
   }, [isEnd, cachedLocalPC, navigation]);
 
