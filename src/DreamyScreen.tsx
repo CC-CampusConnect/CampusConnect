@@ -45,12 +45,7 @@ export default function DreamyScreen({navigation}: {navigation: any}) {
   return (
     <View className="flex-1">
       {/* 라우팅 코드로 바꾸기 */}
-      {isCertified ? (
-        <View className="flex w-full h-full bg-blue-300">
-          <Text className="text-2xl">Done!</Text>
-        </View>
-        
-      ) : isLoading ? (
+      {isLoading ? (
         <View className="flex w-full h-full bg-red-300">
           <Text className="text-2xl">This is a Loading Screen</Text>
         </View>
@@ -93,7 +88,7 @@ export default function DreamyScreen({navigation}: {navigation: any}) {
               const major = result[2].replace(/\s+/g, ' ');
               const status = result[3];
 
-              setIsLoading(false);
+              // setIsLoading(false);
               setIsCertified(true);
 
               console.log('이름: ' + name);
