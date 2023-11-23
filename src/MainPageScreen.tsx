@@ -75,9 +75,23 @@ export default function MainPageScreen({navigation}: {navigation: any}) {
     }
   };
 
-  // const clearKakao = () => {
-  //   setKakaoid('');
-  // };
+  const clearKakao = async () => {
+    const userRef = db.collection('Users').doc(uid);
+    const doc = await userRef.get();
+    const kakao = doc.data()?.kakao;
+    setKakaoid(kakao);
+
+    setModalVisible(false);
+  };
+
+  const clearInsta = async () => {
+    const userRef = db.collection('Users').doc(uid);
+    const doc = await userRef.get();
+    const insta = doc.data()?.insta;
+    setInstaid(insta);
+
+    setModalVisible2(false);
+  };
 
   // 이미지 크기를 위한 styleSheet
   const styles = StyleSheet.create({
@@ -194,7 +208,7 @@ export default function MainPageScreen({navigation}: {navigation: any}) {
               placeholder="카카오톡 계정을 입력해주세요."
             />
             <View className="flex flex-row mx-auto mt-[20px] space-x-24">
-              <TouchableOpacity onPress={() => setModalVisible(false)}>
+              <TouchableOpacity onPress={clearKakao}>
                 <Text
                   className="mx-auto text-[16px] text-black underline"
                   style={{fontFamily: 'GowunDodum-Regular'}}>
@@ -275,7 +289,7 @@ export default function MainPageScreen({navigation}: {navigation: any}) {
               placeholder="인스타 계정을 입력해주세요."
             />
             <View className="flex flex-row mx-auto mt-[20px] space-x-24">
-              <TouchableOpacity onPress={() => setModalVisible2(false)}>
+              <TouchableOpacity onPress={clearInsta}>
                 <Text
                   className="mx-auto text-[16px] text-black underline"
                   style={{fontFamily: 'GowunDodum-Regular'}}>
