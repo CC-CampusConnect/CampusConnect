@@ -25,7 +25,7 @@ type FormData = {
 
 export default function SignInScreen({navigation}: {navigation: any}) {
   const {control, handleSubmit, formState} = useForm<FormData>();
-  const {setUid} = useContext(IsLoginContext);
+  const {setUid, uid} = useContext(IsLoginContext);
 
   // 로그인 하기 버튼
   const onSubmit = async (data: FormData) => {
@@ -83,6 +83,7 @@ export default function SignInScreen({navigation}: {navigation: any}) {
   const onSubmit2 = () => {
     console.log('회원가입 페이지로 이동합니다.');
     navigation.navigate('SignUp');
+    console.log('uid 확인(테스트)', uid);
   };
 
   // 이미지 크기를 위한 styleSheet

@@ -1,17 +1,17 @@
 import React, {createContext, useContext, useState} from 'react';
 
 interface IsLoginContextProps {
-  uid: string | null;
-  setUid: React.Dispatch<React.SetStateAction<string | null>>;
+  uid: string | undefined;
+  setUid: React.Dispatch<React.SetStateAction<string | undefined>>;
 }
 
 export const IsLoginContext = createContext<IsLoginContextProps>({
-  uid: null,
+  uid: undefined,
   setUid: () => {},
 });
 
 export function IsLoginProvider({children}: {children: React.ReactNode}) {
-  const [uid, setUid] = useState<string | null>(null);
+  const [uid, setUid] = useState<string | undefined>(undefined);
 
   return (
     <IsLoginContext.Provider value={{uid, setUid}}>

@@ -22,10 +22,11 @@ import {IsLoginContext} from './IsLoginContext';
 
 export default function MainPageScreen({navigation}: {navigation: any}) {
   const {control, handleSubmit, formState} = useForm<FormData>();
-  const [text, setText] = useState<string>(''); // 기타 사유
+  const [kakaoId, setKakaoid] = useState<string>(''); // 카카오톡 계정 입력
+  const [instaId, setInstaid] = useState<string>(''); // 인스타 계정 입력
   const [modalVisible, setModalVisible] = useState(false); // 카카오톡 모달 상태
   const [modalVisible2, setModalVisible2] = useState(false); // 인스타 모달 상태
-  const {setUid} = useContext(IsLoginContext);
+  const {setUid, uid} = useContext(IsLoginContext);
 
   // 매칭 시작 버튼 누르면 WebRTCRoom으로 이동
   const onSubmit = async (data: FormData) => {
@@ -38,7 +39,7 @@ export default function MainPageScreen({navigation}: {navigation: any}) {
     try {
       await auth().signOut();
       // 로그아웃 시 uid를 null로 변경
-      setUid(null);
+      setUid(undefined);
       console.log('로그아웃 되었습니다. 로그인 페이지로 이동합니다.');
       navigation.navigate('SignIn');
     } catch (error: any) {
@@ -49,8 +50,9 @@ export default function MainPageScreen({navigation}: {navigation: any}) {
   // 카카오톡 클릭 시 호출되는 함수
   const kakaohandleReport = async () => {
     try {
-      await db.collection('reports').add({
-        etcText: text,
+      const userRef = db.collection('Users').doc(uid);
+      await userRef.update({
+        kakao: kakaoId,
       });
       Alert.alert('카카오톡 계정 입력이 완료되었습니다.');
       setModalVisible(false);
@@ -62,8 +64,9 @@ export default function MainPageScreen({navigation}: {navigation: any}) {
   // 인스타 클릭 시 호출되는 함수
   const instahandleReport = async () => {
     try {
-      await db.collection('reports').add({
-        etcText: text,
+      const userRef = db.collection('Users').doc(uid);
+      await userRef.update({
+        insta: instaId,
       });
       Alert.alert('인스타 계정 입력이 완료되었습니다.');
       setModalVisible2(false);
@@ -71,6 +74,10 @@ export default function MainPageScreen({navigation}: {navigation: any}) {
       console.error('계정 정보 처리 오류 발생', error);
     }
   };
+
+  // const clearKakao = () => {
+  //   setKakaoid('');
+  // };
 
   // 이미지 크기를 위한 styleSheet
   const styles = StyleSheet.create({
@@ -180,9 +187,9 @@ export default function MainPageScreen({navigation}: {navigation: any}) {
             </Text>
             <TextInput
               className="w-[330px] h-[52px] ml-[30px] mt-[20px] border border-solid-100 bg-white-gray"
-              value={text}
+              value={kakaoId}
               onChangeText={t => {
-                setText(t);
+                setKakaoid(t);
               }}
               placeholder="카카오톡 계정을 입력해주세요."
             />
@@ -261,9 +268,9 @@ export default function MainPageScreen({navigation}: {navigation: any}) {
             </Text>
             <TextInput
               className="w-[330px] h-[52px] ml-[30px] mt-[20px] border border-solid-100 bg-white-gray"
-              value={text}
+              value={instaId}
               onChangeText={t => {
-                setText(t);
+                setInstaid(t);
               }}
               placeholder="인스타 계정을 입력해주세요."
             />
