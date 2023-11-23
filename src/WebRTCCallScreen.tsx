@@ -31,7 +31,7 @@ export default function CallScreen({navigation, route}: any) {
   const roomId = route.params.roomId;
 
   // 통화 종료
-  function onBackPress() {
+  async function onBackPress() {
     if (cachedLocalPC) {
       const sender = cachedLocalPC.getSenders()[0];
 
@@ -45,28 +45,50 @@ export default function CallScreen({navigation, route}: any) {
     setLocalStream(null);
     setRemoteStream(null);
     setCachedLocalPC(null);
-    // 통화 종료 페이지로 이동
+
+    const roomRef = await db.collection('rooms').doc(roomId);
+    await roomRef.update({
+      endCallee: true,
+      callEndTime: new Date().getTime(),
+    });
+
     navigation.navigate('CallEndScreen');
   }
 
-  const [localStream, setLocalStream] = useState<MediaStream | null>();
-  const [remoteStream, setRemoteStream] = useState<MediaStream | null>();
+  const [localStream, setLocalStream] = useState<MediaStream | null>(null); // Stream of local user
+  const [remoteStream, setRemoteStream] = useState<MediaStream | null>(null); // When a call is connected, the video stream from the receiver is appended to this state in the stream
   const [cachedLocalPC, setCachedLocalPC] = useState<RTCPeerConnection | null>(
     null,
   );
+  const [timerStarted, setTimerStarted] = useState(false); // 타이머 시작 여부
 
   const [isMuted, setIsMuted] = useState(false);
+
+  const [isExtended, setIsExtended] = useState<boolean>(false);
+  const [isEnd, setIsEnd] = useState<boolean>(false);
 
   useEffect(() => {
     startLocalStream();
   }, []);
 
   useEffect(() => {
-    if (localStream && remoteStream) {
-      notifyCallReady();
+    if (isEnd) {
+      if (cachedLocalPC) {
+        const sender = cachedLocalPC.getSenders()[0];
+
+        if (sender) {
+          cachedLocalPC.removeTrack(sender);
+        }
+
+        cachedLocalPC.close();
+      }
+      setLocalStream(null);
+      setRemoteStream(null);
+      setCachedLocalPC(null);
+
+      navigation.navigate('WebRTCRoom');
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [localStream, remoteStream]);
+  }, [isEnd, cachedLocalPC, navigation]);
 
   // 카메라 및 마이크 스트림 설정
   const startLocalStream = async () => {
@@ -111,11 +133,11 @@ export default function CallScreen({navigation, route}: any) {
 
     const callerCandidatesCollection = roomRef.collection('callerCandidates');
 
-    localPC.addEventListener('icecandidate', e => {
+    localPC.addEventListener('icecandidate', async e => {
       // icecandidate 이벤트는 로컬 RTCPeerConnection이 ICE candidate를 생성할 때마다 발생
 
       if (!e.candidate) {
-        console.log('Got final candidate!');
+        console.log('Got final candidate! <caller>');
         return;
       }
       callerCandidatesCollection.add(e.candidate.toJSON());
@@ -125,8 +147,29 @@ export default function CallScreen({navigation, route}: any) {
       //track 이벤트는 RTCPeerConnection의 연결된 미디어 소스로부터 발생합니다.
 
       if (e.streams[0] && remoteStream !== e.streams[0]) {
-        console.log('RemotePC received the stream call', e.streams[0]);
+        if (remoteStream?.id === e.streams[0].id) {
+          console.log('remoteStream update <caller>');
+        } else {
+          console.log('remoteStream recevied <caller>');
+        }
+        // console.log('RemotePC received the stream call', e.streams[0]);
         setRemoteStream(e.streams[0]);
+      }
+    });
+
+    localPC.addEventListener('connectionstatechange', async () => {
+      // connectionstatechange 이벤트는 RTCPeerConnection의 connectionState 속성이 바뀔 때마다 발생합니다.
+      console.log('connectionState <caller>', localPC.connectionState);
+      if (localPC.connectionState === 'connected') {
+        console.log('피어 연결 완료 <caller>');
+        await roomRef.update({
+          //통화 시작 시간 설정
+          callerReady: true,
+          callStartTime: new Date().getTime(),
+          extensionCount: 0,
+          endCaller: false,
+          endCallee: false,
+        });
       }
     });
 
@@ -141,6 +184,28 @@ export default function CallScreen({navigation, route}: any) {
       if (!localPC.remoteDescription && data?.answer) {
         const rtcSessionDescription = new RTCSessionDescription(data.answer);
         await localPC.setRemoteDescription(rtcSessionDescription);
+      }
+      if (!timerStarted && data?.callerReady && data?.calleeReady) {
+        setTimerStarted(true);
+      }
+      if (
+        data?.callerExtensionPressed &&
+        data?.calleeExtensionPressed &&
+        !isExtended &&
+        data?.extensionCount < 2
+      ) {
+        console.log('통화 연장 <caller>');
+
+        setIsExtended(true);
+
+        await roomRef.update({
+          callerExtensionPressed: false,
+          calleeExtensionPressed: false,
+          extensionCount: data.extensionCount + 1,
+        });
+      }
+      if (data?.endCaller && !data?.endCallee && !isEnd) {
+        setIsEnd(true);
       }
     });
 
@@ -172,14 +237,6 @@ export default function CallScreen({navigation, route}: any) {
       track.enabled = !track.enabled;
       setIsMuted(!track.enabled);
     });
-  };
-
-  const notifyCallReady = async () => {
-    const roomRef = await db.collection('rooms').doc(roomId);
-    await roomRef.update({
-      callerReady: true,
-    });
-    console.log('callerReady');
   };
 
   const extendCall = async () => {
@@ -224,7 +281,12 @@ export default function CallScreen({navigation, route}: any) {
         </View>
       )}
       <View>
-        <Timer onBackPress={onBackPress} roomId={roomId} />
+        <Timer
+          onBackPress={onBackPress}
+          timerStarted={timerStarted}
+          isExtended={isExtended}
+          setIsExtended={setIsExtended}
+        />
       </View>
       <View className="w-full h-full flex flex-col">
         <View className="flex w-full h-[250px]">
