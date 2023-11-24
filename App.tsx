@@ -14,27 +14,36 @@ import WebRTCCallScreen from './src/WebRTCCallScreen';
 import WebRTCJoinScreen from './src/WebRTCJoinScreen';
 import WebRTCRoomScreen from './src/WebRTCRoomScreen';
 import CallEndScreen from './src/CallEndScreen';
+import {IsLoginProvider} from './src/IsLoginContext';
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="SignUp" component={SignUpScreen} />
-        <Stack.Screen name="SignIn" component={SignInScreen} />
-        <Stack.Screen name="Dreamy" component={DreamyScreen} />
-        <Stack.Screen name="Deepar" component={DeeparScreen} />
-        <Stack.Screen name="SignUpComplete" component={SignUpCompleteScreen} />
-        <Stack.Screen name="DreamyComplete" component={DreamyCompleteScreen} />
-        <Stack.Screen name="MainPage" component={MainPageScreen} />
-        <Stack.Screen name="DreamyRequest" component={DreamyRequestScreen} />
-        <Stack.Screen name="WebRTCCall" component={WebRTCCallScreen} />
-        <Stack.Screen name="WebRTCJoin" component={WebRTCJoinScreen} />
-        <Stack.Screen name="WebRTCRoom" component={WebRTCRoomScreen} />
-        <Stack.Screen name="CallEndScreen" component={CallEndScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <IsLoginProvider>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Home">
+          <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="SignUp" component={SignUpScreen} />
+          <Stack.Screen name="SignIn" component={SignInScreen} />
+          <Stack.Screen name="Dreamy" component={DreamyScreen} />
+          <Stack.Screen name="Deepar" component={DeeparScreen} />
+          <Stack.Screen
+            name="SignUpComplete"
+            component={SignUpCompleteScreen}
+          />
+          <Stack.Screen
+            name="DreamyComplete"
+            component={DreamyCompleteScreen}
+          />
+          <Stack.Screen name="MainPage" component={MainPageScreen} />
+          <Stack.Screen name="DreamyRequest" component={DreamyRequestScreen} />
+          <Stack.Screen name="WebRTCCall" component={WebRTCCallScreen} />
+          <Stack.Screen name="WebRTCJoin" component={WebRTCJoinScreen} />
+          <Stack.Screen name="WebRTCRoom" component={WebRTCRoomScreen} />
+          <Stack.Screen name="CallEndScreen" component={CallEndScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </IsLoginProvider>
   );
 }

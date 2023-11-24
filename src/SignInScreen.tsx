@@ -15,6 +15,8 @@ import {
 import {useForm, Controller} from 'react-hook-form';
 import auth from '@react-native-firebase/auth';
 import {db} from './util/firestore';
+import {useContext} from 'react';
+import {IsLoginContext} from './IsLoginContext';
 
 type FormData = {
   id: string;
@@ -23,6 +25,7 @@ type FormData = {
 
 export default function SignInScreen({navigation}: {navigation: any}) {
   const {control, handleSubmit, formState} = useForm<FormData>();
+  const {setUid, uid} = useContext(IsLoginContext);
 
   // 로그인 하기 버튼
   const onSubmit = async (data: FormData) => {
@@ -41,6 +44,11 @@ export default function SignInScreen({navigation}: {navigation: any}) {
         id,
         password,
       );
+
+      // 로그인 성공 시 uid를 context에 저장 (전역적으로 사용하기 위함)
+      setUid(userCredential.user?.uid);
+      console.log('uid 저장 완료', userCredential.user?.uid);
+
       // 인증 여부 확인
       const userDoc = await db
         .collection('Users')
@@ -75,6 +83,7 @@ export default function SignInScreen({navigation}: {navigation: any}) {
   const onSubmit2 = () => {
     console.log('회원가입 페이지로 이동합니다.');
     navigation.navigate('SignUp');
+    console.log('uid 확인(테스트)', uid);
   };
 
   // 이미지 크기를 위한 styleSheet
