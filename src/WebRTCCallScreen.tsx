@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Text, Button, View} from 'react-native';
+import {Text, Button, View, Modal, TouchableOpacity} from 'react-native';
 
 import {
   RTCPeerConnection,
@@ -12,6 +12,8 @@ import {
 
 import {db} from './util/firestore';
 import Timer from './Timer';
+import {useContext} from 'react';
+import {IsLoginContext} from './IsLoginContext';
 
 const configuration = {
   iceServers: [
@@ -29,6 +31,7 @@ const configuration = {
 
 export default function CallScreen({navigation, route}: any) {
   const roomId = route.params.roomId;
+  const {uid} = useContext(IsLoginContext);
 
   // 통화 종료
   async function onBackPress() {
@@ -66,6 +69,13 @@ export default function CallScreen({navigation, route}: any) {
 
   const [isExtended, setIsExtended] = useState<boolean>(false);
   const [isEnd, setIsEnd] = useState<boolean>(false);
+
+  const [modalVisible, setModalVisible] = useState(false); // 모달 상태
+  const [initInfo, setInitInfo] = useState<boolean>(false); // 초기 정보
+  const [major, setMajor] = useState<string>('?'); // 전공
+  const [studentId, setStudentId] = useState<string>('?'); // 학번
+  const [kakao, setKakao] = useState<string>('?'); // 카카오톡 계정
+  const [insta, setInsta] = useState<string>('?'); // 인스타 계정
 
   useEffect(() => {
     startLocalStream();
@@ -169,7 +179,9 @@ export default function CallScreen({navigation, route}: any) {
           extensionCount: 0,
           endCaller: false,
           endCallee: false,
+          callerUid: uid,
         });
+        // await updateInfo();
       }
     });
 
@@ -206,6 +218,23 @@ export default function CallScreen({navigation, route}: any) {
       }
       if (data?.endCaller && !data?.endCallee && !isEnd) {
         setIsEnd(true);
+      }
+      // callee 정보 가져오기
+      if (data?.calleeUid && !initInfo) {
+        const userRef = db.collection('Users').doc(data.calleeUid);
+        const userDoc = await userRef.get();
+        const calleeMajor = userDoc.data()?.major;
+        console.log('callee major 확인', calleeMajor);
+        const calleeStudentId = userDoc.data()?.studentID;
+        const calleeKakao = userDoc.data()?.kakao;
+        const calleeInsta = userDoc.data()?.insta;
+
+        setMajor(calleeMajor);
+        setStudentId(calleeStudentId);
+        setKakao(calleeKakao);
+        setInsta(calleeInsta);
+
+        setInitInfo(true); // 정보 세팅 완료
       }
     });
 
@@ -287,6 +316,28 @@ export default function CallScreen({navigation, route}: any) {
           isExtended={isExtended}
           setIsExtended={setIsExtended}
         />
+      </View>
+      {/* 정보 확인 버튼 */}
+      <View>
+        <Button title="View Info" onPress={() => setModalVisible(true)} />
+      </View>
+      {/* 정보 확인 모달 */}
+      <View>
+        <Modal
+          visible={modalVisible}
+          onRequestClose={() => {
+            setModalVisible(!modalVisible);
+          }}>
+          <Text>"전공" {major}</Text>
+          <Text>"학번" {studentId}</Text>
+          <Text>"카카오톡" {kakao}</Text>
+          <Text>"인스타그램" {insta}</Text>
+          <TouchableOpacity onPress={() => setModalVisible(false)}>
+            <Text className="mx-auto text-[16px] text-black underline">
+              취소
+            </Text>
+          </TouchableOpacity>
+        </Modal>
       </View>
       <View className="w-full h-full flex flex-col">
         <View className="flex w-full h-[250px]">

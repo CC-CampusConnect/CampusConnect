@@ -1,7 +1,7 @@
 // 4. 메인페이지
 // MainPageScreen.tsx
 
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -93,6 +93,24 @@ export default function MainPageScreen({navigation}: {navigation: any}) {
     setModalVisible2(false);
   };
 
+  // 처음 렌더링 될 때 db에서 계정 정보 가져와서 표시
+  const getAccount = async () => {
+    const userRef = db.collection('Users').doc(uid);
+    const doc = await userRef.get();
+    const kakao = doc.data()?.kakao;
+    const insta = doc.data()?.insta;
+    if (kakao === undefined) {
+      setKakaoid('');
+    } else {
+      setKakaoid(kakao);
+    }
+    if (insta === undefined) {
+      setInstaid('');
+    } else {
+      setInstaid(insta);
+    }
+  };
+
   // 이미지 크기를 위한 styleSheet
   const styles = StyleSheet.create({
     LogoImage: {
@@ -105,6 +123,10 @@ export default function MainPageScreen({navigation}: {navigation: any}) {
       height: 35,
     },
   });
+
+  useEffect(() => {
+    getAccount();
+  }, []);
 
   return (
     <View className="flex w-full h-full relative bg-white-gray">
