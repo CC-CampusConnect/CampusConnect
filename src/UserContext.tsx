@@ -1,17 +1,18 @@
 import React, {createContext, useContext, useState, useEffect} from 'react';
 import auth from '@react-native-firebase/auth';
 
-interface IsLoginContextProps {
+// UserContext.tsx 수정
+interface UserContextProps {
   uid: string | undefined;
   setUid: React.Dispatch<React.SetStateAction<string | undefined>>;
 }
 
-export const IsLoginContext = createContext<IsLoginContextProps>({
+export const UserContext = createContext<UserContextProps>({
   uid: undefined,
   setUid: () => {},
 });
 
-export function IsLoginProvider({children}: {children: React.ReactNode}) {
+export function UserProvider({children}: {children: React.ReactNode}) {
   const [uid, setUid] = useState<string | undefined>(undefined);
 
   useEffect(() => {
@@ -28,16 +29,16 @@ export function IsLoginProvider({children}: {children: React.ReactNode}) {
   }, []);
 
   return (
-    <IsLoginContext.Provider value={{uid, setUid}}>
+    <UserContext.Provider value={{uid, setUid}}>
       {children}
-    </IsLoginContext.Provider>
+    </UserContext.Provider>
   );
 }
 
-export function useIsLoginState() {
-  const context = useContext(IsLoginContext);
+export function useUserState() {
+  const context = useContext(UserContext);
   if (!context) {
-    throw new Error('Cannot find IsLoginProvider');
+    throw new Error('Cannot find UserProvider');
   }
   return context.uid;
 }

@@ -16,7 +16,7 @@ import {useForm, Controller} from 'react-hook-form';
 import auth from '@react-native-firebase/auth';
 import {db} from './util/firestore';
 import {useContext} from 'react';
-import {IsLoginContext} from './IsLoginContext';
+import {UserContext} from './UserContext';
 
 type FormData = {
   id: string;
@@ -25,7 +25,7 @@ type FormData = {
 
 export default function SignInScreen({navigation}: {navigation: any}) {
   const {control, handleSubmit, formState} = useForm<FormData>();
-  const {setUid, uid} = useContext(IsLoginContext);
+  const {setUid, uid} = useContext(UserContext);
 
   // 로그인 하기 버튼
   const onSubmit = async (data: FormData) => {

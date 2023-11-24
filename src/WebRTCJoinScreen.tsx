@@ -13,7 +13,8 @@ import {
 import {db} from './util/firestore';
 import Timer from './Timer';
 import {useContext} from 'react';
-import {IsLoginContext} from './IsLoginContext';
+import {UserContext} from './UserContext';
+import {CommonActions} from '@react-navigation/native';
 
 const configuration = {
   iceServers: [
@@ -31,7 +32,7 @@ const configuration = {
 
 export default function JoinScreen({navigation, route}: any) {
   const roomId = route.params.roomId;
-  const {uid} = useContext(IsLoginContext);
+  const {uid} = useContext(UserContext);
 
   async function onBackPress() {
     if (cachedLocalPC) {
@@ -53,7 +54,17 @@ export default function JoinScreen({navigation, route}: any) {
       endCaller: true,
     });
 
-    navigation.navigate('CallEndScreen');
+    navigation.dispatch(
+      CommonActions.reset({
+        index: 1,
+        routes: [
+          {name: 'Home'},
+          {
+            name: 'CallEndScreen',
+          },
+        ],
+      }),
+    );
   }
 
   const [localStream, setLocalStream] = useState<MediaStream | null>(null); // Stream of local user
@@ -71,7 +82,6 @@ export default function JoinScreen({navigation, route}: any) {
   const [isEnd, setIsEnd] = useState<boolean>(false);
 
   const [modalVisible, setModalVisible] = useState(false); // 모달 상태
-  const [initInfo, setInitInfo] = useState<boolean>(false); // 초기 정보
   const [major, setMajor] = useState<string>('?'); // 전공
   const [studentId, setStudentId] = useState<string>('?'); // 학번
   const [kakao, setKakao] = useState<string>('?'); // 카카오톡 계정
@@ -179,6 +189,7 @@ export default function JoinScreen({navigation, route}: any) {
         await roomRef.update({
           calleeReady: true,
           calleeUid: uid,
+          initCallerInfo: false,
         });
       }
     });
@@ -219,7 +230,7 @@ export default function JoinScreen({navigation, route}: any) {
       }
 
       // caller 정보 가져오기
-      if (data?.callerUid && !initInfo) {
+      if (data?.callerUid && !data?.initCallerInfo) {
         const userRef = db.collection('Users').doc(data.callerUid);
         const userDoc = await userRef.get();
         const callerMajor = userDoc.data()?.major;
@@ -233,7 +244,9 @@ export default function JoinScreen({navigation, route}: any) {
         setKakao(callerKakao);
         setInsta(callerInsta);
 
-        setInitInfo(true); // 정보 세팅 완료
+        await roomRef.update({
+          initCallerInfo: true,
+        }); // 정보 세팅 완료
       }
     });
 
