@@ -56,7 +56,7 @@ export default function Timer({
 
   return (
     <>
-      <View className='w-[88px] h-[30px] bg-white rounded'>
+      <View className='w-[56px] h-[30px] bg-white rounded my-auto'>
         {timerStarted ? (
           <Text className='text-center text-[20px]'>
             {minutes} : {seconds}

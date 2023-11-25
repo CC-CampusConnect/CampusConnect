@@ -334,38 +334,57 @@ export default function CallScreen({navigation, route}: any) {
       
       <Text>Room : {roomId}</Text>
 
-      <View>
-        {!localStream && (
-          <Button title="Click to start stream" onPress={startLocalStream} />
-        )}
-        {localStream && (
-          <Button
-            title="Click to start call"
-            onPress={() => startCall(roomId)}
-            disabled={!!remoteStream}
-          />
-        )}
-      </View>
-
-      {localStream && (
-        <View>
-          <Button title="Switch camera" onPress={switchCamera} />
-          <Button
-            title={`${isMuted ? 'Unmute' : 'Mute'} stream`}
-            onPress={toggleMute}
-            disabled={!remoteStream}
-          />
-        </View>
-      )}
-
-      {/* 타이머 */}
-      <View className='absolute mx-auto top-[16px] left-[162px]'>
+      {/* 타이머 & start call & switchCamera & toggleMute & startLocalStream */}
+      <View className='flex flex-row top-0 left-0 right-0 justify-around items-end h-[50px] bg-brown'>
+        {/* 타이머 */}
         <Timer
           onBackPress={onBackPress}
           timerStarted={timerStarted}
           isExtended={isExtended}
           setIsExtended={setIsExtended}
         />
+
+        {/* start call */}
+        {localStream && (
+          <TouchableOpacity 
+            className="w-[56px] h-[30px] bg-white rounded my-auto" 
+            onPress={() => startCall(roomId)}
+            disabled={!!remoteStream}
+          >
+            <Text>Click to start call</Text>
+          </TouchableOpacity>
+        )}
+
+        {/* switchCamera */}
+        {localStream && (
+          <TouchableOpacity 
+            className="w-[56px] h-[30px] bg-white rounded my-auto" 
+            onPress={switchCamera}
+          >
+            <Text>Switch camera</Text>
+          </TouchableOpacity>
+        )}
+
+        {/* toggleMute */}
+        {localStream && (
+          <TouchableOpacity 
+            className="w-[56px] h-[30px] bg-white rounded my-auto" 
+            onPress={toggleMute}
+            disabled={!remoteStream}
+          >
+            <Text>{`${isMuted ? 'Unmute' : 'Mute'} stream`}</Text>
+          </TouchableOpacity>
+        )}
+
+        {/* startLocalStream */}
+        {!localStream && (
+          <TouchableOpacity 
+            className="w-[56px] h-[30px] bg-white rounded my-auto" 
+            onPress={startLocalStream}
+          >
+            <Text>Click to start stream</Text>
+          </TouchableOpacity>
+        )}
       </View>
       
       {/* 정보 확인 모달 */}
