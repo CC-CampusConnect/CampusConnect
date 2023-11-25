@@ -63,6 +63,9 @@ export default function CallScreen({navigation, route}: any) {
           {name: 'Home'},
           {
             name: 'CallEndScreen',
+            params: {
+              roomId: roomId,
+            },
           },
         ],
       }),
@@ -111,9 +114,24 @@ export default function CallScreen({navigation, route}: any) {
       setRemoteStream(null);
       setCachedLocalPC(null);
 
-      navigation.navigate('CallEndScreen');
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 1,
+          routes: [
+            {name: 'Home'},
+            {
+              name: 'CallEndScreen',
+              params: {
+                roomId: roomId,
+              },
+            },
+          ],
+        }),
+      );
+
+      // navigation.navigate('CallEndScreen');
     }
-  }, [isEnd, cachedLocalPC, navigation]);
+  }, [isEnd, cachedLocalPC, navigation, roomId]);
 
   // 카메라 및 마이크 스트림 설정
   const startLocalStream = async () => {

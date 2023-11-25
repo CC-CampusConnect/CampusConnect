@@ -15,11 +15,15 @@ import {
 } from 'react-native';
 import Checkbox from './Checkbox';
 import {db} from './util/firestore';
+import {useContext} from 'react';
+import {UserContext} from './UserContext';
 
-export default function CallEndScreen({navigation}: {navigation: any}) {
+export default function CallEndScreen({navigation, route}: any) {
+  const roomId = route.params.roomId;
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]); // 선택된 옵션
   const [text, setText] = useState<string>(''); // 기타 사유
   const [modalVisible, setModalVisible] = useState(false); // 모달 상태
+  const {uid} = useContext(UserContext);
 
   // 체크박스 선택 시 호출되는 함수
   const handleCheckboxChange = (option: string, isChecked: boolean) => {
@@ -35,7 +39,13 @@ export default function CallEndScreen({navigation}: {navigation: any}) {
   // 신고하기 버튼 클릭 시 호출되는 함수
   const handleReport = async () => {
     try {
+      const roomRef = db.collection('rooms').doc(roomId);
+      const roomDoc = await roomRef.get();
+      const data = roomDoc.data();
       await db.collection('reports').add({
+        roomId: roomId,
+        reporter: uid,
+        reportee: data?.callerUid === uid ? data?.calleeUid : data?.callerUid,
         profanity: selectedOptions.includes('욕설/인신공격'),
         illegal: selectedOptions.includes('불법 활동 유도'),
         sexual: selectedOptions.includes('음란/선정성'),
@@ -45,9 +55,15 @@ export default function CallEndScreen({navigation}: {navigation: any}) {
       });
       Alert.alert('신고가 정상적으로 처리되었습니다.');
       setModalVisible(false);
+      setSelectedOptions([]);
     } catch (error) {
       console.error('신고 처리 오류 발생', error);
     }
+  };
+
+  const handleCancel = () => {
+    setModalVisible(false);
+    setSelectedOptions([]);
   };
 
   // 신고 옵션 목록
@@ -192,7 +208,7 @@ export default function CallEndScreen({navigation}: {navigation: any}) {
                   신고하기
                 </Text>
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => setModalVisible(false)}>
+              <TouchableOpacity onPress={handleCancel}>
                 <Text
                   className="mx-auto text-[16px] text-black underline"
                   style={{fontFamily: 'GowunDodum-Regular'}}>
