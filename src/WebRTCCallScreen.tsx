@@ -36,6 +36,7 @@ export default function CallScreen({navigation, route}: any) {
 
   // 통화 종료
   async function onBackPress() {
+    console.log('통화 종료')
     if (cachedLocalPC) {
       const sender = cachedLocalPC.getSenders()[0];
 
@@ -329,8 +330,8 @@ export default function CallScreen({navigation, route}: any) {
   };
 
   return (
-    <View className="flex w-full h-full">
-      <Text>Call Screen</Text>
+    <View className="flex w-full h-full relative bg-white-gray">
+      
       <Text>Room : {roomId}</Text>
 
       <View>
@@ -357,7 +358,8 @@ export default function CallScreen({navigation, route}: any) {
         </View>
       )}
 
-      <View className='w-full absolute mx-auto top-[16px] left-[162px]'>
+      {/* 타이머 */}
+      <View className='absolute mx-auto top-[16px] left-[162px]'>
         <Timer
           onBackPress={onBackPress}
           timerStarted={timerStarted}
@@ -367,7 +369,7 @@ export default function CallScreen({navigation, route}: any) {
       </View>
       
       {/* 정보 확인 모달 */}
-      <View>
+      <View className='bg-brown'>
         <Modal
           visible={modalVisible}
           onRequestClose={() => {
@@ -414,7 +416,7 @@ export default function CallScreen({navigation, route}: any) {
         >
           <Text>Click to stop call</Text>
         </TouchableOpacity>
-
+        
         {/* 정보 확인 버튼 */}
         <TouchableOpacity
           className="w-14 h-14 my-auto bg-pink-500 rounded-full"
@@ -434,25 +436,21 @@ export default function CallScreen({navigation, route}: any) {
         )}
       </View>
 
-      <View className="w-full h-full flex flex-col">
-        <View className="flex w-full h-full">
+      <View>
           {localStream && (
             <RTCView
-              className='w-[391px] h-[391px]'
+              className='w-[200px] h-[200px]'
               objectFit= {'cover'}
               streamURL={localStream && localStream.toURL()}
             />
           )}
-        </View>
-        <View className="flex w-full h-full">
           {remoteStream && (
             <RTCView
-              className='w-[391px] h-[391px]'
+              className='w-[200px] h-[200px]'
               objectFit= {'cover'}
               streamURL={remoteStream && remoteStream.toURL()}
             />
           )}
-        </View>
       </View>
     </View>
   );

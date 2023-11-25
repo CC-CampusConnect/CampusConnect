@@ -328,7 +328,7 @@ export default function JoinScreen({navigation, route}: any) {
 
   return (
     <View className="w-full h-full flex flex-col">
-      <Text>Join Screen</Text>
+      
       <Text>Room : {roomId}</Text>
       <View>
         <View>
@@ -408,8 +408,7 @@ export default function JoinScreen({navigation, route}: any) {
         <View className="flex w-full h-[250px]">
           {localStream && (
             <RTCView
-              className='w-[391px] h-[391px]'
-              objectFit= {'cover'}
+              className="w-full h-full bg-black"
               streamURL={localStream && localStream.toURL()}
             />
           )}
@@ -417,8 +416,7 @@ export default function JoinScreen({navigation, route}: any) {
         <View className="flex w-full h-[250px]">
           {remoteStream && (
             <RTCView
-              className='w-[391px] h-[391px]'
-              objectFit= {'cover'}
+              className="w-full h-full bg-black"
               streamURL={remoteStream && remoteStream.toURL()}
             />
           )}
