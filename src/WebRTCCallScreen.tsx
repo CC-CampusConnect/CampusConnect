@@ -457,7 +457,7 @@ export default function CallScreen({navigation, route}: any) {
       </View>
 
       {/* 통화 화면 */}
-      <View className='flex w-full space-y-4 bg-pink-500'>
+      <View className='flex w-full space-y-4 bg-[#000000]'>
           {localStream && (
             <RTCView
               className='w-[390px] h-[350px] mx-auto'
