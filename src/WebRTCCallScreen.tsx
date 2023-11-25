@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Text, Button, View, Modal, TouchableOpacity} from 'react-native';
+import {Text, Button, View, Modal, TouchableOpacity, } from 'react-native';
 
 import {
   RTCPeerConnection,
@@ -329,26 +329,21 @@ export default function CallScreen({navigation, route}: any) {
   };
 
   return (
-    <View className="w-full h-full flex flex-col">
+    <View className="flex w-full h-full">
       <Text>Call Screen</Text>
       <Text>Room : {roomId}</Text>
 
       <View>
-        <View>
-          <Button title="Click to stop call" onPress={onBackPress} />
-        </View>
-        <View>
-          {!localStream && (
-            <Button title="Click to start stream" onPress={startLocalStream} />
-          )}
-          {localStream && (
-            <Button
-              title="Click to start call"
-              onPress={() => startCall(roomId)}
-              disabled={!!remoteStream}
-            />
-          )}
-        </View>
+        {!localStream && (
+          <Button title="Click to start stream" onPress={startLocalStream} />
+        )}
+        {localStream && (
+          <Button
+            title="Click to start call"
+            onPress={() => startCall(roomId)}
+            disabled={!!remoteStream}
+          />
+        )}
       </View>
 
       {localStream && (
@@ -359,10 +354,10 @@ export default function CallScreen({navigation, route}: any) {
             onPress={toggleMute}
             disabled={!remoteStream}
           />
-          <Button title="Click to extend call" onPress={extendCall} />
         </View>
       )}
-      <View>
+
+      <View className='w-full absolute mx-auto top-[16px] left-[162px]'>
         <Timer
           onBackPress={onBackPress}
           timerStarted={timerStarted}
@@ -370,10 +365,7 @@ export default function CallScreen({navigation, route}: any) {
           setIsExtended={setIsExtended}
         />
       </View>
-      {/* 정보 확인 버튼 */}
-      <View>
-        <Button title="View Info" onPress={() => setModalVisible(true)} />
-      </View>
+      
       {/* 정보 확인 모달 */}
       <View>
         <Modal
@@ -404,10 +396,44 @@ export default function CallScreen({navigation, route}: any) {
           </TouchableOpacity>
         </Modal>
       </View>
-      {/* SNS 추가 버튼 */}
-      <View>
-        <Button title="Add SNS" onPress={handleAddSns} />
+
+      {/* 버튼들 */}
+      <View className='flex flex-row absolute bottom-0 left-0 right-0 justify-around items-end h-[110px] bg-brown'>
+        {/* SNS 추가 버튼 */}
+        <TouchableOpacity
+            className="w-14 h-14 my-auto bg-pink-500 rounded-full"
+            onPress={handleAddSns}
+        >
+          <Text>Add SNS</Text>
+        </TouchableOpacity>
+
+        {/* 통화 종료 버튼 */}
+        <TouchableOpacity
+          className="w-14 h-14 my-auto bg-pink-500 rounded-full"
+          onPress={onBackPress}
+        >
+          <Text>Click to stop call</Text>
+        </TouchableOpacity>
+
+        {/* 정보 확인 버튼 */}
+        <TouchableOpacity
+          className="w-14 h-14 my-auto bg-pink-500 rounded-full"
+          onPress={() => setModalVisible(true)}
+        >
+          <Text>View Info</Text>
+        </TouchableOpacity>
+
+        {/* 통화 연장 버튼 */}
+        {localStream && (
+          <TouchableOpacity
+            className="w-14 h-14 my-auto bg-pink-500 rounded-full"
+            onPress={extendCall}
+          >
+            <Text>Click to extend call</Text>
+          </TouchableOpacity>
+        )}
       </View>
+
       <View className="w-full h-full flex flex-col">
         <View className="flex w-full h-[250px]">
           {localStream && (

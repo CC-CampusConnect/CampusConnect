@@ -64,8 +64,6 @@ export default function DreamyRequestScreen({navigation}: {navigation: any}) {
                     <Text className='mx-auto my-auto text-sm text-white'>인증하기</Text>
                 </TouchableOpacity>
             </View>
-            {/* 배경 로고들 */}
-            
         </View>
     )
 }
