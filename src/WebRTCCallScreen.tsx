@@ -330,10 +330,10 @@ export default function CallScreen({navigation, route}: any) {
   };
 
   return (
-    <View className="flex w-full h-full relative bg-black">
+    <View className="flex w-full h-full relative bg-[#000000]">
 
       {/* 타이머 & start call & switchCamera & toggleMute & startLocalStream & roomId*/}
-      <View className='flex flex-row top-0 left-0 right-0 justify-around items-end h-[50px] bg-brown'>
+      <View className='flex flex-row top-0 left-0 right-0 justify-around items-end h-[50px] bg-[#000000]'>
         {/* 타이머 */}
         <Timer
           onBackPress={onBackPress}
@@ -420,7 +420,7 @@ export default function CallScreen({navigation, route}: any) {
       </View>
 
      {/* 버튼들 */}
-      <View className='flex flex-row absolute bottom-0 left-0 right-0 justify-around items-end h-[80px] bg-brown'>
+      <View className='flex flex-row absolute bottom-0 left-0 right-0 justify-around items-end h-[80px] bg-[#000000]'>
         {/* SNS 추가 버튼 */}
         <TouchableOpacity
             className="w-14 h-14 my-auto bg-pink-500 rounded-full"
@@ -457,7 +457,7 @@ export default function CallScreen({navigation, route}: any) {
       </View>
 
       {/* 통화 화면 */}
-      <View className='flex w-full space-y-4 bg-[#000000]'>
+      <View className='flex w-full space-y-4'>
           {localStream && (
             <RTCView
               className='w-[390px] h-[350px] mx-auto'
