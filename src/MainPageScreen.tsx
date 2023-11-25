@@ -18,7 +18,7 @@ import {useForm, Controller} from 'react-hook-form';
 import auth from '@react-native-firebase/auth';
 import {db} from './util/firestore';
 import {useContext} from 'react';
-import {IsLoginContext} from './IsLoginContext';
+import {UserContext} from './UserContext';
 
 export default function MainPageScreen({navigation}: {navigation: any}) {
   const {control, handleSubmit, formState} = useForm<FormData>();
@@ -26,7 +26,7 @@ export default function MainPageScreen({navigation}: {navigation: any}) {
   const [instaId, setInstaid] = useState<string>(''); // 인스타 계정 입력
   const [modalVisible, setModalVisible] = useState(false); // 카카오톡 모달 상태
   const [modalVisible2, setModalVisible2] = useState(false); // 인스타 모달 상태
-  const {setUid, uid} = useContext(IsLoginContext);
+  const {setUid, uid} = useContext(UserContext);
 
   // 매칭 시작 버튼 누르면 WebRTCRoom으로 이동
   const onSubmit = async (data: FormData) => {

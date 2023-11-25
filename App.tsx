@@ -14,13 +14,13 @@ import WebRTCCallScreen from './src/WebRTCCallScreen';
 import WebRTCJoinScreen from './src/WebRTCJoinScreen';
 import WebRTCRoomScreen from './src/WebRTCRoomScreen';
 import CallEndScreen from './src/CallEndScreen';
-import {IsLoginProvider} from './src/IsLoginContext';
+import {UserProvider} from './src/UserContext';
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <IsLoginProvider>
+    <UserProvider>
       <NavigationContainer>
         <Stack.Navigator initialRouteName="Home">
           <Stack.Screen name="Home" component={HomeScreen} />
@@ -44,6 +44,6 @@ export default function App() {
           <Stack.Screen name="CallEndScreen" component={CallEndScreen} />
         </Stack.Navigator>
       </NavigationContainer>
-    </IsLoginProvider>
+    </UserProvider>
   );
 }

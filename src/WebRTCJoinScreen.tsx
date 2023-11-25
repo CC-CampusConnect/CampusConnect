@@ -13,7 +13,8 @@ import {
 import {db} from './util/firestore';
 import Timer from './Timer';
 import {useContext} from 'react';
-import {IsLoginContext} from './IsLoginContext';
+import {UserContext} from './UserContext';
+import {CommonActions} from '@react-navigation/native';
 
 const configuration = {
   iceServers: [
@@ -31,7 +32,7 @@ const configuration = {
 
 export default function JoinScreen({navigation, route}: any) {
   const roomId = route.params.roomId;
-  const {uid} = useContext(IsLoginContext);
+  const {uid} = useContext(UserContext);
 
   async function onBackPress() {
     if (cachedLocalPC) {
@@ -53,7 +54,20 @@ export default function JoinScreen({navigation, route}: any) {
       endCaller: true,
     });
 
-    navigation.navigate('CallEndScreen');
+    navigation.dispatch(
+      CommonActions.reset({
+        index: 1,
+        routes: [
+          {name: 'Home'},
+          {
+            name: 'CallEndScreen',
+            params: {
+              roomId: roomId,
+            },
+          },
+        ],
+      }),
+    );
   }
 
   const [localStream, setLocalStream] = useState<MediaStream | null>(null); // Stream of local user
@@ -71,11 +85,15 @@ export default function JoinScreen({navigation, route}: any) {
   const [isEnd, setIsEnd] = useState<boolean>(false);
 
   const [modalVisible, setModalVisible] = useState(false); // 모달 상태
-  const [initInfo, setInitInfo] = useState<boolean>(false); // 초기 정보
   const [major, setMajor] = useState<string>('?'); // 전공
   const [studentId, setStudentId] = useState<string>('?'); // 학번
   const [kakao, setKakao] = useState<string>('?'); // 카카오톡 계정
   const [insta, setInsta] = useState<string>('?'); // 인스타 계정
+
+  const [isActivatedSns, setIsActivatedSns] = useState<boolean>(false); // caller의 SNS 공개 여부
+  const [isActivatedMajor, setIsActivatedMajor] = useState<boolean>(false);
+  const [isActivatedStudentId, setIsActivatedStudentId] =
+    useState<boolean>(false);
 
   useEffect(() => {
     startLocalStream();
@@ -96,9 +114,24 @@ export default function JoinScreen({navigation, route}: any) {
       setRemoteStream(null);
       setCachedLocalPC(null);
 
-      navigation.navigate('CallEndScreen');
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 1,
+          routes: [
+            {name: 'Home'},
+            {
+              name: 'CallEndScreen',
+              params: {
+                roomId: roomId,
+              },
+            },
+          ],
+        }),
+      );
+
+      // navigation.navigate('CallEndScreen');
     }
-  }, [isEnd, cachedLocalPC, navigation]);
+  }, [isEnd, cachedLocalPC, navigation, roomId]);
 
   const startLocalStream = async () => {
     // isFront will determine if the initial camera should face user or environment
@@ -179,6 +212,7 @@ export default function JoinScreen({navigation, route}: any) {
         await roomRef.update({
           calleeReady: true,
           calleeUid: uid,
+          initCallerInfo: false,
         });
       }
     });
@@ -209,21 +243,26 @@ export default function JoinScreen({navigation, route}: any) {
         data?.extensionCount < 2
       ) {
         console.log('통화 연장 <callee>');
-
         setIsExtended(true);
       }
 
+      // 통화 연장 시 정보 공개
+      if (data?.extensionCount === 1 && !isActivatedMajor) {
+        setIsActivatedMajor(true);
+      } else if (data?.extensionCount === 2 && !isActivatedStudentId) {
+        setIsActivatedStudentId(true);
+      }
+      // 상대가 통화 종료 시
       if (data?.endCallee && !data?.endCaller && !isEnd) {
         // onbackpress와 동일
         setIsEnd(true);
       }
 
       // caller 정보 가져오기
-      if (data?.callerUid && !initInfo) {
+      if (data?.callerUid && !data?.initCallerInfo) {
         const userRef = db.collection('Users').doc(data.callerUid);
         const userDoc = await userRef.get();
         const callerMajor = userDoc.data()?.major;
-        console.log('caller major 확인', callerMajor);
         const callerStudentId = userDoc.data()?.studentID;
         const callerKakao = userDoc.data()?.kakao;
         const callerInsta = userDoc.data()?.insta;
@@ -233,7 +272,12 @@ export default function JoinScreen({navigation, route}: any) {
         setKakao(callerKakao);
         setInsta(callerInsta);
 
-        setInitInfo(true); // 정보 세팅 완료
+        await roomRef.update({
+          initCallerInfo: true,
+        }); // 정보 세팅 완료
+      }
+      if (data?.callerSnsAddPressed && !isActivatedSns) {
+        setIsActivatedSns(true);
       }
     });
 
@@ -271,6 +315,14 @@ export default function JoinScreen({navigation, route}: any) {
     const roomRef = await db.collection('rooms').doc(roomId);
     await roomRef.update({
       calleeExtensionPressed: true,
+    });
+  };
+
+  // SNS 추가 버튼 이벤트 핸들러
+  const handleAddSns = async () => {
+    const roomRef = await db.collection('rooms').doc(roomId);
+    await roomRef.update({
+      calleeSnsAddPressed: true,
     });
   };
 
@@ -325,16 +377,32 @@ export default function JoinScreen({navigation, route}: any) {
           onRequestClose={() => {
             setModalVisible(!modalVisible);
           }}>
-          <Text>"전공" {major}</Text>
-          <Text>"학번" {studentId}</Text>
-          <Text>"카카오톡" {kakao}</Text>
-          <Text>"인스타그램" {insta}</Text>
+          {isActivatedMajor && (
+            <View>
+              <Text>"전공" {major}</Text>
+            </View>
+          )}
+          {isActivatedStudentId && (
+            <View>
+              <Text>"학번" {studentId}</Text>
+            </View>
+          )}
+          {isActivatedSns && (
+            <View>
+              <Text>"카카오톡" {kakao}</Text>
+              <Text>"인스타그램" {insta}</Text>
+            </View>
+          )}
           <TouchableOpacity onPress={() => setModalVisible(false)}>
             <Text className="mx-auto text-[16px] text-black underline">
               취소
             </Text>
           </TouchableOpacity>
         </Modal>
+      </View>
+      {/* SNS 추가 버튼 */}
+      <View>
+        <Button title="Add SNS" onPress={handleAddSns} />
       </View>
       <View className="w-full h-full flex flex-col">
         <View className="flex w-full h-[250px]">
