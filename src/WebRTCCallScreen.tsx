@@ -87,6 +87,11 @@ export default function CallScreen({navigation, route}: any) {
   const [kakao, setKakao] = useState<string>('?'); // 카카오톡 계정
   const [insta, setInsta] = useState<string>('?'); // 인스타 계정
 
+  const [isActivatedSns, setIsActivatedSns] = useState<boolean>(false); // callee의 SNS 공개 여부
+  const [isActivatedMajor, setIsActivatedMajor] = useState<boolean>(false);
+  const [isActivatedStudentId, setIsActivatedStudentId] =
+    useState<boolean>(false);
+
   useEffect(() => {
     startLocalStream();
   }, []);
@@ -227,6 +232,13 @@ export default function CallScreen({navigation, route}: any) {
           extensionCount: data.extensionCount + 1,
         });
       }
+      // 통화 연장 시 정보 공개
+      if (data?.extensionCount === 1 && !isActivatedMajor) {
+        setIsActivatedMajor(true);
+      } else if (data?.extensionCount === 2 && !isActivatedStudentId) {
+        setIsActivatedStudentId(true);
+      }
+      // 상대가 통화 종료 시
       if (data?.endCaller && !data?.endCallee && !isEnd) {
         setIsEnd(true);
       }
@@ -235,7 +247,6 @@ export default function CallScreen({navigation, route}: any) {
         const userRef = db.collection('Users').doc(data.calleeUid);
         const userDoc = await userRef.get();
         const calleeMajor = userDoc.data()?.major;
-        console.log('callee major 확인', calleeMajor);
         const calleeStudentId = userDoc.data()?.studentID;
         const calleeKakao = userDoc.data()?.kakao;
         const calleeInsta = userDoc.data()?.insta;
@@ -248,6 +259,9 @@ export default function CallScreen({navigation, route}: any) {
         await roomRef.update({
           initCalleeInfo: true,
         }); // 정보 세팅 완료
+      }
+      if (data?.calleeSnsAddPressed && !isActivatedSns) {
+        setIsActivatedSns(true);
       }
     });
 
@@ -285,6 +299,14 @@ export default function CallScreen({navigation, route}: any) {
     const roomRef = await db.collection('rooms').doc(roomId);
     await roomRef.update({
       callerExtensionPressed: true,
+    });
+  };
+
+  // SNS 추가 버튼 이벤트 핸들러
+  const handleAddSns = async () => {
+    const roomRef = await db.collection('rooms').doc(roomId);
+    await roomRef.update({
+      callerSnsAddPressed: true,
     });
   };
 
@@ -341,16 +363,32 @@ export default function CallScreen({navigation, route}: any) {
           onRequestClose={() => {
             setModalVisible(!modalVisible);
           }}>
-          <Text>"전공" {major}</Text>
-          <Text>"학번" {studentId}</Text>
-          <Text>"카카오톡" {kakao}</Text>
-          <Text>"인스타그램" {insta}</Text>
+          {isActivatedMajor && (
+            <View>
+              <Text>"전공" {major}</Text>
+            </View>
+          )}
+          {isActivatedStudentId && (
+            <View>
+              <Text>"학번" {studentId}</Text>
+            </View>
+          )}
+          {isActivatedSns && (
+            <View>
+              <Text>"카카오톡" {kakao}</Text>
+              <Text>"인스타그램" {insta}</Text>
+            </View>
+          )}
           <TouchableOpacity onPress={() => setModalVisible(false)}>
             <Text className="mx-auto text-[16px] text-black underline">
               취소
             </Text>
           </TouchableOpacity>
         </Modal>
+      </View>
+      {/* SNS 추가 버튼 */}
+      <View>
+        <Button title="Add SNS" onPress={handleAddSns} />
       </View>
       <View className="w-full h-full flex flex-col">
         <View className="flex w-full h-[250px]">
