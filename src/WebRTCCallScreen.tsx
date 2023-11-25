@@ -148,8 +148,8 @@ export default function CallScreen({navigation, route}: any) {
       audio: true,
       video: {
         mandatory: {
-          minWidth: 500, // Provide your own width, height and frame rate here
-          minHeight: 300,
+          minWidth: 391, // Provide your own width, height and frame rate here
+          minHeight: 373,
           minFrameRate: 30,
         },
         facingMode,
@@ -435,18 +435,20 @@ export default function CallScreen({navigation, route}: any) {
       </View>
 
       <View className="w-full h-full flex flex-col">
-        <View className="flex w-full h-[250px]">
+        <View className="flex w-full h-full">
           {localStream && (
             <RTCView
-              className="w-full h-full bg-black"
+              className='w-[391px] h-[391px]'
+              objectFit= {'cover'}
               streamURL={localStream && localStream.toURL()}
             />
           )}
         </View>
-        <View className="flex w-full h-[250px]">
+        <View className="flex w-full h-full">
           {remoteStream && (
             <RTCView
-              className="w-full h-full bg-black"
+              className='w-[391px] h-[391px]'
+              objectFit= {'cover'}
               streamURL={remoteStream && remoteStream.toURL()}
             />
           )}
