@@ -330,11 +330,9 @@ export default function CallScreen({navigation, route}: any) {
   };
 
   return (
-    <View className="flex w-full h-full relative bg-white-gray">
-      
-      <Text>Room : {roomId}</Text>
+    <View className="flex w-full h-full relative bg-black">
 
-      {/* 타이머 & start call & switchCamera & toggleMute & startLocalStream */}
+      {/* 타이머 & start call & switchCamera & toggleMute & startLocalStream & roomId*/}
       <View className='flex flex-row top-0 left-0 right-0 justify-around items-end h-[50px] bg-brown'>
         {/* 타이머 */}
         <Timer
@@ -385,6 +383,9 @@ export default function CallScreen({navigation, route}: any) {
             <Text>Click to start stream</Text>
           </TouchableOpacity>
         )}
+
+        {/* roomId */}
+        <Text className='w-[56px] h-[30px] bg-white rounded my-auto'>Room : {roomId}</Text>
       </View>
       
       {/* 정보 확인 모달 */}
@@ -418,8 +419,8 @@ export default function CallScreen({navigation, route}: any) {
         </Modal>
       </View>
 
-      {/* 버튼들 */}
-      <View className='flex flex-row absolute bottom-0 left-0 right-0 justify-around items-end h-[110px] bg-brown'>
+     {/* 버튼들 */}
+      <View className='flex flex-row absolute bottom-0 left-0 right-0 justify-around items-end h-[80px] bg-brown'>
         {/* SNS 추가 버튼 */}
         <TouchableOpacity
             className="w-14 h-14 my-auto bg-pink-500 rounded-full"
@@ -455,22 +456,25 @@ export default function CallScreen({navigation, route}: any) {
         )}
       </View>
 
-      <View>
+      {/* 통화 화면 */}
+      <View className='flex w-full space-y-4 bg-pink-500'>
           {localStream && (
             <RTCView
-              className='w-[200px] h-[200px]'
+              className='w-[390px] h-[350px] mx-auto'
               objectFit= {'cover'}
               streamURL={localStream && localStream.toURL()}
             />
           )}
           {remoteStream && (
             <RTCView
-              className='w-[200px] h-[200px]'
+              className='w-[390px] h-[350px] mx-auto'
               objectFit= {'cover'}
               streamURL={remoteStream && remoteStream.toURL()}
             />
           )}
       </View>
+
+ 
     </View>
   );
 }
