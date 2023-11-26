@@ -13,7 +13,7 @@ export default function ConnectFailScreen({navigation}: {navigation: any}) {
       height: 45,
     },
 
-    SmailDogImage: {
+    SmileDogImage: {
       width:231,
       height:185,
     },
@@ -40,7 +40,7 @@ export default function ConnectFailScreen({navigation}: {navigation: any}) {
       <View className="flex w-full h-full">
         <Image
         className="mx-auto top-[300px]"
-        style={styles.SmailDogImage}
+        style={styles.SmileDogImage}
         source={require('images/SadDog.png')}
         />  
         <Text

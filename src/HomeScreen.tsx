@@ -108,16 +108,21 @@ export default function HomeScreen({navigation}: {navigation: any}) {
           <Text>ConnectFail</Text>
         </View>
       </Pressable>
-      <View className="flex w-full h-full bg-red-300">
+      <Pressable onPress={() => navigation.navigate('ConnectSuccess')}>
+        <View className="w-full h-10 bg-orange">
+          <Text>ConnectSuccess</Text>
+        </View>
+      </Pressable>
+      <View className="flex w-full h-full">
         {user ? (
           <View>
-            <Text className="text-2xl text-center mt-56">
+            <Text className="text-2xl text-center">
               안녕하세요 {user.email?.split('@')[0]}님
             </Text>
             <Button title="로그아웃" onPress={logout} />
           </View>
         ) : (
-          <Text className="text-2xl text-center mt-56">로그인 해주세요</Text>
+          <Text className="text-2xl text-center">로그인 해주세요</Text>
         )}
       </View>
     </View>

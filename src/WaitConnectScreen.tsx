@@ -27,7 +27,7 @@ export default function WaitConnectScreen({navigation}: {navigation: any}) {
       height: 26,
     },
 
-    SmailDogImage: {
+    SmileDogImage: {
       width:231,
       height:185,
     },
@@ -52,8 +52,8 @@ export default function WaitConnectScreen({navigation}: {navigation: any}) {
       <View>
         <Image
           className="mx-auto top-[300px]"
-          style={styles.SmailDogImage}
-          source={require('images/SmailDog.png')}
+          style={styles.SmileDogImage}
+          source={require('images/SmileDog.png')}
         />  
         <Text
           className='top-[330px] text-[32px] text-brown mx-auto' 

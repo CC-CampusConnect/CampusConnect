@@ -89,7 +89,7 @@ export default function CallEndScreen({navigation, route}: any) {
   });
 
   return (
-    <View className="flex w-full h-full relative bg-white-gray ">
+    <View className="flex w-full h-full relative bg-white-gray">
       {/* 배경 이미지 */}
       <View className="w-[346px] h-[767px] left-[33px] top-[30px] absolute">
         <Image
