@@ -7,6 +7,7 @@ import WebView from 'react-native-webview';
 import auth from '@react-native-firebase/auth';
 import {db} from './util/firestore';
 import {FirebaseAuthTypes} from '@react-native-firebase/auth';
+import {CommonActions} from '@react-navigation/native';
 
 export default function DreamyScreen({navigation}: {navigation: any}) {
   const [isLogin, setIsLogin] = useState(false);
@@ -109,7 +110,17 @@ export default function DreamyScreen({navigation}: {navigation: any}) {
                   console.log('유저 정보를 찾을 수 없습니다.');
                   navigation.navigate('DreamyRequest');
                 }
-                navigation.navigate('DreamyComplete');
+                navigation.dispatch(
+                  CommonActions.reset({
+                    index: 1,
+                    routes: [
+                      {name: 'Home'},
+                      {
+                        name: 'DreamyComplete',
+                      },
+                    ],
+                  }),
+                );
               } catch (error: any) {
                 console.log(error);
               }

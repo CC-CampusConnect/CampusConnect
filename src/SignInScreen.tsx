@@ -17,6 +17,7 @@ import auth from '@react-native-firebase/auth';
 import {db} from './util/firestore';
 import {useContext} from 'react';
 import {UserContext} from './UserContext';
+import {CommonActions} from '@react-navigation/native';
 
 type FormData = {
   id: string;
@@ -31,7 +32,6 @@ export default function SignInScreen({navigation}: {navigation: any}) {
   const onSubmit = async (data: FormData) => {
     if (await signIn(data)) {
       console.log('로그인이 완료되었습니다.');
-      // navigation.navigate('DreamyRequest');
     }
   };
 
@@ -58,7 +58,17 @@ export default function SignInScreen({navigation}: {navigation: any}) {
 
       if (userData && userData.is_certified) {
         console.log('인증 여부 확인', userData.is_certified);
-        navigation.navigate('MainPage');
+        navigation.dispatch(
+          CommonActions.reset({
+            index: 1,
+            routes: [
+              {name: 'Home'},
+              {
+                name: 'MainPage',
+              },
+            ],
+          }),
+        );
         return true;
       } else if (userData && !userData.is_certified) {
         console.log('인증 여부 확인', userData.is_certified);

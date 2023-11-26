@@ -58,9 +58,10 @@ export default function CallScreen({navigation, route}: any) {
 
     navigation.dispatch(
       CommonActions.reset({
-        index: 1,
+        index: 2,
         routes: [
           {name: 'Home'},
+          {name: 'MainPage'},
           {
             name: 'CallEndScreen',
             params: {
@@ -118,9 +119,10 @@ export default function CallScreen({navigation, route}: any) {
 
       navigation.dispatch(
         CommonActions.reset({
-          index: 1,
+          index: 2,
           routes: [
             {name: 'Home'},
+            {name: 'MainPage'},
             {
               name: 'CallEndScreen',
               params: {
@@ -130,8 +132,6 @@ export default function CallScreen({navigation, route}: any) {
           ],
         }),
       );
-
-      // navigation.navigate('CallEndScreen');
     }
   }, [isEnd, cachedLocalPC, navigation, roomId]);
 
@@ -146,7 +146,7 @@ export default function CallScreen({navigation, route}: any) {
             const data = doc.data();
             if (data) {
               setMajor(data.major);
-              setStudentId(data.studentId);
+              setStudentId(data.studentID);
               setKakao(data.kakao);
               setInsta(data.insta);
               console.log('callee Major', data.major);

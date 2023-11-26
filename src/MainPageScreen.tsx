@@ -19,6 +19,7 @@ import auth from '@react-native-firebase/auth';
 import {db} from './util/firestore';
 import {useContext} from 'react';
 import {UserContext} from './UserContext';
+import {CommonActions} from '@react-navigation/native';
 
 export default function MainPageScreen({navigation}: {navigation: any}) {
   const {control, handleSubmit, formState} = useForm<FormData>();
@@ -41,7 +42,17 @@ export default function MainPageScreen({navigation}: {navigation: any}) {
       // 로그아웃 시 uid를 null로 변경
       setUid(undefined);
       console.log('로그아웃 되었습니다. 로그인 페이지로 이동합니다.');
-      navigation.navigate('SignIn');
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 1,
+          routes: [
+            {name: 'Home'},
+            {
+              name: 'SignIn',
+            },
+          ],
+        }),
+      );
     } catch (error: any) {
       console.log(error);
     }

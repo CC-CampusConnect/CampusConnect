@@ -13,31 +13,66 @@ import {
   ScrollView,
 } from 'react-native';
 import {useForm, Controller} from 'react-hook-form';
+import {CommonActions} from '@react-navigation/native';
 
 export default function SignUpCompleteScreen({navigation}: {navigation: any}) {
   const {control, handleSubmit, formState} = useForm<FormData>();
 
   const onSubmit = async (data: FormData) => {
     console.log('회원가입 완료. 로그인 페이지로 이동합니다.');
-    navigation.navigate('SignIn');
+    navigation.dispatch(
+      CommonActions.reset({
+        index: 1,
+        routes: [
+          {name: 'Home'},
+          {
+            name: 'SignIn',
+          },
+        ],
+      }),
+    );
   };
 
   return (
     <View className="flex w-full h-full relative bg-white-gray">
       {/* 배경 이미지 */}
       <View className="w-[346px] h-[767px] left-[33px] top-[30px] absolute">
-        <Image className="w-[46px] h-[35px] left-0 top-0 absolute" source={require('images/Cat.png')} />
-        <Image className="w-[46px] h-[35px] left-[6px] top-[402px] absolute" source={require('images/Cat.png')} />
-        <Image className="w-[46px] h-[35px] left-[6px] top-[692px] absolute" source={require('images/Cat.png')} />
+        <Image
+          className="w-[46px] h-[35px] left-0 top-0 absolute"
+          source={require('images/Cat.png')}
+        />
+        <Image
+          className="w-[46px] h-[35px] left-[6px] top-[402px] absolute"
+          source={require('images/Cat.png')}
+        />
+        <Image
+          className="w-[46px] h-[35px] left-[6px] top-[692px] absolute"
+          source={require('images/Cat.png')}
+        />
 
-        <Image className="w-16 h-9 left-[155px] top-[191px] absolute" source={require('images/Rabbit.png')} />
-        <Image className="w-16 h-9 left-[155px] top-[582px] absolute" source={require('images/Rabbit.png')} />
-        
-        <Image className="w-[53px] h-[35px] left-[293px] top-[69px] absolute" source={require('images/Dog.png')} />
-        <Image className="w-[53px] h-[35px] left-[293px] top-[470px] absolute" source={require('images/Dog.png')} />
-        <Image className="w-[53px] h-[35px] left-[293px] top-[732px] absolute" source={require('images/Dog.png')} />
+        <Image
+          className="w-16 h-9 left-[155px] top-[191px] absolute"
+          source={require('images/Rabbit.png')}
+        />
+        <Image
+          className="w-16 h-9 left-[155px] top-[582px] absolute"
+          source={require('images/Rabbit.png')}
+        />
+
+        <Image
+          className="w-[53px] h-[35px] left-[293px] top-[69px] absolute"
+          source={require('images/Dog.png')}
+        />
+        <Image
+          className="w-[53px] h-[35px] left-[293px] top-[470px] absolute"
+          source={require('images/Dog.png')}
+        />
+        <Image
+          className="w-[53px] h-[35px] left-[293px] top-[732px] absolute"
+          source={require('images/Dog.png')}
+        />
       </View>
-      
+
       <View className="ml-[29px] mr-[29px]">
         <Text
           style={{fontFamily: 'EmblemaOne-Regular'}}
