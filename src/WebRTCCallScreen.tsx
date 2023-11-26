@@ -78,6 +78,8 @@ export default function CallScreen({navigation, route}: any) {
   const [cachedLocalPC, setCachedLocalPC] = useState<RTCPeerConnection | null>(
     null,
   );
+  const [init, setInit] = useState<boolean>(false); // 통화 시작 여부
+  const [calleeUid, setcalleeUid] = useState<string>(''); // callee 정보
   const [timerStarted, setTimerStarted] = useState(false); // 타이머 시작 여부
 
   const [isMuted, setIsMuted] = useState(false);
@@ -133,6 +135,31 @@ export default function CallScreen({navigation, route}: any) {
     }
   }, [isEnd, cachedLocalPC, navigation, roomId]);
 
+  useEffect(() => {
+    // callee 정보 가져오기
+    if (calleeUid) {
+      db.collection('Users')
+        .doc(calleeUid)
+        .get()
+        .then(doc => {
+          if (doc.exists) {
+            const data = doc.data();
+            if (data) {
+              setMajor(data.major);
+              setStudentId(data.studentID);
+              setKakao(data.kakao);
+              setInsta(data.insta);
+              console.log('callee Major', data.major);
+            }
+          } else {
+            console.log('No such document!');
+          }
+        })
+        .catch(error => {
+          console.log('Error getting document:', error);
+        });
+    }
+  }, [calleeUid]);
   // 카메라 및 마이크 스트림 설정
   const startLocalStream = async () => {
     // isFront will determine if the initial camera should face user or environment
@@ -205,17 +232,18 @@ export default function CallScreen({navigation, route}: any) {
       console.log('connectionState <caller>', localPC.connectionState);
       if (localPC.connectionState === 'connected') {
         console.log('피어 연결 완료 <caller>');
-        await roomRef.update({
-          //통화 시작 시간 설정
-          callerReady: true,
-          callStartTime: new Date().getTime(),
-          extensionCount: 0,
-          endCaller: false,
-          endCallee: false,
-          callerUid: uid,
-          initCalleeInfo: false,
-        });
-        // await updateInfo();
+        if (!init) {
+          setInit(true);
+          console.log('통화 시작 <caller>');
+          await roomRef.update({
+            callerReady: true,
+            callStartTime: new Date().getTime(),
+            extensionCount: 0,
+            endCaller: false,
+            endCallee: false,
+            callerUid: uid,
+          });
+        }
       }
     });
 
@@ -261,23 +289,8 @@ export default function CallScreen({navigation, route}: any) {
         setIsEnd(true);
       }
       // callee 정보 가져오기
-      if (data?.calleeUid && !data?.initCalleeInfo) {
-        const userRef = db.collection('Users').doc(data.calleeUid);
-        const userDoc = await userRef.get();
-        const calleeMajor = userDoc.data()?.major;
-        const calleeStudentId = userDoc.data()?.studentID;
-        const calleeKakao = userDoc.data()?.kakao;
-        const calleeInsta = userDoc.data()?.insta;
-
-        console.log('callee major 확인', calleeMajor);
-        setMajor(calleeMajor);
-        setStudentId(calleeStudentId);
-        setKakao(calleeKakao);
-        setInsta(calleeInsta);
-
-        await roomRef.update({
-          initCalleeInfo: true,
-        }); // 정보 세팅 완료
+      if (data?.calleeUid && !calleeUid) {
+        setcalleeUid(data.calleeUid);
       }
       if (data?.calleeSnsAddPressed && !isActivatedSns) {
         setIsActivatedSns(true);
@@ -409,24 +422,26 @@ export default function CallScreen({navigation, route}: any) {
       <View>
         <Button title="Add SNS" onPress={handleAddSns} />
       </View>
-      <View className="w-full h-full flex flex-col">
-        <View className="flex w-full h-[250px]">
-          {localStream && (
-            <RTCView
-              className="w-full h-full bg-black"
-              streamURL={localStream && localStream.toURL()}
-            />
-          )}
+      {init ? (
+        <View className="w-full h-full flex flex-col">
+          <View className="flex w-full h-[250px]">
+            {localStream && (
+              <RTCView
+                className="w-full h-full bg-black"
+                streamURL={localStream && localStream.toURL()}
+              />
+            )}
+          </View>
+          <View className="flex w-full h-[250px]">
+            {remoteStream && (
+              <RTCView
+                className="w-full h-full bg-black"
+                streamURL={remoteStream && remoteStream.toURL()}
+              />
+            )}
+          </View>
         </View>
-        <View className="flex w-full h-[250px]">
-          {remoteStream && (
-            <RTCView
-              className="w-full h-full bg-black"
-              streamURL={remoteStream && remoteStream.toURL()}
-            />
-          )}
-        </View>
-      </View>
+      ) : null}
     </View>
   );
 }
