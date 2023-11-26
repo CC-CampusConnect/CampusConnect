@@ -1,4 +1,5 @@
 // Modaltest.tsx
+// 모달창 테스트를 위한 코드
 
 import React, { useState } from 'react';
 import {View, Modal, StyleSheet, Text, TouchableHighlight } from 'react-native';

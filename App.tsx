@@ -16,6 +16,7 @@ import WebRTCRoomScreen from './src/WebRTCRoomScreen';
 import CallEndScreen from './src/CallEndScreen';
 import {UserProvider} from './src/UserContext';
 import Modaltest from './src/ModalTest';
+import WaitConnectScreen from './src/WaitConnectScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -44,6 +45,7 @@ export default function App() {
           <Stack.Screen name="WebRTCRoom" component={WebRTCRoomScreen} />
           <Stack.Screen name="CallEndScreen" component={CallEndScreen} />
           <Stack.Screen name="ModalTest" component={Modaltest} />
+          <Stack.Screen name="WaitConnect" component={WaitConnectScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </UserProvider>

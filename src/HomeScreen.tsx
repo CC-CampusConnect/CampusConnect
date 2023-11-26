@@ -98,6 +98,11 @@ export default function HomeScreen({navigation}: {navigation: any}) {
           <Text>ModalTest</Text>
         </View>
       </Pressable>
+      <Pressable onPress={() => navigation.navigate('WaitConnect')}>
+        <View className="w-full h-10 bg-red">
+          <Text>WaitConnect</Text>
+        </View>
+      </Pressable>
       <View className="flex w-full h-full bg-red-300">
         {user ? (
           <View>
