@@ -34,7 +34,7 @@ export default function WaitConnectScreen({navigation}: {navigation: any}) {
   });
 
   return (
-    <View className='flex w-full h-full bg-backCat relative bg-white-gray '>
+    <View className='flex w-full h-full relative bg-white-gray '>
       {/* 배경 이미지 */}
       <View className="w-[346px] h-[767px] left-[33px] top-[30px] absolute">
         <Image className="w-[46px] h-[35px] left-0 top-0 absolute" source={require('images/Cat.png')} />
@@ -60,6 +60,7 @@ export default function WaitConnectScreen({navigation}: {navigation: any}) {
           style={{fontFamily: 'GowunDodum-Regular'}}>
             매칭 중이에요...
         </Text>
+
         {/* 로딩바 */}
         <View className='space-y-4 top-[350px]'>
           <View>
@@ -76,10 +77,8 @@ export default function WaitConnectScreen({navigation}: {navigation: any}) {
           </View>
         </View>
       </View>
-
       
-      
-      {/* 신고하기 버튼 클릭 시 모달 활성화 */}
+      {/* 메인페이지로 이동(뒤로가기) */}
       <TouchableOpacity
         className="absolute top-[26px] right-[26px] w-[56px] h-[56px] bg-pink-500 rounded-full"
         onPress={() => navigation.navigate('MainPage')}>

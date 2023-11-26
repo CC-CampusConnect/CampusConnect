@@ -99,8 +99,13 @@ export default function HomeScreen({navigation}: {navigation: any}) {
         </View>
       </Pressable>
       <Pressable onPress={() => navigation.navigate('WaitConnect')}>
-        <View className="w-full h-10 bg-red">
+        <View className="w-full h-10 bg-green">
           <Text>WaitConnect</Text>
+        </View>
+      </Pressable>
+      <Pressable onPress={() => navigation.navigate('ConnectFail')}>
+        <View className="w-full h-10 bg-orange">
+          <Text>ConnectFail</Text>
         </View>
       </Pressable>
       <View className="flex w-full h-full bg-red-300">

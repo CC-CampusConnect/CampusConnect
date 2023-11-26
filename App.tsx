@@ -17,6 +17,8 @@ import CallEndScreen from './src/CallEndScreen';
 import {UserProvider} from './src/UserContext';
 import Modaltest from './src/ModalTest';
 import WaitConnectScreen from './src/WaitConnectScreen';
+import ConnectFailScreen from './src/ConnectFailScreen';
+
 
 const Stack = createNativeStackNavigator();
 
@@ -46,6 +48,7 @@ export default function App() {
           <Stack.Screen name="CallEndScreen" component={CallEndScreen} />
           <Stack.Screen name="ModalTest" component={Modaltest} />
           <Stack.Screen name="WaitConnect" component={WaitConnectScreen} />
+          <Stack.Screen name="ConnectFail" component={ConnectFailScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </UserProvider>
