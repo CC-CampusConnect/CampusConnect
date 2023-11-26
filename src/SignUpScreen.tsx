@@ -15,6 +15,7 @@ import {
 import {useForm, Controller} from 'react-hook-form';
 import auth from '@react-native-firebase/auth';
 import {db} from './util/firestore';
+import {CommonActions} from '@react-navigation/native';
 
 type FormData = {
   id: string;
@@ -49,7 +50,17 @@ export default function SignUpScreen({navigation}: {navigation: any}) {
       console.log(
         '회원가입이 완료되었습니다. 2-2 회원가입 완료 페이지로 이동합니다.',
       );
-      navigation.navigate('SignUpComplete');
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 1,
+          routes: [
+            {name: 'Home'},
+            {
+              name: 'SignUpComplete',
+            },
+          ],
+        }),
+      );
     } else {
       console.log('이미 사용 중인 아이디입니다.');
       setErrorMessage('이미 사용 중인 아이디입니다.');
@@ -139,7 +150,7 @@ export default function SignUpScreen({navigation}: {navigation: any}) {
           source={require('images/CCLogo.png')}
         />
         <Text
-          style={{fontFamily: 'Nunito-ExtraBold',}}  
+          style={{fontFamily: 'Nunito-ExtraBold'}}
           className="ml-[42px] font-sans text-xxl text-orange-600">
           회원가입
         </Text>
@@ -152,7 +163,7 @@ export default function SignUpScreen({navigation}: {navigation: any}) {
             control={control}
             render={({field: {onChange, onBlur, value}}) => (
               <TextInput
-                style={{fontFamily: 'Nunito-Regular',}} 
+                style={{fontFamily: 'Nunito-Regular'}}
                 className="mx-auto bg-white w-[327px] h-[40px]"
                 placeholder="아이디"
                 onChangeText={onChange}
@@ -175,7 +186,7 @@ export default function SignUpScreen({navigation}: {navigation: any}) {
             control={control}
             render={({field: {onChange, onBlur, value}}) => (
               <TextInput
-                style={{fontFamily: 'Nunito-Regular',}} 
+                style={{fontFamily: 'Nunito-Regular'}}
                 className="mx-auto bg-white w-[327px] h-[40px]"
                 placeholder="비밀번호"
                 onChangeText={onChange}
@@ -196,7 +207,7 @@ export default function SignUpScreen({navigation}: {navigation: any}) {
             control={control}
             render={({field: {onChange, onBlur, value}}) => (
               <TextInput
-                style={{fontFamily: 'Nunito-Regular',}} 
+                style={{fontFamily: 'Nunito-Regular'}}
                 className="mx-auto bg-white w-[327px] h-[40px]"
                 placeholder="비밀번호 확인"
                 onChangeText={onChange}
@@ -214,7 +225,7 @@ export default function SignUpScreen({navigation}: {navigation: any}) {
       </View>
 
       <Text
-        style={{fontFamily: 'Nunito-Regular',}}  
+        style={{fontFamily: 'Nunito-Regular'}}
         className="mx-auto mb-[14px]">
         CC에 가입함으로써 이용약관과 개인보호정책에 수락합니다
       </Text>
@@ -223,7 +234,7 @@ export default function SignUpScreen({navigation}: {navigation: any}) {
         className="mx-auto mb-[103px] w-[327px] h-[57px] bg-pink-500"
         onPress={handleSubmit(onSubmit)}>
         <Text
-          style={{fontFamily: 'Nunito-ExtraBold',}}   
+          style={{fontFamily: 'Nunito-ExtraBold'}}
           className="mx-auto my-auto text-md text-white">
           가입하기
         </Text>

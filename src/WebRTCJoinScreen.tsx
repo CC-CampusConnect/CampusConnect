@@ -56,9 +56,10 @@ export default function JoinScreen({navigation, route}: any) {
 
     navigation.dispatch(
       CommonActions.reset({
-        index: 1,
+        index: 2,
         routes: [
           {name: 'Home'},
+          {name: 'MainPage'},
           {
             name: 'CallEndScreen',
             params: {
@@ -116,9 +117,10 @@ export default function JoinScreen({navigation, route}: any) {
 
       navigation.dispatch(
         CommonActions.reset({
-          index: 1,
+          index: 2,
           routes: [
             {name: 'Home'},
+            {name: 'MainPage'},
             {
               name: 'CallEndScreen',
               params: {
@@ -128,8 +130,6 @@ export default function JoinScreen({navigation, route}: any) {
           ],
         }),
       );
-
-      // navigation.navigate('CallEndScreen');
     }
   }, [isEnd, cachedLocalPC, navigation, roomId]);
 
@@ -267,6 +267,7 @@ export default function JoinScreen({navigation, route}: any) {
         const callerKakao = userDoc.data()?.kakao;
         const callerInsta = userDoc.data()?.insta;
 
+        console.log('caller major 확인', callerMajor);
         setMajor(callerMajor);
         setStudentId(callerStudentId);
         setKakao(callerKakao);

@@ -17,6 +17,7 @@ import Checkbox from './Checkbox';
 import {db} from './util/firestore';
 import {useContext} from 'react';
 import {UserContext} from './UserContext';
+import {CommonActions} from '@react-navigation/native';
 
 export default function CallEndScreen({navigation, route}: any) {
   const roomId = route.params.roomId;
@@ -64,6 +65,20 @@ export default function CallEndScreen({navigation, route}: any) {
   const handleCancel = () => {
     setModalVisible(false);
     setSelectedOptions([]);
+  };
+
+  const handleFinish = () => {
+    navigation.dispatch(
+      CommonActions.reset({
+        index: 1,
+        routes: [
+          {name: 'Home'},
+          {
+            name: 'MainPage',
+          },
+        ],
+      }),
+    );
   };
 
   // 신고 옵션 목록
@@ -236,7 +251,7 @@ export default function CallEndScreen({navigation, route}: any) {
       <View className="flex w-full h-full absolute justify-end mb-0">
         <TouchableOpacity
           className="w-full w-full justify-end h-[65px] bg-pink-500"
-          onPress={() => navigation.navigate('MainPage')}>
+          onPress={handleFinish}>
           <Text className="mx-auto my-auto text-sm text-white">종료</Text>
         </TouchableOpacity>
       </View>
