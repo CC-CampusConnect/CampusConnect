@@ -1,3 +1,6 @@
+// WebRTCRoomScreen.tsx
+// 6-1. 통화 시작 전 카운트다운 페이지?
+
 import React, {useState} from 'react';
 import {Text, Button, View, TextInput} from 'react-native';
 

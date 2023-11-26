@@ -1,10 +1,18 @@
 // ConnectSuccessScreen.tsx
 // 5-3. 랜덤 매칭 성공 페이지
 
-import React from 'react';
+import React, {useEffect} from 'react';
 import {View, Text, Image, StyleSheet, } from 'react-native';
 
 export default function ConnectSuccessScreen({navigation}: {navigation: any}) {
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+        navigation.navigate('WebRTCRoom'); // WebRTCRoom.tsx로 이동
+        }, 2000); // 2초 후에 WebRTCRoom 이동
+
+        return () => clearTimeout(timer);
+    }, []);
 
   // 이미지 크기를 위한 styleSheet
   const styles = StyleSheet.create({
