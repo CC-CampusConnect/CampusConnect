@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Text, Button, View, Modal, TouchableOpacity, } from 'react-native';
+import {Text, Button, View, Modal, TouchableOpacity, StyleSheet, Image} from 'react-native';
 
 import {
   RTCPeerConnection,
@@ -329,18 +329,31 @@ export default function CallScreen({navigation, route}: any) {
     });
   };
 
+  // 이미지 크기를 위한 styleSheet
+  const styles = StyleSheet.create({
+    AddSnsImage: {
+      width: 37,
+      height: 41,
+    },
+    StopCallImage:{
+      width: 45,
+      height: 45,
+    },
+    InfoImage:{
+      width: 35,
+      height: 35,
+    },
+    AddTimeImage:{
+      width: 35,
+      height: 35,
+    },
+  });
+
   return (
     <View className="flex w-full h-full relative bg-[#000000]">
 
       {/* 타이머 & start call & switchCamera & toggleMute & startLocalStream & roomId*/}
       <View className='flex flex-row top-0 left-0 right-0 justify-around items-end h-[50px] bg-[#000000]'>
-        {/* 타이머 */}
-        <Timer
-          onBackPress={onBackPress}
-          timerStarted={timerStarted}
-          isExtended={isExtended}
-          setIsExtended={setIsExtended}
-        />
 
         {/* start call */}
         {localStream && (
@@ -362,6 +375,14 @@ export default function CallScreen({navigation, route}: any) {
             <Text>Switch camera</Text>
           </TouchableOpacity>
         )}
+
+        {/* 타이머 */}
+        <Timer
+          onBackPress={onBackPress}
+          timerStarted={timerStarted}
+          isExtended={isExtended}
+          setIsExtended={setIsExtended}
+        />
 
         {/* toggleMute */}
         {localStream && (
@@ -423,35 +444,51 @@ export default function CallScreen({navigation, route}: any) {
       <View className='flex flex-row absolute bottom-0 left-0 right-0 justify-around items-end h-[80px] bg-[#000000]'>
         {/* SNS 추가 버튼 */}
         <TouchableOpacity
-            className="w-14 h-14 my-auto bg-pink-500 rounded-full"
+            className="w-14 h-14 my-auto bg-white rounded-full"
             onPress={handleAddSns}
         >
-          <Text>Add SNS</Text>
+          <Image
+            className="mx-auto my-auto"
+            style={styles.AddSnsImage}
+            source={require('images/AddSns.png')}
+          />
         </TouchableOpacity>
 
         {/* 통화 종료 버튼 */}
         <TouchableOpacity
-          className="w-14 h-14 my-auto bg-pink-500 rounded-full"
+          className="w-14 h-14 my-auto bg-white rounded-full"
           onPress={onBackPress}
         >
-          <Text>Click to stop call</Text>
+          <Image
+            className="mx-auto my-auto"
+            style={styles.StopCallImage}
+            source={require('images/StopCall.png')}
+          />
         </TouchableOpacity>
         
         {/* 정보 확인 버튼 */}
         <TouchableOpacity
-          className="w-14 h-14 my-auto bg-pink-500 rounded-full"
+          className="w-14 h-14 my-auto bg-white rounded-full"
           onPress={() => setModalVisible(true)}
         >
-          <Text>View Info</Text>
+          <Image
+            className="mx-auto my-auto"
+            style={styles.InfoImage}
+            source={require('images/Info.png')}
+          />
         </TouchableOpacity>
 
         {/* 통화 연장 버튼 */}
         {localStream && (
           <TouchableOpacity
-            className="w-14 h-14 my-auto bg-pink-500 rounded-full"
+            className="w-14 h-14 my-auto bg-white rounded-full"
             onPress={extendCall}
           >
-            <Text>Click to extend call</Text>
+            <Image
+            className="mx-auto my-auto"
+            style={styles.AddTimeImage}
+            source={require('images/AddTime.png')}
+          />
           </TouchableOpacity>
         )}
       </View>
