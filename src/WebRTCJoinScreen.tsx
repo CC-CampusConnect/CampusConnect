@@ -405,6 +405,14 @@ export default function JoinScreen({navigation, route}: any) {
         <Button title="Add SNS" onPress={handleAddSns} />
       </View>
       <View className="w-full h-full flex flex-col">
+      <View className="flex w-full h-[250px]">
+          {remoteStream && (
+            <RTCView
+              className="w-full h-full bg-black"
+              streamURL={remoteStream && remoteStream.toURL()}
+            />
+          )}
+        </View>
         <View className="flex w-full h-[250px]">
           {localStream && (
             <RTCView
@@ -413,14 +421,7 @@ export default function JoinScreen({navigation, route}: any) {
             />
           )}
         </View>
-        <View className="flex w-full h-[250px]">
-          {remoteStream && (
-            <RTCView
-              className="w-full h-full bg-black"
-              streamURL={remoteStream && remoteStream.toURL()}
-            />
-          )}
-        </View>
+        
       </View>
     </View>
   );

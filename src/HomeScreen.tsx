@@ -93,6 +93,11 @@ export default function HomeScreen({navigation}: {navigation: any}) {
           <Text>CallEndScreen</Text>
         </View>
       </Pressable>
+      <Pressable onPress={() => navigation.navigate('ModalTest')}>
+        <View className="w-full h-10 bg-red-500">
+          <Text>ModalTest</Text>
+        </View>
+      </Pressable>
       <View className="flex w-full h-full bg-red-300">
         {user ? (
           <View>

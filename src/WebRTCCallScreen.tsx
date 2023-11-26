@@ -329,7 +329,7 @@ export default function CallScreen({navigation, route}: any) {
     });
   };
 
-  // 이미지 크기를 위한 styleSheet
+  // 이미지 크기 & 모달창을 위한 styleSheet
   const styles = StyleSheet.create({
     AddSnsImage: {
       width: 37,
@@ -346,6 +346,12 @@ export default function CallScreen({navigation, route}: any) {
     AddTimeImage:{
       width: 35,
       height: 35,
+    },
+    // 모달창 투명배경을 만들기 위한
+    modalView: {
+      backgroundColor: 'rgba(255, 255, 255, 0.9)',
+      // borderRadius: 20,
+      padding: 35,
     },
   });
 
@@ -410,37 +416,60 @@ export default function CallScreen({navigation, route}: any) {
       </View>
       
       {/* 정보 확인 모달 */}
-      <View className='bg-brown'>
-        <Modal
-          visible={modalVisible}
-          onRequestClose={() => {
-            setModalVisible(!modalVisible);
-          }}>
-          {isActivatedMajor && (
-            <View>
-              <Text>"전공" {major}</Text>
-            </View>
-          )}
-          {isActivatedStudentId && (
-            <View>
-              <Text>"학번" {studentId}</Text>
-            </View>
-          )}
-          {isActivatedSns && (
-            <View>
-              <Text>"카카오톡" {kakao}</Text>
-              <Text>"인스타그램" {insta}</Text>
-            </View>
-          )}
-          <TouchableOpacity onPress={() => setModalVisible(false)}>
-            <Text className="mx-auto text-[16px] text-black underline">
-              취소
-            </Text>
-          </TouchableOpacity>
-        </Modal>
-      </View>
+      <Modal
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible);
+        }}
+        animationType='fade'
+        transparent={true}
+      >
+        <View className='mt-24 mx-auto'> 
+          <View className='w-[391px] h-[165px] m-5' style={styles.modalView}> 
+            {isActivatedMajor && (
+              <View>
+                <Text className='text-[20px] text-brown ml'
+                  style={{fontFamily: 'GowunDodum-Regular'}}
+                >
+                  전공 : {major}
+                </Text>
+              </View>
+            )}
+            {isActivatedStudentId && (
+              <View>
+                <Text className='text-[20px] text-brown '
+                  style={{fontFamily: 'GowunDodum-Regular'}}
+                >
+                  학번 : {studentId}
+                </Text>
+              </View>
+            )}
+            {isActivatedSns && (
+              <View>
+                <Text className='text-[20px] text-brown '
+                  style={{fontFamily: 'GowunDodum-Regular'}}
+                >
+                  카카오톡 : {kakao}
+                </Text>
+                <Text className='text-[20px] text-brown '
+                  style={{fontFamily: 'GowunDodum-Regular'}}
+                >
+                  인스타그램 : {insta}
+                </Text>
+              </View>
+            )}
+            <TouchableOpacity onPress={() => setModalVisible(false)}>
+              <Text className="mx-auto text-[16px] text-black underline">
+                취소
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+      
+      
 
-     {/* 버튼들 */}
+      {/* 버튼들 */}
       <View className='flex flex-row absolute bottom-0 left-0 right-0 justify-around items-end h-[80px] bg-[#000000]'>
         {/* SNS 추가 버튼 */}
         <TouchableOpacity
@@ -495,18 +524,18 @@ export default function CallScreen({navigation, route}: any) {
 
       {/* 통화 화면 */}
       <View className='flex w-full space-y-4'>
-          {localStream && (
-            <RTCView
-              className='w-[390px] h-[350px] mx-auto'
-              objectFit= {'cover'}
-              streamURL={localStream && localStream.toURL()}
-            />
-          )}
           {remoteStream && (
             <RTCView
-              className='w-[390px] h-[350px] mx-auto'
+              className='w-[400px] h-[350px] mx-auto'
               objectFit= {'cover'}
               streamURL={remoteStream && remoteStream.toURL()}
+            />
+          )}
+          {localStream && (
+            <RTCView
+              className='w-[400px] h-[350px] mx-auto'
+              objectFit= {'cover'}
+              streamURL={localStream && localStream.toURL()}
             />
           )}
       </View>
