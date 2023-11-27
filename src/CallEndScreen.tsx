@@ -103,10 +103,8 @@ export default function CallEndScreen({navigation, route}: any) {
     },
   });
 
-  //  className='mx-auto my-auto w-[391px] h-[461px] bg-pink-500' <- 모달 클래스
-
   return (
-    <View className="flex w-full h-full bg-backCat relative bg-white-gray ">
+    <View className="flex w-full h-full relative bg-white-gray">
       {/* 배경 이미지 */}
       <View className="w-[346px] h-[767px] left-[33px] top-[30px] absolute">
         <Image
@@ -255,6 +253,7 @@ export default function CallEndScreen({navigation, route}: any) {
           <Text className="mx-auto my-auto text-sm text-white">종료</Text>
         </TouchableOpacity>
       </View>
+
       {/* 신고하기 버튼 클릭 시 모달 활성화 */}
       <TouchableOpacity
         className="absolute top-[26px] right-[26px] w-[56px] h-[56px] bg-pink-500 rounded-full"

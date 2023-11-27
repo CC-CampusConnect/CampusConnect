@@ -15,7 +15,7 @@ export default function Timer({
   isExtended,
   setIsExtended,
 }: TimerProps) {
-  const [minutes, setMinutes] = useState<number>(1);
+  const [minutes, setMinutes] = useState<number>(10);
   const [seconds, setSeconds] = useState<number>(0);
   const [delay, setDelay] = useState<number | null>(1000); // 1 밀리초 간격
 
@@ -56,10 +56,10 @@ export default function Timer({
 
   return (
     <>
-      <View>
+      <View className='w-[70px] h-[30px] bg-white rounded my-auto'>
         {timerStarted ? (
-          <Text>
-            남은 시간: {minutes}분 {seconds}초
+          <Text className='text-center text-[20px]'>
+            {minutes} : {seconds}
           </Text>
         ) : (
           <Text>통화 종료 시간 가져오는 중...</Text>

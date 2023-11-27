@@ -15,6 +15,11 @@ import WebRTCJoinScreen from './src/WebRTCJoinScreen';
 import WebRTCRoomScreen from './src/WebRTCRoomScreen';
 import CallEndScreen from './src/CallEndScreen';
 import {UserProvider} from './src/UserContext';
+import Modaltest from './src/ModalTest';
+import WaitConnectScreen from './src/WaitConnectScreen';
+import ConnectFailScreen from './src/ConnectFailScreen';
+import ConnectSuccessScreen from './src/ConnectSuccessScreen';
+
 
 const Stack = createNativeStackNavigator();
 
@@ -42,6 +47,10 @@ export default function App() {
           <Stack.Screen name="WebRTCJoin" component={WebRTCJoinScreen} />
           <Stack.Screen name="WebRTCRoom" component={WebRTCRoomScreen} />
           <Stack.Screen name="CallEndScreen" component={CallEndScreen} />
+          <Stack.Screen name="ModalTest" component={Modaltest} />
+          <Stack.Screen name="WaitConnect" component={WaitConnectScreen} />
+          <Stack.Screen name="ConnectFail" component={ConnectFailScreen} />
+          <Stack.Screen name="ConnectSuccess" component={ConnectSuccessScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </UserProvider>
