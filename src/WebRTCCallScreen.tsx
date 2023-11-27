@@ -156,8 +156,8 @@ export default function CallScreen({navigation, route}: any) {
             if (data) {
               setMajor(data.major);
               setStudentId(data.studentID);
-              setKakao(data.kakao);
-              setInsta(data.insta);
+              setKakao(data.kakao ?? '?');
+              setInsta(data.insta ?? '?');
               console.log('callee Major', data.major);
             }
           } else {
@@ -442,41 +442,35 @@ export default function CallScreen({navigation, route}: any) {
         animationType="fade"
         transparent={true}>
         <View className="mt-24 mx-auto">
-          <View className="w-[391px] h-[165px] m-5" style={styles.modalView}>
-            {isActivatedMajor && (
-              <View>
-                <Text
-                  className="text-[20px] text-brown ml"
-                  style={{fontFamily: 'GowunDodum-Regular'}}>
-                  전공 : {major}
-                </Text>
-              </View>
-            )}
-            {isActivatedStudentId && (
-              <View>
-                <Text
-                  className="text-[20px] text-brown "
-                  style={{fontFamily: 'GowunDodum-Regular'}}>
-                  학번 : {studentId}
-                </Text>
-              </View>
-            )}
-            {isActivatedSns && (
-              <View>
-                <Text
-                  className="text-[20px] text-brown "
-                  style={{fontFamily: 'GowunDodum-Regular'}}>
-                  카카오톡 : {kakao}
-                </Text>
-                <Text
-                  className="text-[20px] text-brown "
-                  style={{fontFamily: 'GowunDodum-Regular'}}>
-                  인스타그램 : {insta}
-                </Text>
-              </View>
-            )}
+          <View className="w-[391px] h-[195px] m-5" style={styles.modalView}>
+            <View>
+              <Text
+                className="text-[20px] text-brown ml"
+                style={{fontFamily: 'GowunDodum-Regular'}}>
+                전공 : {isActivatedMajor ? major : '?'}
+              </Text>
+            </View>
+            <View>
+              <Text
+                className="text-[20px] text-brown "
+                style={{fontFamily: 'GowunDodum-Regular'}}>
+                학번 : {isActivatedStudentId ? studentId : '?'}
+              </Text>
+            </View>
+            <View>
+              <Text
+                className="text-[20px] text-brown "
+                style={{fontFamily: 'GowunDodum-Regular'}}>
+                카카오톡 : {isActivatedSns ? kakao : '?'}
+              </Text>
+              <Text
+                className="text-[20px] text-brown "
+                style={{fontFamily: 'GowunDodum-Regular'}}>
+                인스타그램 : {isActivatedSns ? insta : '?'}
+              </Text>
+            </View>
             <TouchableOpacity onPress={() => setModalVisible(false)}>
-              <Text className="mx-auto text-[16px] text-black underline">
+              <Text className="mx-auto mt-5 text-[16px] text-black underline">
                 취소
               </Text>
             </TouchableOpacity>
