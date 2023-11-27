@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {
   Text,
-  Button,
   View,
   Modal,
   TouchableOpacity,
@@ -96,7 +95,8 @@ export default function CallScreen({navigation, route}: any) {
   const [isExtended, setIsExtended] = useState<boolean>(false);
   const [isEnd, setIsEnd] = useState<boolean>(false);
 
-  const [modalVisible, setModalVisible] = useState(false); // 모달 상태
+  const [infoModalVisible, setInfoModalVisible] = useState(false); // 모달 상태
+  const [endModalVisible, setEndModalVisible] = useState(false); // 통화 종료 모달 상태
   const [major, setMajor] = useState<string>('?'); // 전공
   const [studentId, setStudentId] = useState<string>('?'); // 학번
   const [kakao, setKakao] = useState<string>('?'); // 카카오톡 계정
@@ -351,6 +351,11 @@ export default function CallScreen({navigation, route}: any) {
     });
   };
 
+  const handleEndCall = () => {
+    setEndModalVisible(false);
+    onBackPress();
+  };
+
   // 이미지 크기 & 모달창을 위한 styleSheet
   const styles = StyleSheet.create({
     AddSnsImage: {
@@ -435,9 +440,9 @@ export default function CallScreen({navigation, route}: any) {
 
       {/* 정보 확인 모달 */}
       <Modal
-        visible={modalVisible}
+        visible={infoModalVisible}
         onRequestClose={() => {
-          setModalVisible(!modalVisible);
+          setInfoModalVisible(!infoModalVisible);
         }}
         animationType="fade"
         transparent={true}>
@@ -469,11 +474,44 @@ export default function CallScreen({navigation, route}: any) {
                 인스타그램 : {isActivatedSns ? insta : '?'}
               </Text>
             </View>
-            <TouchableOpacity onPress={() => setModalVisible(false)}>
+            <TouchableOpacity onPress={() => setInfoModalVisible(false)}>
               <Text className="mx-auto mt-5 text-[16px] text-black underline">
                 취소
               </Text>
             </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+
+      {/* 통화 종료 확인 모달 */}
+      <Modal
+        visible={endModalVisible}
+        onRequestClose={() => {
+          setEndModalVisible(!endModalVisible);
+        }}
+        animationType="fade"
+        transparent={true}>
+        <View className="mt-24 mx-auto">
+          <View className="w-[391px] h-[143px] m-5" style={styles.modalView}>
+            <View>
+              <Text
+                className="text-[20px] text-center text-brown ml"
+                style={{fontFamily: 'GowunDodum-Regular'}}>
+                통화를 종료하시겠습니까?
+              </Text>
+            </View>
+            <View className="flex-row justify-around">
+              <TouchableOpacity onPress={handleEndCall}>
+                <Text className="mx-auto mt-5 text-[16px] text-black underline">
+                  네
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => setEndModalVisible(false)}>
+                <Text className="mx-auto mt-5 text-[16px] text-black underline">
+                  아니요
+                </Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
       </Modal>
@@ -494,7 +532,7 @@ export default function CallScreen({navigation, route}: any) {
         {/* 통화 종료 버튼 */}
         <TouchableOpacity
           className="w-14 h-14 my-auto bg-white rounded-full"
-          onPress={onBackPress}>
+          onPress={() => setEndModalVisible(true)}>
           <Image
             className="mx-auto my-auto"
             style={styles.StopCallImage}
@@ -505,7 +543,7 @@ export default function CallScreen({navigation, route}: any) {
         {/* 정보 확인 버튼 */}
         <TouchableOpacity
           className="w-14 h-14 my-auto bg-white rounded-full"
-          onPress={() => setModalVisible(true)}>
+          onPress={() => setInfoModalVisible(true)}>
           <Image
             className="mx-auto my-auto"
             style={styles.InfoImage}
