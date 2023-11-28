@@ -104,7 +104,7 @@ export default function CallEndScreen({navigation, route}: any) {
   });
 
   return (
-    <View className="flex w-full h-full relative bg-white-gray">
+    <View className="flex w-full h-full relative justify-center items-center bg-white-gray">
       {/* 배경 이미지 */}
       <View className="w-[346px] h-[767px] left-[33px] top-[30px] absolute">
         <Image
@@ -144,53 +144,17 @@ export default function CallEndScreen({navigation, route}: any) {
       </View>
 
       {/* 신고 모달 */}
-      <View>
+      <View className='absolute justify-center items-center'>
         <Modal
           visible={modalVisible}
           // 안드로이드의 뒤로가기 버튼 클릭 시 모달 비활성화
           onRequestClose={() => {
             setModalVisible(!modalVisible);
           }}
-          animationType="slide">
-          {/* 배경 이미지 */}
-          <View className="w-[346px] h-[767px] left-[33px] top-[30px] absolute">
-            <Image
-              className="w-[46px] h-[35px] left-0 top-0 absolute"
-              source={require('images/Cat.png')}
-            />
-            <Image
-              className="w-[46px] h-[35px] left-[6px] top-[402px] absolute"
-              source={require('images/Cat.png')}
-            />
-            <Image
-              className="w-[46px] h-[35px] left-[6px] top-[692px] absolute"
-              source={require('images/Cat.png')}
-            />
-
-            <Image
-              className="w-16 h-9 left-[155px] top-[191px] absolute"
-              source={require('images/Rabbit.png')}
-            />
-            <Image
-              className="w-16 h-9 left-[155px] top-[582px] absolute"
-              source={require('images/Rabbit.png')}
-            />
-
-            <Image
-              className="w-[53px] h-[35px] left-[293px] top-[69px] absolute"
-              source={require('images/Dog.png')}
-            />
-            <Image
-              className="w-[53px] h-[35px] left-[293px] top-[470px] absolute"
-              source={require('images/Dog.png')}
-            />
-            <Image
-              className="w-[53px] h-[35px] left-[293px] top-[732px] absolute"
-              source={require('images/Dog.png')}
-            />
-          </View>
-
-          <View className="top-[178px] mx-auto w-[391px] h-[499px] bg-white border">
+          animationType="fade"
+          transparent={true}
+          >
+          <View className="mx-auto my-auto w-[391px] h-[520px] bg-white border">
             <Text
               style={{fontFamily: 'GowunDodum-Regular'}}
               className="mx-auto text-[26px] mt-[22px] mb-[15px] ml-[29px] text-brown">
@@ -233,28 +197,30 @@ export default function CallEndScreen({navigation, route}: any) {
         </Modal>
       </View>
 
-      <View className="flex w-full h-full">
-        <Text
-          className="text-[32px] text-brown mx-auto top-[450px]"
-          style={{fontFamily: 'GowunDodum-Regular'}}>
-          통화가 종료됐어요!
-        </Text>
-        <Image
-          className="mx-auto top-[260px]"
+      {/* 설명 */}
+      <View className='justify-center items-center'>
+      <Image
+          className=""
           style={styles.CCDogImage}
           source={require('images/CCDog.png')}
         />
+        <Text
+          className="text-[32px] text-brown"
+          style={{fontFamily: 'GowunDodum-Regular'}}>
+          통화가 종료됐어요!
+        </Text>
       </View>
 
-      <View className="flex w-full h-full absolute justify-end mb-0">
+      {/* 종료 버튼 */}
+      <View className="absolute bottom-0 w-full">
         <TouchableOpacity
-          className="w-full w-full justify-end h-[65px] bg-pink-500"
+          className="w-full justify-end h-[65px] bg-pink-500"
           onPress={handleFinish}>
           <Text className="mx-auto my-auto text-sm text-white">종료</Text>
         </TouchableOpacity>
       </View>
 
-      {/* 신고하기 버튼 클릭 시 모달 활성화 */}
+      {/* 신고하기 버튼 */}
       <TouchableOpacity
         className="absolute top-[26px] right-[26px] w-[56px] h-[56px] bg-pink-500 rounded-full"
         onPress={() => setModalVisible(true)}>
