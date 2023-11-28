@@ -1,7 +1,7 @@
 // SignInScreen.tsx
 // 1. 로그인 페이지
 
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   View,
   Text,
@@ -26,7 +26,45 @@ type FormData = {
 
 export default function SignInScreen({navigation}: {navigation: any}) {
   const {control, handleSubmit, formState} = useForm<FormData>();
-  const {setUid, uid} = useContext(UserContext);
+  const {setUid, uid, isCertified} = useContext(UserContext);
+
+  useEffect(() => {
+    const checkUserState = () => {
+      // 자동 로그인되어 있고, 인증 하지 않은 사용자
+      if (uid && !isCertified) {
+        navigation.dispatch(
+          CommonActions.reset({
+            index: 1,
+            routes: [
+              {name: 'Home'},
+              {
+                name: 'DreamyRequest',
+              },
+            ],
+          }),
+        );
+        // 자동 로그인된 사용자
+      } else if (uid) {
+        navigation.dispatch(
+          CommonActions.reset({
+            index: 1,
+            routes: [
+              {name: 'Home'},
+              {
+                name: 'MainPage',
+              },
+            ],
+          }),
+        );
+        // 로그인 상태가 아닌 사용자
+      } else {
+        return;
+      }
+    };
+
+    checkUserState();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // 로그인 하기 버튼
   const onSubmit = async (data: FormData) => {
@@ -93,7 +131,6 @@ export default function SignInScreen({navigation}: {navigation: any}) {
   const onSubmit2 = () => {
     console.log('회원가입 페이지로 이동합니다.');
     navigation.navigate('SignUp');
-    console.log('uid 확인(테스트)', uid);
   };
 
   // 이미지 크기를 위한 styleSheet

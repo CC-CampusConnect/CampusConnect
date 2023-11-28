@@ -38,79 +38,19 @@ export default function HomeScreen({navigation}: {navigation: any}) {
 
   return (
     <View className="flex">
-      <Pressable onPress={() => navigation.navigate('Home')}>
-        <View className="w-full h-10 bg-blue-500">
-          <Text>Home</Text>
-        </View>
-      </Pressable>
-      <Pressable onPress={() => navigation.navigate('Dreamy')}>
-        <View className="w-full h-10 bg-blue-300">
-          <Text>Dreamy</Text>
-        </View>
-      </Pressable>
-      <Pressable onPress={() => navigation.navigate('SignUp')}>
-        <View className="w-full h-10 bg-blue-400">
-          <Text>SignUp</Text>
-        </View>
-      </Pressable>
       <Pressable onPress={() => navigation.navigate('SignIn')}>
-        <View className="w-full h-10 bg-blue-500">
-          <Text>SignIn</Text>
+        <View className="w-full h-10 bg-pink-500">
+          <Text>CC APP</Text>
         </View>
       </Pressable>
       <Pressable onPress={() => navigation.navigate('Deepar')}>
-        <View className="w-full h-10 bg-blue-600">
+        <View className="w-full h-10 bg-orange-600">
           <Text>Deepar</Text>
         </View>
       </Pressable>
-      <Pressable onPress={() => navigation.navigate('SignUpComplete')}>
-        <View className="w-full h-10 bg-blue-600">
-          <Text>SignUpComplete</Text>
-        </View>
-      </Pressable>
-      <Pressable onPress={() => navigation.navigate('DreamyComplete')}>
-        <View className="w-full h-10 bg-blue-600">
-          <Text>DreamyComplete</Text>
-        </View>
-      </Pressable>
-      <Pressable onPress={() => navigation.navigate('MainPage')}>
-        <View className="w-full h-10 bg-blue-700">
-          <Text>MainPage</Text>
-        </View>
-      </Pressable>
-      <Pressable onPress={() => navigation.navigate('DreamyRequest')}>
-        <View className="w-full h-10 bg-blue-800">
-          <Text>DreamyRequest</Text>
-        </View>
-      </Pressable>
       <Pressable onPress={() => navigation.navigate('WebRTCRoom')}>
-        <View className="w-full h-10 bg-red-400">
+        <View className="w-full h-10 bg-orange-500">
           <Text>WebRTCRoom</Text>
-        </View>
-      </Pressable>
-      <Pressable onPress={() => navigation.navigate('CallEndScreen')}>
-        <View className="w-full h-10 bg-red-500">
-          <Text>CallEndScreen</Text>
-        </View>
-      </Pressable>
-      <Pressable onPress={() => navigation.navigate('ModalTest')}>
-        <View className="w-full h-10 bg-red-500">
-          <Text>ModalTest</Text>
-        </View>
-      </Pressable>
-      <Pressable onPress={() => navigation.navigate('WaitConnect')}>
-        <View className="w-full h-10 bg-green">
-          <Text>WaitConnect</Text>
-        </View>
-      </Pressable>
-      <Pressable onPress={() => navigation.navigate('ConnectFail')}>
-        <View className="w-full h-10 bg-orange">
-          <Text>ConnectFail</Text>
-        </View>
-      </Pressable>
-      <Pressable onPress={() => navigation.navigate('ConnectSuccess')}>
-        <View className="w-full h-10 bg-orange">
-          <Text>ConnectSuccess</Text>
         </View>
       </Pressable>
       <View className="flex w-full h-full">

@@ -19,14 +19,14 @@ export default function SignUpCompleteScreen({navigation}: {navigation: any}) {
   const {control, handleSubmit, formState} = useForm<FormData>();
 
   const onSubmit = async (data: FormData) => {
-    console.log('회원가입 완료. 로그인 페이지로 이동합니다.');
+    console.log('회원가입 완료. 인증 요청 페이지로 이동합니다.');
     navigation.dispatch(
       CommonActions.reset({
         index: 1,
         routes: [
           {name: 'Home'},
           {
-            name: 'SignIn',
+            name: 'DreamyRequest',
           },
         ],
       }),

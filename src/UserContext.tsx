@@ -1,35 +1,42 @@
 import React, {createContext, useContext, useState, useEffect} from 'react';
 import auth from '@react-native-firebase/auth';
+import {db} from './util/firestore';
 
-// UserContext.tsx 수정
 interface UserContextProps {
   uid: string | undefined;
   setUid: React.Dispatch<React.SetStateAction<string | undefined>>;
+  isCertified: boolean;
+  setIsCertified: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const UserContext = createContext<UserContextProps>({
   uid: undefined,
   setUid: () => {},
+  isCertified: false,
+  setIsCertified: () => {},
 });
 
 export function UserProvider({children}: {children: React.ReactNode}) {
   const [uid, setUid] = useState<string | undefined>(undefined);
+  const [isCertified, setIsCertified] = useState<boolean>(false);
 
   useEffect(() => {
-    const unsubscribe = auth().onAuthStateChanged(user => {
+    const unsubscribe = auth().onAuthStateChanged(async user => {
       if (user) {
         setUid(user.uid);
+        // 인증 여부 확인
+        const userDoc = await db.collection('Users').doc(user.uid).get();
+        const userData = userDoc.data();
+        setIsCertified(userData?.is_certified);
       } else {
         setUid(undefined);
       }
     });
-
-    // Clean up the subscription when the component unmounts
     return () => unsubscribe();
   }, []);
 
   return (
-    <UserContext.Provider value={{uid, setUid}}>
+    <UserContext.Provider value={{uid, setUid, isCertified, setIsCertified}}>
       {children}
     </UserContext.Provider>
   );

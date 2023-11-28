@@ -227,11 +227,18 @@ export default function MainPageScreen({navigation}: {navigation: any}) {
           </View>
 
           <View className="top-[178px] mx-auto w-[391px] h-[207px] bg-white border">
-            <Text
-              style={{fontFamily: 'GowunDodum-Regular'}}
-              className="mx-auto text-[26px] mt-[22px] ml-[29px] text-brown">
-              카카오톡
-            </Text>
+            <View className="flex-row mx-5 mt-5">
+              <Image
+                style={styles.snsImage}
+                source={require('images/kakao.png')}
+              />
+              <Text
+                style={{fontFamily: 'GowunDodum-Regular'}}
+                className="ml-2 text-[26px] text-brown">
+                카카오톡
+              </Text>
+            </View>
+
             <TextInput
               className="w-[330px] h-[52px] ml-[30px] mt-[20px] border border-solid-100 bg-white-gray"
               value={kakaoId}
@@ -308,11 +315,18 @@ export default function MainPageScreen({navigation}: {navigation: any}) {
           </View>
 
           <View className="top-[178px] mx-auto w-[391px] h-[207px] bg-white border">
-            <Text
-              style={{fontFamily: 'GowunDodum-Regular'}}
-              className="mx-auto text-[26px] mt-[22px] ml-[29px] text-brown">
-              인스타
-            </Text>
+            <View className="flex-row mx-5 mt-5">
+              <Image
+                style={styles.snsImage}
+                source={require('images/insta.png')}
+              />
+              <Text
+                style={{fontFamily: 'GowunDodum-Regular'}}
+                className="text-[26px] ml-2 text-brown">
+                인스타
+              </Text>
+            </View>
+
             <TextInput
               className="w-[330px] h-[52px] ml-[30px] mt-[20px] border border-solid-100 bg-white-gray"
               value={instaId}

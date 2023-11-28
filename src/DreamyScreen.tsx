@@ -8,15 +8,19 @@ import auth from '@react-native-firebase/auth';
 import {db} from './util/firestore';
 import {FirebaseAuthTypes} from '@react-native-firebase/auth';
 import {CommonActions} from '@react-navigation/native';
+import LoadingScreen from './LoadingScreen';
+import {useContext} from 'react';
+import {UserContext} from './UserContext';
 
 export default function DreamyScreen({navigation}: {navigation: any}) {
   const [isLogin, setIsLogin] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [isCertified, setIsCertified] = useState(false);
   const [isError, setIsError] = useState(false);
   const [errorText, setErrorText] = useState('');
   const [user, setUser] = useState<FirebaseAuthTypes.User | null>(null);
   const webview = useRef<WebView>(null);
+
+  const {setIsCertified} = useContext(UserContext);
 
   const handleError = (error: any) => {
     setErrorText(error);
@@ -45,12 +49,7 @@ export default function DreamyScreen({navigation}: {navigation: any}) {
 
   return (
     <View className="flex-1">
-      {/* 라우팅 코드로 바꾸기 */}
-      {isLoading ? (
-        <View className="flex w-full h-full bg-red-300">
-          <Text className="text-2xl">This is a Loading Screen</Text>
-        </View>
-      ) : null}
+      {isLoading ? <LoadingScreen loadingMessage="인증 중이에요" /> : null}
       {isError ? (
         <View className="flex w-full h-full bg-red-300">
           <Text className="text-2xl">{errorText}</Text>

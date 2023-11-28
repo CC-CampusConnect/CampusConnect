@@ -25,7 +25,7 @@ export default function DreamyRequestScreen({navigation}: {navigation: any}) {
         index: 2,
         routes: [
           {name: 'Home'},
-          {name: 'SignIn'},
+          {name: 'DreamyRequest'},
           {
             name: 'Dreamy',
           },

@@ -373,6 +373,10 @@ export default function JoinScreen({navigation, route}: any) {
       width: 35,
       height: 35,
     },
+    MuteImage: {
+      width: 30,
+      height: 32,
+    },
     // 모달창 투명배경을 만들기 위한
     modalView: {
       backgroundColor: 'rgba(255, 255, 255, 0.9)',
@@ -385,22 +389,30 @@ export default function JoinScreen({navigation, route}: any) {
     <View className="flex w-full h-full relative bg-[#000000]">
       {/* 타이머 & start call & switchCamera & toggleMute & startLocalStream & roomId*/}
       <View className="flex flex-row top-0 left-0 right-0 justify-around items-end h-[50px] bg-[#000000]">
-        {/* start call */}
-        {localStream && (
-          <TouchableOpacity
-            className="w-[56px] h-[30px] bg-white rounded my-auto"
-            onPress={() => joinCall(roomId)}
-            disabled={!!remoteStream}>
-            <Text>Click to join call</Text>
-          </TouchableOpacity>
-        )}
-
         {/* switchCamera */}
         {localStream && (
           <TouchableOpacity
-            className="w-[56px] h-[30px] bg-white rounded my-auto"
+            className="w-14 h-14 my-auto"
             onPress={switchCamera}>
-            <Text>Switch camera</Text>
+            <Image
+              className="mx-auto my-auto"
+              style={styles.AddTimeImage}
+              source={require('images/FlipCamera.png')}
+            />
+          </TouchableOpacity>
+        )}
+
+        {/* toggleMute */}
+        {localStream && (
+          <TouchableOpacity
+            className="w-14 h-14 my-auto"
+            onPress={toggleMute}
+            disabled={!remoteStream}>
+            <Image
+              className="ml-0 my-auto"
+              style={styles.MuteImage}
+              source={require('images/Mute.png')}
+            />
           </TouchableOpacity>
         )}
 
@@ -412,13 +424,13 @@ export default function JoinScreen({navigation, route}: any) {
           setIsExtended={setIsExtended}
         />
 
-        {/* toggleMute */}
+        {/* start call */}
         {localStream && (
           <TouchableOpacity
             className="w-[56px] h-[30px] bg-white rounded my-auto"
-            onPress={toggleMute}
-            disabled={!remoteStream}>
-            <Text>{`${isMuted ? 'Unmute' : 'Mute'} stream`}</Text>
+            onPress={() => joinCall(roomId)}
+            disabled={!!remoteStream}>
+            <Text>Click to join call</Text>
           </TouchableOpacity>
         )}
 

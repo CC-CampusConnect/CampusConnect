@@ -22,6 +22,7 @@ import Timer from './Timer';
 import {useContext} from 'react';
 import {UserContext} from './UserContext';
 import {CommonActions} from '@react-navigation/native';
+import LoadingScreen from './LoadingScreen';
 
 const configuration = {
   iceServers: [
@@ -89,6 +90,7 @@ export default function CallScreen({navigation, route}: any) {
   const [init, setInit] = useState<boolean>(false); // 통화 시작 여부
   const [calleeUid, setcalleeUid] = useState<string>(''); // callee 정보
   const [timerStarted, setTimerStarted] = useState(false); // 타이머 시작 여부
+  const [isCallStarted, setIsCallStarted] = useState(false); // 통화 시작 여부
 
   const [isMuted, setIsMuted] = useState(false);
 
@@ -270,6 +272,7 @@ export default function CallScreen({navigation, route}: any) {
       }
       if (!timerStarted && data?.callerReady && data?.calleeReady) {
         setTimerStarted(true);
+        setIsCallStarted(true);
       }
       if (
         data?.callerExtensionPressed &&
@@ -374,6 +377,10 @@ export default function CallScreen({navigation, route}: any) {
       width: 35,
       height: 35,
     },
+    MuteImage: {
+      width: 30,
+      height: 32,
+    },
     // 모달창 투명배경을 만들기 위한
     modalView: {
       backgroundColor: 'rgba(255, 255, 255, 0.9)',
@@ -384,205 +391,285 @@ export default function CallScreen({navigation, route}: any) {
 
   return (
     <View className="flex w-full h-full relative bg-[#000000]">
-      {/* 타이머 & start call & switchCamera & toggleMute & startLocalStream & roomId*/}
-      <View className="flex flex-row top-0 left-0 right-0 justify-around items-end h-[50px] bg-[#000000]">
-        {/* start call */}
-        {localStream && (
-          <TouchableOpacity
-            className="w-[56px] h-[30px] bg-white rounded my-auto"
-            onPress={() => startCall(roomId)}
-            disabled={!!remoteStream}>
-            <Text>Click to start call</Text>
-          </TouchableOpacity>
-        )}
+      {!isCallStarted ? (
+        <>
+          {/* 타이머 & start call & switchCamera & toggleMute & startLocalStream & roomId*/}
+          <View className="flex flex-row top-0 left-0 right-0 justify-around items-end h-[50px] bg-[#000000]">
+            {/* switchCamera */}
+            {localStream && (
+              <TouchableOpacity
+                className="w-14 h-14 my-auto"
+                onPress={switchCamera}>
+                <Image
+                  className="mx-auto my-auto"
+                  style={styles.AddTimeImage}
+                  source={require('images/FlipCamera.png')}
+                />
+              </TouchableOpacity>
+            )}
 
-        {/* switchCamera */}
-        {localStream && (
-          <TouchableOpacity
-            className="w-[56px] h-[30px] bg-white rounded my-auto"
-            onPress={switchCamera}>
-            <Text>Switch camera</Text>
-          </TouchableOpacity>
-        )}
+            {/* toggleMute */}
+            {localStream && (
+              <TouchableOpacity
+                className="w-14 h-14 my-auto"
+                onPress={toggleMute}
+                disabled={!remoteStream}>
+                <Image
+                  className="ml-0 my-auto"
+                  style={styles.MuteImage}
+                  source={require('images/Mute.png')}
+                />
+              </TouchableOpacity>
+            )}
 
-        {/* 타이머 */}
-        <Timer
-          onBackPress={onBackPress}
-          timerStarted={timerStarted}
-          isExtended={isExtended}
-          setIsExtended={setIsExtended}
-        />
+            {/* 타이머 */}
+            <Timer
+              onBackPress={onBackPress}
+              timerStarted={timerStarted}
+              isExtended={isExtended}
+              setIsExtended={setIsExtended}
+            />
 
-        {/* toggleMute */}
-        {localStream && (
-          <TouchableOpacity
-            className="w-[56px] h-[30px] bg-white rounded my-auto"
-            onPress={toggleMute}
-            disabled={!remoteStream}>
-            <Text>{`${isMuted ? 'Unmute' : 'Mute'} stream`}</Text>
-          </TouchableOpacity>
-        )}
+            {/* start call */}
+            {localStream && (
+              <TouchableOpacity
+                className="w-[56px] h-[30px] bg-white rounded my-auto"
+                onPress={() => startCall(roomId)}
+                disabled={!!remoteStream}>
+                <Text>Click to start call</Text>
+              </TouchableOpacity>
+            )}
 
-        {/* startLocalStream */}
-        {!localStream && (
-          <TouchableOpacity
-            className="w-[56px] h-[30px] bg-white rounded my-auto"
-            onPress={startLocalStream}>
-            <Text>Click to start stream</Text>
-          </TouchableOpacity>
-        )}
+            {/* startLocalStream */}
+            {!localStream && (
+              <TouchableOpacity
+                className="w-[56px] h-[30px] bg-white rounded my-auto"
+                onPress={startLocalStream}>
+                <Text>Click to start stream</Text>
+              </TouchableOpacity>
+            )}
 
-        {/* roomId */}
-        <Text className="w-[56px] h-[30px] bg-white rounded my-auto">
-          Room : {roomId}
-        </Text>
-      </View>
+            {/* roomId */}
+            <Text className="w-[56px] h-[30px] bg-white rounded my-auto">
+              Room : {roomId}
+            </Text>
+          </View>
+          <LoadingScreen loadingMessage="통화 연결 중이에요" />
+        </>
+      ) : (
+        <>
+          {/* 타이머 & start call & switchCamera & toggleMute & startLocalStream & roomId*/}
+          <View className="flex flex-row top-0 left-0 right-0 justify-around items-end h-[50px] bg-[#000000]">
+            {/* switchCamera */}
+            {localStream && (
+              <TouchableOpacity
+                className="w-14 h-14 my-auto"
+                onPress={switchCamera}>
+                <Image
+                  className="mx-auto my-auto"
+                  style={styles.AddTimeImage}
+                  source={require('images/FlipCamera.png')}
+                />
+              </TouchableOpacity>
+            )}
 
-      {/* 정보 확인 모달 */}
-      <Modal
-        visible={infoModalVisible}
-        onRequestClose={() => {
-          setInfoModalVisible(!infoModalVisible);
-        }}
-        animationType="fade"
-        transparent={true}>
-        <View className="mt-24 mx-auto">
-          <View className="w-[391px] h-[195px] m-5" style={styles.modalView}>
-            <View>
-              <Text
-                className="text-[20px] text-brown ml"
-                style={{fontFamily: 'GowunDodum-Regular'}}>
-                전공 : {isActivatedMajor ? major : '?'}
-              </Text>
+            {/* toggleMute */}
+            {localStream && (
+              <TouchableOpacity
+                className="w-14 h-14 my-auto"
+                onPress={toggleMute}
+                disabled={!remoteStream}>
+                <Image
+                  className="ml-0 my-auto"
+                  style={styles.MuteImage}
+                  source={require('images/Mute.png')}
+                />
+              </TouchableOpacity>
+            )}
+
+            {/* 타이머 */}
+            <Timer
+              onBackPress={onBackPress}
+              timerStarted={timerStarted}
+              isExtended={isExtended}
+              setIsExtended={setIsExtended}
+            />
+
+            {/* start call */}
+            {localStream && (
+              <TouchableOpacity
+                className="w-[56px] h-[30px] bg-white rounded my-auto"
+                onPress={() => startCall(roomId)}
+                disabled={!!remoteStream}>
+                <Text>Click to start call</Text>
+              </TouchableOpacity>
+            )}
+
+            {/* startLocalStream */}
+            {!localStream && (
+              <TouchableOpacity
+                className="w-[56px] h-[30px] bg-white rounded my-auto"
+                onPress={startLocalStream}>
+                <Text>Click to start stream</Text>
+              </TouchableOpacity>
+            )}
+
+            {/* roomId */}
+            <Text className="w-[56px] h-[30px] bg-white rounded my-auto">
+              Room : {roomId}
+            </Text>
+          </View>
+          {/* 정보 확인 모달 */}
+          <Modal
+            visible={infoModalVisible}
+            onRequestClose={() => {
+              setInfoModalVisible(!infoModalVisible);
+            }}
+            animationType="fade"
+            transparent={true}>
+            <View className="mt-24 mx-auto">
+              <View
+                className="w-[391px] h-[195px] m-5"
+                style={styles.modalView}>
+                <View>
+                  <Text
+                    className="text-[20px] text-brown ml"
+                    style={{fontFamily: 'GowunDodum-Regular'}}>
+                    전공 : {isActivatedMajor ? major : '?'}
+                  </Text>
+                </View>
+                <View>
+                  <Text
+                    className="text-[20px] text-brown "
+                    style={{fontFamily: 'GowunDodum-Regular'}}>
+                    학번 : {isActivatedStudentId ? studentId : '?'}
+                  </Text>
+                </View>
+                <View>
+                  <Text
+                    className="text-[20px] text-brown "
+                    style={{fontFamily: 'GowunDodum-Regular'}}>
+                    카카오톡 : {isActivatedSns ? kakao : '?'}
+                  </Text>
+                  <Text
+                    className="text-[20px] text-brown "
+                    style={{fontFamily: 'GowunDodum-Regular'}}>
+                    인스타그램 : {isActivatedSns ? insta : '?'}
+                  </Text>
+                </View>
+                <TouchableOpacity onPress={() => setInfoModalVisible(false)}>
+                  <Text className="mx-auto mt-5 text-[16px] text-black underline">
+                    취소
+                  </Text>
+                </TouchableOpacity>
+              </View>
             </View>
-            <View>
-              <Text
-                className="text-[20px] text-brown "
-                style={{fontFamily: 'GowunDodum-Regular'}}>
-                학번 : {isActivatedStudentId ? studentId : '?'}
-              </Text>
+          </Modal>
+
+          {/* 통화 종료 확인 모달 */}
+          <Modal
+            visible={endModalVisible}
+            onRequestClose={() => {
+              setEndModalVisible(!endModalVisible);
+            }}
+            animationType="fade"
+            transparent={true}>
+            <View className="mt-24 mx-auto">
+              <View
+                className="w-[391px] h-[143px] m-5"
+                style={styles.modalView}>
+                <View>
+                  <Text
+                    className="text-[20px] text-center text-brown ml"
+                    style={{fontFamily: 'GowunDodum-Regular'}}>
+                    통화를 종료하시겠습니까?
+                  </Text>
+                </View>
+                <View className="flex-row justify-around">
+                  <TouchableOpacity onPress={handleEndCall}>
+                    <Text className="mx-auto mt-5 text-[16px] text-black underline">
+                      네
+                    </Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity onPress={() => setEndModalVisible(false)}>
+                    <Text className="mx-auto mt-5 text-[16px] text-black underline">
+                      아니요
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
             </View>
-            <View>
-              <Text
-                className="text-[20px] text-brown "
-                style={{fontFamily: 'GowunDodum-Regular'}}>
-                카카오톡 : {isActivatedSns ? kakao : '?'}
-              </Text>
-              <Text
-                className="text-[20px] text-brown "
-                style={{fontFamily: 'GowunDodum-Regular'}}>
-                인스타그램 : {isActivatedSns ? insta : '?'}
-              </Text>
-            </View>
-            <TouchableOpacity onPress={() => setInfoModalVisible(false)}>
-              <Text className="mx-auto mt-5 text-[16px] text-black underline">
-                취소
-              </Text>
+          </Modal>
+
+          {/* 버튼들 */}
+          <View className="flex flex-row absolute bottom-0 left-0 right-0 justify-around items-end h-[80px] bg-[#000000]">
+            {/* SNS 추가 버튼 */}
+            <TouchableOpacity
+              className="w-14 h-14 my-auto bg-white rounded-full"
+              onPress={handleAddSns}>
+              <Image
+                className="mx-auto my-auto"
+                style={styles.AddSnsImage}
+                source={require('images/AddSns.png')}
+              />
             </TouchableOpacity>
-          </View>
-        </View>
-      </Modal>
 
-      {/* 통화 종료 확인 모달 */}
-      <Modal
-        visible={endModalVisible}
-        onRequestClose={() => {
-          setEndModalVisible(!endModalVisible);
-        }}
-        animationType="fade"
-        transparent={true}>
-        <View className="mt-24 mx-auto">
-          <View className="w-[391px] h-[143px] m-5" style={styles.modalView}>
-            <View>
-              <Text
-                className="text-[20px] text-center text-brown ml"
-                style={{fontFamily: 'GowunDodum-Regular'}}>
-                통화를 종료하시겠습니까?
-              </Text>
-            </View>
-            <View className="flex-row justify-around">
-              <TouchableOpacity onPress={handleEndCall}>
-                <Text className="mx-auto mt-5 text-[16px] text-black underline">
-                  네
-                </Text>
+            {/* 통화 종료 버튼 */}
+            <TouchableOpacity
+              className="w-14 h-14 my-auto bg-white rounded-full"
+              onPress={() => setEndModalVisible(true)}>
+              <Image
+                className="mx-auto my-auto"
+                style={styles.StopCallImage}
+                source={require('images/StopCall.png')}
+              />
+            </TouchableOpacity>
+
+            {/* 정보 확인 버튼 */}
+            <TouchableOpacity
+              className="w-14 h-14 my-auto bg-white rounded-full"
+              onPress={() => setInfoModalVisible(true)}>
+              <Image
+                className="mx-auto my-auto"
+                style={styles.InfoImage}
+                source={require('images/Info.png')}
+              />
+            </TouchableOpacity>
+
+            {/* 통화 연장 버튼 */}
+            {localStream && (
+              <TouchableOpacity
+                className="w-14 h-14 my-auto bg-white rounded-full"
+                onPress={extendCall}>
+                <Image
+                  className="mx-auto my-auto"
+                  style={styles.AddTimeImage}
+                  source={require('images/AddTime.png')}
+                />
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => setEndModalVisible(false)}>
-                <Text className="mx-auto mt-5 text-[16px] text-black underline">
-                  아니요
-                </Text>
-              </TouchableOpacity>
-            </View>
+            )}
           </View>
-        </View>
-      </Modal>
-
-      {/* 버튼들 */}
-      <View className="flex flex-row absolute bottom-0 left-0 right-0 justify-around items-end h-[80px] bg-[#000000]">
-        {/* SNS 추가 버튼 */}
-        <TouchableOpacity
-          className="w-14 h-14 my-auto bg-white rounded-full"
-          onPress={handleAddSns}>
-          <Image
-            className="mx-auto my-auto"
-            style={styles.AddSnsImage}
-            source={require('images/AddSns.png')}
-          />
-        </TouchableOpacity>
-
-        {/* 통화 종료 버튼 */}
-        <TouchableOpacity
-          className="w-14 h-14 my-auto bg-white rounded-full"
-          onPress={() => setEndModalVisible(true)}>
-          <Image
-            className="mx-auto my-auto"
-            style={styles.StopCallImage}
-            source={require('images/StopCall.png')}
-          />
-        </TouchableOpacity>
-
-        {/* 정보 확인 버튼 */}
-        <TouchableOpacity
-          className="w-14 h-14 my-auto bg-white rounded-full"
-          onPress={() => setInfoModalVisible(true)}>
-          <Image
-            className="mx-auto my-auto"
-            style={styles.InfoImage}
-            source={require('images/Info.png')}
-          />
-        </TouchableOpacity>
-
-        {/* 통화 연장 버튼 */}
-        {localStream && (
-          <TouchableOpacity
-            className="w-14 h-14 my-auto bg-white rounded-full"
-            onPress={extendCall}>
-            <Image
-              className="mx-auto my-auto"
-              style={styles.AddTimeImage}
-              source={require('images/AddTime.png')}
-            />
-          </TouchableOpacity>
-        )}
-      </View>
-      {/* 통화 화면 */}
-      {init ? (
-        <View className="flex w-full space-y-4">
-          {remoteStream && (
-            <RTCView
-              className="w-[400px] h-[350px] mx-auto"
-              objectFit={'cover'}
-              streamURL={remoteStream && remoteStream.toURL()}
-            />
-          )}
-          {localStream && (
-            <RTCView
-              className="w-[400px] h-[350px] mx-auto"
-              objectFit={'cover'}
-              streamURL={localStream && localStream.toURL()}
-            />
-          )}
-        </View>
-      ) : null}
+          {/* 통화 화면 */}
+          {init ? (
+            <View className="flex w-full space-y-4">
+              {remoteStream && (
+                <RTCView
+                  className="w-[400px] h-[350px] mx-auto"
+                  objectFit={'cover'}
+                  streamURL={remoteStream && remoteStream.toURL()}
+                />
+              )}
+              {localStream && (
+                <RTCView
+                  className="w-[400px] h-[350px] mx-auto"
+                  objectFit={'cover'}
+                  streamURL={localStream && localStream.toURL()}
+                />
+              )}
+            </View>
+          ) : null}
+        </>
+      )}
     </View>
   );
 }

@@ -20,7 +20,6 @@ import WaitConnectScreen from './src/WaitConnectScreen';
 import ConnectFailScreen from './src/ConnectFailScreen';
 import ConnectSuccessScreen from './src/ConnectSuccessScreen';
 
-
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -50,7 +49,10 @@ export default function App() {
           <Stack.Screen name="ModalTest" component={Modaltest} />
           <Stack.Screen name="WaitConnect" component={WaitConnectScreen} />
           <Stack.Screen name="ConnectFail" component={ConnectFailScreen} />
-          <Stack.Screen name="ConnectSuccess" component={ConnectSuccessScreen} />
+          <Stack.Screen
+            name="ConnectSuccess"
+            component={ConnectSuccessScreen}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </UserProvider>

@@ -5,7 +5,11 @@ import React from 'react';
 import {View, Text, Image, StyleSheet} from 'react-native';
 import {ProgressBar} from 'react-native-paper';
 
-export default function WaitConnectScreen() {
+type LoadingProps = {
+  loadingMessage: string;
+};
+
+export default function LoadingScreen({loadingMessage}: LoadingProps) {
   // 이미지 크기를 위한 styleSheet
   const styles = StyleSheet.create({
     BackImage: {
@@ -68,7 +72,7 @@ export default function WaitConnectScreen() {
         <Text
           className="top-[330px] text-[32px] text-brown mx-auto"
           style={{fontFamily: 'GowunDodum-Regular'}}>
-          매칭 중이에요...
+          {loadingMessage}
         </Text>
 
         {/* 로딩바 */}
