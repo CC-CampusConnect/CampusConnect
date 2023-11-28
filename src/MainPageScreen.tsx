@@ -141,6 +141,19 @@ export default function MainPageScreen({navigation}: {navigation: any}) {
 
   return (
     <View className="flex w-full h-full bg-[#F5F1E8] relative">
+      {/* 배경 이미지 */}
+      <View className="w-[346px] h-[767px] left-[33px] top-[30px] absolute">
+        <Image className="w-[46px] h-[35px] left-[6px] top-[60px] absolute" source={require('images/Cat.png')} />
+        <Image className="w-[46px] h-[35px] left-[6px] top-[402px] absolute" source={require('images/Cat.png')} />
+        <Image className="w-[46px] h-[35px] left-[6px] top-[660px] absolute" source={require('images/Cat.png')} />
+
+        <Image className="w-16 h-9 left-[155px] top-[300px] absolute" source={require('images/Rabbit.png')} />
+        <Image className="w-16 h-9 left-[155px] top-[582px] absolute" source={require('images/Rabbit.png')} />
+        
+        <Image className="w-[53px] h-[35px] left-[293px] top-[69px] absolute" source={require('images/Dog.png')} />
+        <Image className="w-[53px] h-[35px] left-[293px] top-[430px] absolute" source={require('images/Dog.png')} />
+        
+      </View>
       
       {/* 인스타, 카카오톡, 로그아웃 */}
       <View className='top-[37px] left-[49px] right-[49px] absolute'>
@@ -322,19 +335,7 @@ export default function MainPageScreen({navigation}: {navigation: any}) {
         </Modal>
       </View>
 
-      {/* 배경 이미지 */}
-      <View className="w-[346px] h-[767px] left-[33px] top-[30px] absolute">
-        <Image className="w-[46px] h-[35px] left-[6px] top-[60px] absolute" source={require('images/Cat.png')} />
-        <Image className="w-[46px] h-[35px] left-[6px] top-[402px] absolute" source={require('images/Cat.png')} />
-        <Image className="w-[46px] h-[35px] left-[6px] top-[660px] absolute" source={require('images/Cat.png')} />
-
-        <Image className="w-16 h-9 left-[155px] top-[300px] absolute" source={require('images/Rabbit.png')} />
-        <Image className="w-16 h-9 left-[155px] top-[582px] absolute" source={require('images/Rabbit.png')} />
-        
-        <Image className="w-[53px] h-[35px] left-[293px] top-[69px] absolute" source={require('images/Dog.png')} />
-        <Image className="w-[53px] h-[35px] left-[293px] top-[430px] absolute" source={require('images/Dog.png')} />
-        
-      </View>
+      
     </View>
   );
 }
