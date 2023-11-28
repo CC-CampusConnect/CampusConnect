@@ -19,6 +19,7 @@ import Modaltest from './src/ModalTest';
 import WaitConnectScreen from './src/WaitConnectScreen';
 import ConnectFailScreen from './src/ConnectFailScreen';
 import ConnectSuccessScreen from './src/ConnectSuccessScreen';
+import LoadingScreen from './src/LoadingScreen'; // 반응형 디자인 적용 후 지우기
 
 const Stack = createNativeStackNavigator();
 
@@ -32,6 +33,7 @@ export default function App() {
           <Stack.Screen name="SignIn" component={SignInScreen} />
           <Stack.Screen name="Dreamy" component={DreamyScreen} />
           <Stack.Screen name="Deepar" component={DeeparScreen} />
+          
           <Stack.Screen
             name="SignUpComplete"
             component={SignUpCompleteScreen}
@@ -53,6 +55,7 @@ export default function App() {
             name="ConnectSuccess"
             component={ConnectSuccessScreen}
           />
+          <Stack.Screen name="Loading" component={LoadingScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </UserProvider>

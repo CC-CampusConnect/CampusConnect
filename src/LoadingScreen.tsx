@@ -1,4 +1,5 @@
 // WaitConnectScreen.tsx
+// 3-4. 하영드리미 로딩 페이지
 // 5-1 랜덤 매칭 대기 페이지
 
 import React from 'react';
@@ -24,7 +25,7 @@ export default function LoadingScreen({loadingMessage}: LoadingProps) {
   });
 
   return (
-    <View className="flex w-full h-full relative bg-white-gray ">
+    <View className="flex w-full h-full relative justify-center items-center bg-white-gray ">
       {/* 배경 이미지 */}
       <View className="w-[346px] h-[767px] left-[33px] top-[30px] absolute">
         <Image
@@ -63,28 +64,25 @@ export default function LoadingScreen({loadingMessage}: LoadingProps) {
         />
       </View>
 
-      <View>
+      <View className='absolute justify-center items-center'>
         <Image
-          className="mx-auto top-[300px]"
+          className=""
           style={styles.SmileDogImage}
           source={require('images/SmileDog.png')}
         />
         <Text
-          className="top-[330px] text-[32px] text-brown mx-auto"
+          className="text-[32px] mt-2 text-brown"
           style={{fontFamily: 'GowunDodum-Regular'}}>
           {loadingMessage}
         </Text>
-
         {/* 로딩바 */}
-        <View className="space-y-4 top-[350px]">
-          <View>
-            {/* indeterminate ProgressBar */}
-            <ProgressBar
-              className="mx-auto w-[300px]"
-              indeterminate
-              color={'#FF8967'}
-            />
-          </View>
+        <View>
+          {/* indeterminate ProgressBar */}
+          <ProgressBar
+            className="w-[300px] mt-6"
+            indeterminate
+            color={'#FF8967'}
+          />
         </View>
       </View>
     </View>

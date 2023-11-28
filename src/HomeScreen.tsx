@@ -53,6 +53,16 @@ export default function HomeScreen({navigation}: {navigation: any}) {
           <Text>WebRTCRoom</Text>
         </View>
       </Pressable>
+      <Pressable onPress={() => navigation.navigate('SignUpComplete')}>
+        <View className="w-full h-10 bg-orange-500">
+          <Text>SignUpComplete</Text>
+        </View>
+      </Pressable>
+      <Pressable onPress={() => navigation.navigate('Loading')}>
+        <View className="w-full h-10 bg-orange-500">
+          <Text>Loading</Text>
+        </View>
+      </Pressable>
       <View className="flex w-full h-full">
         {user ? (
           <View>
