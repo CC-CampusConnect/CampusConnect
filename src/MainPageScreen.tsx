@@ -140,43 +140,57 @@ export default function MainPageScreen({navigation}: {navigation: any}) {
   }, []);
 
   return (
-    <View className="flex w-full h-full relative bg-white-gray">
-      {/* 배경 이미지 */}
-      <View className="w-[346px] h-[767px] left-[33px] top-[30px] absolute">
-        <Image
-          className="w-[46px] h-[35px] left-0 top-0 absolute"
-          source={require('images/Cat.png')}
-        />
-        <Image
-          className="w-[46px] h-[35px] left-[6px] top-[402px] absolute"
-          source={require('images/Cat.png')}
-        />
-        <Image
-          className="w-[46px] h-[35px] left-[6px] top-[692px] absolute"
-          source={require('images/Cat.png')}
-        />
+    <View className="flex w-full h-full bg-[#F5F1E8] relative">
+      
+      {/* 인스타, 카카오톡, 로그아웃 */}
+      <View className='top-[37px] left-[49px] right-[49px] absolute'>
+        <TouchableOpacity className="absolute right-5" onPress={logout}>
+          <Text className="text-xs text-black underline">
+            로그아웃
+          </Text>
+        </TouchableOpacity>
 
-        <Image
-          className="w-16 h-9 left-[155px] top-[191px] absolute"
-          source={require('images/Rabbit.png')}
-        />
-        <Image
-          className="w-16 h-9 left-[155px] top-[582px] absolute"
-          source={require('images/Rabbit.png')}
-        />
+        <TouchableOpacity
+          className="absolute left-[50px]"
+          onPress={() => setModalVisible(true)}>
+          <Image style={styles.snsImage} source={require('images/kakao.png')} />
+        </TouchableOpacity>
 
-        <Image
-          className="w-[53px] h-[35px] left-[293px] top-[69px] absolute"
-          source={require('images/Dog.png')}
-        />
-        <Image
-          className="w-[53px] h-[35px] left-[293px] top-[470px] absolute"
-          source={require('images/Dog.png')}
-        />
-        <Image
-          className="w-[53px] h-[35px] left-[293px] top-[732px] absolute"
-          source={require('images/Dog.png')}
-        />
+        <TouchableOpacity
+          className="absolute"
+          onPress={() => setModalVisible2(true)}>
+          <Image style={styles.snsImage} source={require('images/insta.png')} />
+        </TouchableOpacity>
+      </View>
+
+      {/* Campus Connect CC로 새로운 인연을 만들어보세요*/}
+      <View className='top-[166px] left-[49px] absolute'>
+        <Text
+          style={{fontFamily: 'EmblemaOne-Regular'}}
+          className=" text-orange-400 text-[45px]">
+          Campus
+        </Text>
+        <Text
+          style={{fontFamily: 'EmblemaOne-Regular'}}
+          className=" text-orange-400 text-[45px]">
+          Connect
+        </Text>
+        <Text
+          style={{fontFamily: 'GowunDodum-Regular'}}
+          className=" text-brown text-[20px]">
+          CC로 새로운 인연을 만들어보세요
+        </Text>
+      </View>
+
+      {/* 매칭 시작 버튼 */}
+      <View className='p-12 absolute bottom-0 w-full'>
+        <TouchableOpacity
+          className="p-2 rounded-[35px] bg-pink-500"
+          onPress={handleSubmit(onSubmit)}>
+          <Text style={{fontFamily: 'GowunDodum-Regular'}} className="text-center text-[40px] text-white">
+            매칭 시작
+          </Text>
+        </TouchableOpacity>
       </View>
 
       {/* 카카오톡 계정 입력 모달 */}
@@ -188,42 +202,19 @@ export default function MainPageScreen({navigation}: {navigation: any}) {
             setModalVisible(!modalVisible);
           }}
           animationType="slide">
+ 
           {/* 배경 이미지 */}
           <View className="w-[346px] h-[767px] left-[33px] top-[30px] absolute">
-            <Image
-              className="w-[46px] h-[35px] left-0 top-0 absolute"
-              source={require('images/Cat.png')}
-            />
-            <Image
-              className="w-[46px] h-[35px] left-[6px] top-[402px] absolute"
-              source={require('images/Cat.png')}
-            />
-            <Image
-              className="w-[46px] h-[35px] left-[6px] top-[692px] absolute"
-              source={require('images/Cat.png')}
-            />
+            <Image className="w-[46px] h-[35px] left-0 top-0 absolute" source={require('images/Cat.png')} />
+            <Image className="w-[46px] h-[35px] left-[6px] top-[402px] absolute" source={require('images/Cat.png')} />
+            <Image className="w-[46px] h-[35px] left-[6px] top-[692px] absolute" source={require('images/Cat.png')} />
 
-            <Image
-              className="w-16 h-9 left-[155px] top-[191px] absolute"
-              source={require('images/Rabbit.png')}
-            />
-            <Image
-              className="w-16 h-9 left-[155px] top-[582px] absolute"
-              source={require('images/Rabbit.png')}
-            />
-
-            <Image
-              className="w-[53px] h-[35px] left-[293px] top-[69px] absolute"
-              source={require('images/Dog.png')}
-            />
-            <Image
-              className="w-[53px] h-[35px] left-[293px] top-[470px] absolute"
-              source={require('images/Dog.png')}
-            />
-            <Image
-              className="w-[53px] h-[35px] left-[293px] top-[732px] absolute"
-              source={require('images/Dog.png')}
-            />
+            <Image className="w-16 h-9 left-[155px] top-[191px] absolute" source={require('images/Rabbit.png')} />
+            <Image className="w-16 h-9 left-[155px] top-[582px] absolute" source={require('images/Rabbit.png')} />
+            
+            <Image className="w-[53px] h-[35px] left-[293px] top-[69px] absolute" source={require('images/Dog.png')} />
+            <Image className="w-[53px] h-[35px] left-[293px] top-[470px] absolute" source={require('images/Dog.png')} />
+            <Image className="w-[53px] h-[35px] left-[293px] top-[732px] absolute" source={require('images/Dog.png')} />
           </View>
 
           <View className="top-[178px] mx-auto w-[391px] h-[207px] bg-white border">
@@ -276,43 +267,19 @@ export default function MainPageScreen({navigation}: {navigation: any}) {
             setModalVisible2(!modalVisible2);
           }}
           animationType="slide">
-          {/* 배경 이미지 */}
-          <View className="w-[346px] h-[767px] left-[33px] top-[30px] absolute">
-            <Image
-              className="w-[46px] h-[35px] left-0 top-0 absolute"
-              source={require('images/Cat.png')}
-            />
-            <Image
-              className="w-[46px] h-[35px] left-[6px] top-[402px] absolute"
-              source={require('images/Cat.png')}
-            />
-            <Image
-              className="w-[46px] h-[35px] left-[6px] top-[692px] absolute"
-              source={require('images/Cat.png')}
-            />
+        {/* 배경 이미지 */}
+        <View className="w-[346px] h-[767px] left-[33px] top-[30px] absolute">
+          <Image className="w-[46px] h-[35px] left-0 top-0 absolute" source={require('images/Cat.png')} />
+          <Image className="w-[46px] h-[35px] left-[6px] top-[402px] absolute" source={require('images/Cat.png')} />
+          <Image className="w-[46px] h-[35px] left-[6px] top-[692px] absolute" source={require('images/Cat.png')} />
 
-            <Image
-              className="w-16 h-9 left-[155px] top-[191px] absolute"
-              source={require('images/Rabbit.png')}
-            />
-            <Image
-              className="w-16 h-9 left-[155px] top-[582px] absolute"
-              source={require('images/Rabbit.png')}
-            />
-
-            <Image
-              className="w-[53px] h-[35px] left-[293px] top-[69px] absolute"
-              source={require('images/Dog.png')}
-            />
-            <Image
-              className="w-[53px] h-[35px] left-[293px] top-[470px] absolute"
-              source={require('images/Dog.png')}
-            />
-            <Image
-              className="w-[53px] h-[35px] left-[293px] top-[732px] absolute"
-              source={require('images/Dog.png')}
-            />
-          </View>
+          <Image className="w-16 h-9 left-[155px] top-[191px] absolute" source={require('images/Rabbit.png')} />
+          <Image className="w-16 h-9 left-[155px] top-[582px] absolute" source={require('images/Rabbit.png')} />
+          
+          <Image className="w-[53px] h-[35px] left-[293px] top-[69px] absolute" source={require('images/Dog.png')} />
+          <Image className="w-[53px] h-[35px] left-[293px] top-[470px] absolute" source={require('images/Dog.png')} />
+          <Image className="w-[53px] h-[35px] left-[293px] top-[732px] absolute" source={require('images/Dog.png')} />
+        </View>
 
           <View className="top-[178px] mx-auto w-[391px] h-[207px] bg-white border">
             <View className="flex-row mx-5 mt-5">
@@ -355,44 +322,19 @@ export default function MainPageScreen({navigation}: {navigation: any}) {
         </Modal>
       </View>
 
-      <TouchableOpacity className="absolute top-0 right-5" onPress={logout}>
-        <Text className="mx-auto mt-[16px] mb-[144px] text-xs text-black underline">
-          로그아웃
-        </Text>
-      </TouchableOpacity>
+      {/* 배경 이미지 */}
+      <View className="w-[346px] h-[767px] left-[33px] top-[30px] absolute">
+        <Image className="w-[46px] h-[35px] left-[6px] top-[60px] absolute" source={require('images/Cat.png')} />
+        <Image className="w-[46px] h-[35px] left-[6px] top-[402px] absolute" source={require('images/Cat.png')} />
+        <Image className="w-[46px] h-[35px] left-[6px] top-[660px] absolute" source={require('images/Cat.png')} />
 
-      <TouchableOpacity
-        className="absolute top-5 ml-[20px]"
-        onPress={() => setModalVisible(true)}>
-        <Image style={styles.snsImage} source={require('images/kakao.png')} />
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        className="absolute top-5 ml-[70px]"
-        onPress={() => setModalVisible2(true)}>
-        <Image style={styles.snsImage} source={require('images/insta.png')} />
-      </TouchableOpacity>
-
-      <Image
-        className="mx-auto mt-[91px]"
-        style={styles.LogoImage}
-        source={require('images/CCLogo.png')}
-      />
-
-      <TouchableOpacity
-        className="mx-auto mt-[160px] w-[217px] h-[217px] bg-pink-500 rounded-full shadow"
-        onPress={handleSubmit(onSubmit)}>
-        <Text
-          style={{fontFamily: 'GowunDodum-Regular'}}
-          className="mx-auto mt-auto text-xxl text-white">
-          매칭
-        </Text>
-        <Text
-          style={{fontFamily: 'GowunDodum-Regular'}}
-          className="mx-auto mb-auto text-xxl text-white">
-          시작
-        </Text>
-      </TouchableOpacity>
+        <Image className="w-16 h-9 left-[155px] top-[300px] absolute" source={require('images/Rabbit.png')} />
+        <Image className="w-16 h-9 left-[155px] top-[582px] absolute" source={require('images/Rabbit.png')} />
+        
+        <Image className="w-[53px] h-[35px] left-[293px] top-[69px] absolute" source={require('images/Dog.png')} />
+        <Image className="w-[53px] h-[35px] left-[293px] top-[430px] absolute" source={require('images/Dog.png')} />
+        
+      </View>
     </View>
   );
 }

@@ -11,10 +11,11 @@ module.exports = {
         /* Text 색상 토큰 */
         'orange-600': '#FF9730',
         'brown':'#643D18',
-        'white':'#FFFFFF', /* +) Background-Button 토큰 */
-        'black':'#000000', /* +) Background-Button 토큰 */
+        'white':'#FFFFFF',
+        'black':'#000000', 
         'gray':'#A6A6A6',
         'red':'#B00020',
+        
 
         /* Background 색상 토큰 */
         'white-gray':'#F8F8F8',
