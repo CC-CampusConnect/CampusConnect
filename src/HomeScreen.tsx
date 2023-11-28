@@ -58,11 +58,6 @@ export default function HomeScreen({navigation}: {navigation: any}) {
           <Text>SignUpComplete</Text>
         </View>
       </Pressable>
-      <Pressable onPress={() => navigation.navigate('Loading')}>
-        <View className="w-full h-10 bg-orange-500">
-          <Text>Loading</Text>
-        </View>
-      </Pressable>
       <Pressable onPress={() => navigation.navigate('ConnectFail')}>
         <View className="w-full h-10 bg-orange-500">
           <Text>ConnectFail</Text>

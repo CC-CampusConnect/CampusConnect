@@ -55,7 +55,7 @@ export default function App() {
             name="ConnectSuccess"
             component={ConnectSuccessScreen}
           />
-          <Stack.Screen name="Loading" component={LoadingScreen} />
+        
         </Stack.Navigator>
       </NavigationContainer>
     </UserProvider>
