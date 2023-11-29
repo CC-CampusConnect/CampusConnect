@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {
   Text,
   View,
@@ -19,7 +19,6 @@ import {
 
 import {db} from './util/firestore';
 import Timer from './Timer';
-import {useContext} from 'react';
 import {UserContext} from './UserContext';
 import {CommonActions} from '@react-navigation/native';
 
@@ -112,6 +111,14 @@ export default function CallScreen({navigation, route}: any) {
   }, []);
 
   useEffect(() => {
+    if (localStream && roomId) {
+      console.log(roomId, '방 입장 <caller>');
+      startCall(roomId);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [localStream, roomId]);
+
+  useEffect(() => {
     if (isEnd) {
       if (cachedLocalPC) {
         const sender = cachedLocalPC.getSenders()[0];
@@ -198,7 +205,7 @@ export default function CallScreen({navigation, route}: any) {
 
   // 통화 시작
   const startCall = async (id: string) => {
-    const roomRef = await db.collection('rooms').doc(id);
+    const roomRef = db.collection('rooms').doc(id);
 
     const localPC = new RTCPeerConnection(configuration);
 
@@ -219,7 +226,7 @@ export default function CallScreen({navigation, route}: any) {
         console.log('Got final candidate! <caller>');
         return;
       }
-      callerCandidatesCollection.add(e.candidate.toJSON());
+      await callerCandidatesCollection.add(e.candidate.toJSON());
     });
 
     localPC.addEventListener('track', e => {
@@ -386,16 +393,6 @@ export default function CallScreen({navigation, route}: any) {
     <View className="flex w-full h-full relative bg-[#000000]">
       {/* 타이머 & start call & switchCamera & toggleMute & startLocalStream & roomId*/}
       <View className="flex flex-row top-0 left-0 right-0 justify-around items-end h-[50px] bg-[#000000]">
-        {/* start call */}
-        {localStream && (
-          <TouchableOpacity
-            className="w-[56px] h-[30px] bg-white rounded my-auto"
-            onPress={() => startCall(roomId)}
-            disabled={!!remoteStream}>
-            <Text>Click to start call</Text>
-          </TouchableOpacity>
-        )}
-
         {/* switchCamera */}
         {localStream && (
           <TouchableOpacity
