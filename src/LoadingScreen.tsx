@@ -1,15 +1,29 @@
 // WaitConnectScreen.tsx
 // 5-1 랜덤 매칭 대기 페이지
 
-import React from 'react';
-import {View, Text, Image, StyleSheet} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {View, TouchableOpacity, Text, Image, StyleSheet} from 'react-native';
 import {ProgressBar} from 'react-native-paper';
+import {CommonActions} from '@react-navigation/native';
 
 type LoadingProps = {
+  navigation: any;
   loadingMessage: string;
 };
 
-export default function LoadingScreen({loadingMessage}: LoadingProps) {
+export default function LoadingScreen({
+  navigation,
+  loadingMessage,
+}: LoadingProps) {
+  const [isExistedBack, setIsExistedBack] = useState<Boolean>(false);
+  const handleBack = () => {
+    navigation.dispatch(
+      CommonActions.reset({
+        index: 1,
+        routes: [{name: 'Home'}, {name: 'MainPage'}],
+      }),
+    );
+  };
   // 이미지 크기를 위한 styleSheet
   const styles = StyleSheet.create({
     BackImage: {
@@ -22,6 +36,12 @@ export default function LoadingScreen({loadingMessage}: LoadingProps) {
       height: 185,
     },
   });
+
+  useEffect(() => {
+    if (loadingMessage === '매칭 중이에요...') {
+      setIsExistedBack(true);
+    }
+  }, [loadingMessage]);
 
   return (
     <View className="flex w-full h-full relative bg-white-gray ">
@@ -86,6 +106,16 @@ export default function LoadingScreen({loadingMessage}: LoadingProps) {
             />
           </View>
         </View>
+        {isExistedBack && (
+          <TouchableOpacity
+            className="absolute top-[26px] right-[26px] w-[56px] h-[56px] bg-pink-500 rounded-full"
+            onPress={handleBack}>
+            <Image
+              source={require('images/Back.png')}
+              className="mx-auto my-auto"
+            />
+          </TouchableOpacity>
+        )}
       </View>
     </View>
   );

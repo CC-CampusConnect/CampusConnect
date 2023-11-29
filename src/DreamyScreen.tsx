@@ -49,7 +49,9 @@ export default function DreamyScreen({navigation}: {navigation: any}) {
 
   return (
     <View className="flex-1">
-      {isLoading ? <LoadingScreen loadingMessage="인증 중이에요" /> : null}
+      {isLoading ? (
+        <LoadingScreen navigation={navigation} loadingMessage="인증 중이에요" />
+      ) : null}
       {isError ? (
         <View className="flex w-full h-full bg-red-300">
           <Text className="text-2xl">{errorText}</Text>

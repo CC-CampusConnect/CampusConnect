@@ -295,7 +295,10 @@ export default function RandomMatch({navigation}: any) {
       ) : (
         <Text>매칭 대기 중</Text>
       )} */}
-      <LoadingScreen loadingMessage="매칭 중이에요..." />
+      <LoadingScreen
+        navigation={navigation}
+        loadingMessage="매칭 중이에요..."
+      />
     </View>
   );
 }
