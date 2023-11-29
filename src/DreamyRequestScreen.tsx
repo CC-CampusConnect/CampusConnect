@@ -114,7 +114,7 @@ export default function DreamyRequestScreen({navigation}: {navigation: any}) {
 
       <View className="flex w-full h-full absolute justify-end mb-0">
         <TouchableOpacity
-          className="w-full w-full justify-end h-[65px] bg-pink-500"
+          className="w-full justify-end h-[65px] bg-pink-500"
           onPress={handleSubmit(onSubmit)}>
           <Text className="mx-auto my-auto text-sm text-white">인증하기</Text>
         </TouchableOpacity>

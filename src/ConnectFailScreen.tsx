@@ -33,7 +33,7 @@ export default function ConnectFailScreen({navigation}: {navigation: any}) {
     );
   };
   return (
-    <View className="flex w-full h-full relative bg-white-gray">
+    <View className="flex w-full h-full relative justify-center items-center bg-white-gray">
       {/* 배경 이미지 */}
       <View className="w-[346px] h-[767px] left-[33px] top-[30px] absolute">
         <Image
@@ -72,29 +72,30 @@ export default function ConnectFailScreen({navigation}: {navigation: any}) {
         />
       </View>
 
+      
       {/* 이미지, 멘트 */}
-      <View className="flex w-full h-full">
+      <View className="absolute justify-center items-center">
         <Image
-          className="mx-auto top-[300px]"
+          className=""
           style={styles.SmileDogImage}
           source={require('images/SadDog.png')}
         />
         <Text
-          className="top-[330px] text-[32px] text-brown mx-auto"
+          className="text-[32px] text-brown"
           style={{fontFamily: 'GowunDodum-Regular'}}>
           매칭 실패에요...
         </Text>
       </View>
 
-      {/* 5-1 랜덤 매칭 대기 페이지로 이동 */}
-      <View className="flex w-full h-full absolute justify-end mb-0">
+      {/* 다시시도, 취소 버튼 */}
+      <View className="w-full absolute bottom-0 ">
         <TouchableOpacity
-          className="w-full w-full justify-end h-[75px] bg-orange-500"
+          className="w-full justify-end h-[75px] bg-orange-500"
           onPress={() => navigation.navigate('WaitConnect')}>
           <Text className="mx-auto my-auto text-sm text-white">다시 시도</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          className="w-full w-full justify-end h-[75px] mt-1 bg-pink-500"
+          className="w-full justify-end h-[75px] mt-1 bg-pink-500"
           onPress={handleCancle}>
           <Text className="mx-auto my-auto text-sm text-white">취소</Text>
         </TouchableOpacity>

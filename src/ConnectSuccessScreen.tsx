@@ -15,7 +15,7 @@ export default function ConnectSuccessScreen() {
   });
 
   return (
-    <View className="flex w-full h-full relative bg-white-gray">
+    <View className="flex w-full h-full relative justify-center items-center bg-white-gray">
       {/* 배경 이미지 */}
       <View className="w-[346px] h-[767px] left-[33px] top-[30px] absolute">
         <Image
@@ -55,14 +55,14 @@ export default function ConnectSuccessScreen() {
       </View>
 
       {/* 이미지, 멘트 */}
-      <View className="flex w-full h-full">
+      <View className="justify-center items-center">
         <Image
-          className="mx-auto top-[300px]"
+          className=""
           style={styles.SmileDogImage}
           source={require('images/SmileDogFace.png')}
         />
         <Text
-          className="top-[330px] text-[32px] text-brown mx-auto"
+          className="text-[32px] text-brown mx-auto"
           style={{fontFamily: 'GowunDodum-Regular'}}>
           매칭 성공!
         </Text>
