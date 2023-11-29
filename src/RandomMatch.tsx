@@ -1,5 +1,5 @@
 import React, {useContext, useState, useEffect} from 'react';
-import {View, Text} from 'react-native';
+import {View} from 'react-native';
 import {db} from './util/firestore';
 import {UserContext} from './UserContext';
 import firestore from '@react-native-firebase/firestore';
@@ -7,6 +7,7 @@ import firestore from '@react-native-firebase/firestore';
 import {CommonActions} from '@react-navigation/native';
 
 import useInterval from './hooks/useInterval';
+import LoadingScreen from './LoadingScreen';
 
 export default function RandomMatch({navigation}: any) {
   const {uid} = useContext(UserContext);
@@ -283,7 +284,7 @@ export default function RandomMatch({navigation}: any) {
 
   return (
     <View>
-      <Text>{uid}</Text>
+      {/* <Text>{uid}</Text>
       <Text>랜덤 매칭 화면</Text>
       {start ? (
         <View>
@@ -293,7 +294,8 @@ export default function RandomMatch({navigation}: any) {
         </View>
       ) : (
         <Text>매칭 대기 중</Text>
-      )}
+      )} */}
+      <LoadingScreen loadingMessage="매칭 중이에요..." />
     </View>
   );
 }

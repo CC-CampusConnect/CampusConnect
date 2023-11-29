@@ -21,7 +21,7 @@ import {db} from './util/firestore';
 import Timer from './Timer';
 import {UserContext} from './UserContext';
 import {CommonActions} from '@react-navigation/native';
-import LoadingScreen from './LoadingScreen';
+import ConnectSuccessScreen from './ConnectSuccessScreen';
 
 const configuration = {
   iceServers: [
@@ -400,72 +400,11 @@ export default function CallScreen({navigation, route}: any) {
     <View className="flex w-full h-full relative bg-[#000000]">
       {!isCallStarted ? (
         <>
-          {/* 타이머 & start call & switchCamera & toggleMute & startLocalStream & roomId*/}
-          <View className="flex flex-row top-0 left-0 right-0 justify-around items-end h-[50px] bg-[#000000]">
-            {/* switchCamera */}
-            {localStream && (
-              <TouchableOpacity
-                className="w-14 h-14 my-auto"
-                onPress={switchCamera}>
-                <Image
-                  className="mx-auto my-auto"
-                  style={styles.AddTimeImage}
-                  source={require('images/FlipCamera.png')}
-                />
-              </TouchableOpacity>
-            )}
-
-            {/* toggleMute */}
-            {localStream && (
-              <TouchableOpacity
-                className="w-14 h-14 my-auto"
-                onPress={toggleMute}
-                disabled={!remoteStream}>
-                <Image
-                  className="ml-0 my-auto"
-                  style={styles.MuteImage}
-                  source={require('images/Mute.png')}
-                />
-              </TouchableOpacity>
-            )}
-
-            {/* 타이머 */}
-            <Timer
-              onBackPress={onBackPress}
-              timerStarted={timerStarted}
-              isExtended={isExtended}
-              setIsExtended={setIsExtended}
-            />
-
-            {/* start call */}
-            {localStream && (
-              <TouchableOpacity
-                className="w-[56px] h-[30px] bg-white rounded my-auto"
-                onPress={() => startCall(roomId)}
-                disabled={!!remoteStream}>
-                <Text>Click to start call</Text>
-              </TouchableOpacity>
-            )}
-
-            {/* startLocalStream */}
-            {!localStream && (
-              <TouchableOpacity
-                className="w-[56px] h-[30px] bg-white rounded my-auto"
-                onPress={startLocalStream}>
-                <Text>Click to start stream</Text>
-              </TouchableOpacity>
-            )}
-
-            {/* roomId */}
-            <Text className="w-[56px] h-[30px] bg-white rounded my-auto">
-              Room : {roomId}
-            </Text>
-          </View>
-          <LoadingScreen loadingMessage="통화 연결 중이에요" />
+          <ConnectSuccessScreen />
         </>
       ) : (
         <>
-          {/* 타이머 & start call & switchCamera & toggleMute & startLocalStream & roomId*/}
+          {/* 타이머 & start call & switchCamera & toggleMute*/}
           <View className="flex flex-row top-0 left-0 right-0 justify-around items-end h-[50px] bg-[#000000]">
             {/* switchCamera */}
             {localStream && (
@@ -480,20 +419,6 @@ export default function CallScreen({navigation, route}: any) {
               </TouchableOpacity>
             )}
 
-            {/* toggleMute */}
-            {localStream && (
-              <TouchableOpacity
-                className="w-14 h-14 my-auto"
-                onPress={toggleMute}
-                disabled={!remoteStream}>
-                <Image
-                  className="ml-0 my-auto"
-                  style={styles.MuteImage}
-                  source={require('images/Mute.png')}
-                />
-              </TouchableOpacity>
-            )}
-
             {/* 타이머 */}
             <Timer
               onBackPress={onBackPress}
@@ -502,13 +427,17 @@ export default function CallScreen({navigation, route}: any) {
               setIsExtended={setIsExtended}
             />
 
-            {/* start call */}
+            {/* toggleMute */}
             {localStream && (
               <TouchableOpacity
-                className="w-[56px] h-[30px] bg-white rounded my-auto"
-                onPress={() => startCall(roomId)}
-                disabled={!!remoteStream}>
-                <Text>Click to start call</Text>
+                className="w-14 h-14 my-auto"
+                onPress={toggleMute}
+                disabled={!remoteStream}>
+                <Image
+                  className="mx-auto my-auto"
+                  style={styles.MuteImage}
+                  source={require('images/Mute.png')}
+                />
               </TouchableOpacity>
             )}
 
@@ -520,12 +449,8 @@ export default function CallScreen({navigation, route}: any) {
                 <Text>Click to start stream</Text>
               </TouchableOpacity>
             )}
-
-            {/* roomId */}
-            <Text className="w-[56px] h-[30px] bg-white rounded my-auto">
-              Room : {roomId}
-            </Text>
           </View>
+
           {/* 정보 확인 모달 */}
           <Modal
             visible={infoModalVisible}

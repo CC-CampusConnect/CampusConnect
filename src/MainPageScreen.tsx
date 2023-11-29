@@ -6,15 +6,13 @@ import {
   View,
   Text,
   TextInput,
-  Button,
   TouchableOpacity,
   Image,
   StyleSheet,
-  ScrollView,
   Modal,
   Alert,
 } from 'react-native';
-import {useForm, Controller} from 'react-hook-form';
+import {useForm} from 'react-hook-form';
 import auth from '@react-native-firebase/auth';
 import {db} from './util/firestore';
 import {useContext} from 'react';
@@ -22,7 +20,7 @@ import {UserContext} from './UserContext';
 import {CommonActions} from '@react-navigation/native';
 
 export default function MainPageScreen({navigation}: {navigation: any}) {
-  const {control, handleSubmit, formState} = useForm<FormData>();
+  const {handleSubmit} = useForm<FormData>();
   const [kakaoId, setKakaoid] = useState<string>(''); // 카카오톡 계정 입력
   const [instaId, setInstaid] = useState<string>(''); // 인스타 계정 입력
   const [modalVisible, setModalVisible] = useState(false); // 카카오톡 모달 상태
@@ -32,7 +30,7 @@ export default function MainPageScreen({navigation}: {navigation: any}) {
   // 매칭 시작 버튼 누르면 WebRTCRoom으로 이동
   const onSubmit = async (data: FormData) => {
     console.log('화상 통화 시작.');
-    navigation.navigate('WebRTCRoom');
+    navigation.navigate('RandomMatch');
   };
 
   // 로그아웃 버튼
