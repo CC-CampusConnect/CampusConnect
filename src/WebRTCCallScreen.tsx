@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {
   Text,
   View,
@@ -19,7 +19,6 @@ import {
 
 import {db} from './util/firestore';
 import Timer from './Timer';
-import {useContext} from 'react';
 import {UserContext} from './UserContext';
 import {CommonActions} from '@react-navigation/native';
 import LoadingScreen from './LoadingScreen';
@@ -92,7 +91,7 @@ export default function CallScreen({navigation, route}: any) {
   const [timerStarted, setTimerStarted] = useState(false); // 타이머 시작 여부
   const [isCallStarted, setIsCallStarted] = useState(false); // 통화 시작 여부
 
-  const [isMuted, setIsMuted] = useState(false);
+  const [, setIsMuted] = useState(false);
 
   const [isExtended, setIsExtended] = useState<boolean>(false);
   const [isEnd, setIsEnd] = useState<boolean>(false);
@@ -112,6 +111,14 @@ export default function CallScreen({navigation, route}: any) {
   useEffect(() => {
     startLocalStream();
   }, []);
+
+  useEffect(() => {
+    if (localStream && roomId) {
+      console.log(roomId, '방 입장 <caller>');
+      startCall(roomId);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [localStream, roomId]);
 
   useEffect(() => {
     if (isEnd) {
@@ -200,7 +207,7 @@ export default function CallScreen({navigation, route}: any) {
 
   // 통화 시작
   const startCall = async (id: string) => {
-    const roomRef = await db.collection('rooms').doc(id);
+    const roomRef = db.collection('rooms').doc(id);
 
     const localPC = new RTCPeerConnection(configuration);
 
@@ -221,7 +228,7 @@ export default function CallScreen({navigation, route}: any) {
         console.log('Got final candidate! <caller>');
         return;
       }
-      callerCandidatesCollection.add(e.candidate.toJSON());
+      await callerCandidatesCollection.add(e.candidate.toJSON());
     });
 
     localPC.addEventListener('track', e => {

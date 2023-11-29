@@ -48,9 +48,9 @@ export default function HomeScreen({navigation}: {navigation: any}) {
           <Text>Deepar</Text>
         </View>
       </Pressable>
-      <Pressable onPress={() => navigation.navigate('WebRTCRoom')}>
+      <Pressable onPress={() => navigation.navigate('RandomMatch')}>
         <View className="w-full h-10 bg-orange-500">
-          <Text>WebRTCRoom</Text>
+          <Text>RandomMatch</Text>
         </View>
       </Pressable>
       <View className="flex w-full h-full">

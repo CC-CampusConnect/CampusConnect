@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {
   Text,
   View,
@@ -19,7 +19,6 @@ import {
 
 import {db} from './util/firestore';
 import Timer from './Timer';
-import {useContext} from 'react';
 import {UserContext} from './UserContext';
 import {CommonActions} from '@react-navigation/native';
 
@@ -105,9 +104,34 @@ export default function JoinScreen({navigation, route}: any) {
   const [isActivatedStudentId, setIsActivatedStudentId] =
     useState<boolean>(false);
 
+  const [startCall, setStartCall] = useState<boolean>(false);
+
   useEffect(() => {
     startLocalStream();
   }, []);
+
+  useEffect(() => {
+    // caller offer 가져왔을 때 통화 시작
+    const unscribe = db
+      .collection('rooms')
+      .doc(roomId)
+      .onSnapshot(async snapshot => {
+        const data = snapshot.data();
+        if (data?.offer && localStream && roomId) {
+          console.log('offer 받음 <callee>');
+          setStartCall(true);
+        }
+      });
+    return unscribe;
+  }, [localStream, roomId]);
+
+  useEffect(() => {
+    // 통화 시작
+    if (startCall) {
+      joinCall(roomId);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [startCall, roomId]);
 
   useEffect(() => {
     if (isEnd) {
@@ -196,7 +220,7 @@ export default function JoinScreen({navigation, route}: any) {
   };
 
   const joinCall = async (id: string) => {
-    const roomRef = await db.collection('rooms').doc(id); // 방 참가
+    const roomRef = db.collection('rooms').doc(id); // 방 참가
     const roomSnapshot = await roomRef.get(); // 방 정보 가져오기
 
     if (!roomSnapshot.exists) {
@@ -223,7 +247,7 @@ export default function JoinScreen({navigation, route}: any) {
         console.log('Got final candidate! <callee>');
         return;
       }
-      calleeCandidatesCollection.add(e.candidate.toJSON());
+      await calleeCandidatesCollection.add(e.candidate.toJSON());
     });
 
     localPC.addEventListener('track', e => {
