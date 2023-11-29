@@ -67,13 +67,13 @@ export default function ConnectSuccessScreen() {
           매칭 성공!
         </Text>
         <Text
-          className="top-[330px] text-[32px] text-brown mx-auto"
+          className="text-[32px] text-brown mx-auto"
           style={{fontFamily: 'GowunDodum-Regular'}}>
           영상 통화 연결 중입니다.
         </Text>
 
         {/* 로딩바 */}
-        <View className="space-y-4 top-[350px]">
+        <View className="space-y-4 mt-12">
           <View>
             {/* indeterminate ProgressBar */}
             <ProgressBar
