@@ -170,7 +170,7 @@ export default function CallEndScreen({navigation, route}: any) {
               />
             ))}
             <TextInput
-              className="w-[330px] h-[147px] ml-[30px] mt-[27px] border border-solid-100 bg-white-gray"
+              className="w-[330px] h-[147px] ml-[30px] mt-[27px] border border-solid-100 bg-brown"
               value={text}
               onChangeText={t => {
                 setText(t);

@@ -68,11 +68,6 @@ export default function HomeScreen({navigation}: {navigation: any}) {
           <Text>ConnectSuccess</Text>
         </View>
       </Pressable>
-      <Pressable onPress={() => navigation.navigate('test')}>
-        <View className="w-full h-10 bg-orange-500">
-          <Text>test</Text>
-        </View>
-      </Pressable>
       <View className="flex w-full h-full">
         {user ? (
           <View>

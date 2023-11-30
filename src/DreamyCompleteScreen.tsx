@@ -5,12 +5,9 @@ import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
-  TextInput,
-  Button,
   TouchableOpacity,
   Image,
   StyleSheet,
-  ScrollView,
 } from 'react-native';
 import {useForm, Controller} from 'react-hook-form';
 import {CommonActions} from '@react-navigation/native';

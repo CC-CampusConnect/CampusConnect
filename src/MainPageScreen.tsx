@@ -242,7 +242,7 @@ export default function MainPageScreen({navigation}: {navigation: any}) {
             </View>
 
             <TextInput
-              className="w-[330px] h-[52px] ml-[30px] mt-[20px] border border-solid-100 bg-white-gray"
+              className="w-[330px] h-[52px] ml-[30px] mt-[20px] border border-solid-100 bg-brown"
               value={kakaoId}
               onChangeText={t => {
                 setKakaoid(t);
@@ -306,7 +306,7 @@ export default function MainPageScreen({navigation}: {navigation: any}) {
             </View>
 
             <TextInput
-              className="w-[330px] h-[52px] ml-[30px] mt-[20px] border border-solid-100 bg-white-gray"
+              className="w-[330px] h-[52px] ml-[30px] mt-[20px] border border-solid-100 bg-brown"
               value={instaId}
               onChangeText={t => {
                 setInstaid(t);

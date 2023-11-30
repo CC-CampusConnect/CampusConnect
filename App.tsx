@@ -20,7 +20,6 @@ import WaitConnectScreen from './src/WaitConnectScreen';
 import ConnectFailScreen from './src/ConnectFailScreen';
 import ConnectSuccessScreen from './src/ConnectSuccessScreen';
 import RandomMatch from './src/RandomMatch';
-import test from './src/test'; // 반응형 디자인 적용 후 지우기
 
 const Stack = createNativeStackNavigator();
 
@@ -57,7 +56,6 @@ export default function App() {
             component={ConnectSuccessScreen}
           />
           <Stack.Screen name="RandomMatch" component={RandomMatch} />
-          <Stack.Screen name="test" component={test} />
         </Stack.Navigator>
       </NavigationContainer>
     </UserProvider>
