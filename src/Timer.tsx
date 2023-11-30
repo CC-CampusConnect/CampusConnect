@@ -15,7 +15,7 @@ export default function Timer({
   isExtended,
   setIsExtended,
 }: TimerProps) {
-  const [minutes, setMinutes] = useState<number>(10);
+  const [minutes, setMinutes] = useState<number>(60);
   const [seconds, setSeconds] = useState<number>(0);
   const [delay, setDelay] = useState<number | null>(1000); // 1 밀리초 간격
 
@@ -56,7 +56,7 @@ export default function Timer({
 
   return (
     <>
-      <View className="w-[70px] h-[30px] bg-white rounded my-auto">
+      <View className="w-[70px] h-[30px] bg-white rounded">
         {timerStarted ? (
           <Text className="text-center text-[20px]">
             {minutes} : {seconds}

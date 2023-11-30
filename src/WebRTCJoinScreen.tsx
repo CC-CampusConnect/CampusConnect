@@ -413,7 +413,7 @@ export default function JoinScreen({navigation, route}: any) {
   });
 
   return (
-    <View className="flex w-full h-full relative bg-[#000000]">
+    <View className="w-full h-full bg-black">
       {!isCallStarted ? (
         <>
           <ConnectSuccessScreen />
@@ -421,7 +421,7 @@ export default function JoinScreen({navigation, route}: any) {
       ) : (
         <>
           {/* 타이머 & start call & switchCamera & toggleMute & startLocalStream & roomId*/}
-          <View className="flex flex-row top-0 left-0 right-0 justify-around items-end h-[50px] bg-[#000000]">
+          <View className="flex-row justify-around items-center h-[50px] bg-black">
             {/* switchCamera */}
             {localStream && (
               <TouchableOpacity
@@ -475,13 +475,13 @@ export default function JoinScreen({navigation, route}: any) {
             }}
             animationType="fade"
             transparent={true}>
-            <View className="mt-24 mx-auto">
+           
               <View
-                className="w-[391px] h-[195px] m-5"
+                className="w-11/12 h-[220px] mt-36 mx-auto"
                 style={styles.modalView}>
                 <View>
                   <Text
-                    className="text-[20px] text-brown ml"
+                    className="text-[20px] text-brown"
                     style={{fontFamily: 'GowunDodum-Regular'}}>
                     전공 : {isActivatedMajor ? major : '?'}
                   </Text>
@@ -507,12 +507,12 @@ export default function JoinScreen({navigation, route}: any) {
                   </Text>
                 </View>
                 <TouchableOpacity onPress={() => setInfoModalVisible(false)}>
-                  <Text className="mx-auto mt-5 text-[16px] text-black underline">
+                  <Text className="mx-auto mt-7 text-[16px] text-black underline">
                     취소
                   </Text>
                 </TouchableOpacity>
               </View>
-            </View>
+        
           </Modal>
 
           {/* 통화 종료 확인 모달 */}
@@ -523,13 +523,13 @@ export default function JoinScreen({navigation, route}: any) {
             }}
             animationType="fade"
             transparent={true}>
-            <View className="mt-24 mx-auto">
+      
               <View
-                className="w-[391px] h-[143px] m-5"
+                className="w-11/12 h-[143px] mx-auto mt-36"
                 style={styles.modalView}>
                 <View>
                   <Text
-                    className="text-[20px] text-center text-brown ml"
+                    className="text-[20px] text-center text-brown"
                     style={{fontFamily: 'GowunDodum-Regular'}}>
                     통화를 종료하시겠습니까?
                   </Text>
@@ -547,14 +547,35 @@ export default function JoinScreen({navigation, route}: any) {
                   </TouchableOpacity>
                 </View>
               </View>
-            </View>
           </Modal>
 
+          {/* 통화 화면 */}
+          <View className='flex-auto p-2 bg-black'>
+            {init ? (
+              <View className="flex-auto space-y-2">
+                {remoteStream && (
+                  <RTCView
+                    className="flex-auto"
+                    objectFit={'cover'}
+                    streamURL={remoteStream && remoteStream.toURL()}
+                  />
+                )}
+                {localStream && (
+                  <RTCView
+                    className="flex-auto"
+                    objectFit={'cover'}
+                    streamURL={localStream && localStream.toURL()}
+                  />
+                )}
+              </View>
+            ) : null}
+          </View>
+
           {/* 버튼들 */}
-          <View className="flex flex-row absolute bottom-0 left-0 right-0 justify-around items-end h-[80px] bg-[#000000]">
+          <View className="flex-row justify-around items-center h-[70px] bg-black">
             {/* SNS 추가 버튼 */}
             <TouchableOpacity
-              className="w-14 h-14 my-auto bg-white rounded-full"
+              className="w-14 h-14 bg-white rounded-full"
               onPress={handleAddSns}>
               <Image
                 className="mx-auto my-auto"
@@ -565,7 +586,7 @@ export default function JoinScreen({navigation, route}: any) {
 
             {/* 통화 종료 버튼 */}
             <TouchableOpacity
-              className="w-14 h-14 my-auto bg-white rounded-full"
+              className="w-14 h-14 bg-white rounded-full"
               onPress={() => setEndModalVisible(true)}>
               <Image
                 className="mx-auto my-auto"
@@ -576,7 +597,7 @@ export default function JoinScreen({navigation, route}: any) {
 
             {/* 정보 확인 버튼 */}
             <TouchableOpacity
-              className="w-14 h-14 my-auto bg-white rounded-full"
+              className="w-14 h-14 bg-white rounded-full"
               onPress={() => setInfoModalVisible(true)}>
               <Image
                 className="mx-auto my-auto"
@@ -588,7 +609,7 @@ export default function JoinScreen({navigation, route}: any) {
             {/* 통화 연장 버튼 */}
             {localStream && (
               <TouchableOpacity
-                className="w-14 h-14 my-auto bg-white rounded-full"
+                className="w-14 h-14 bg-white rounded-full"
                 onPress={extendCall}>
                 <Image
                   className="mx-auto my-auto"
@@ -599,25 +620,7 @@ export default function JoinScreen({navigation, route}: any) {
             )}
           </View>
 
-          {/* 통화 화면 */}
-          {init ? (
-            <View className="flex w-full space-y-4">
-              {remoteStream && (
-                <RTCView
-                  className="w-[400px] h-[350px] mx-auto"
-                  objectFit={'cover'}
-                  streamURL={remoteStream && remoteStream.toURL()}
-                />
-              )}
-              {localStream && (
-                <RTCView
-                  className="w-[400px] h-[350px] mx-auto"
-                  objectFit={'cover'}
-                  streamURL={localStream && localStream.toURL()}
-                />
-              )}
-            </View>
-          ) : null}
+       
         </>
       )}
     </View>
