@@ -141,24 +141,42 @@ export default function MainPageScreen({navigation}: {navigation: any}) {
     <View className="flex w-full h-full bg-[#F5F1E8] relative">
       {/* 배경 이미지 */}
       <View className="w-[346px] h-[767px] left-[33px] top-[30px] absolute">
-        <Image className="w-[46px] h-[35px] left-[6px] top-[60px] absolute" source={require('images/Cat.png')} />
-        <Image className="w-[46px] h-[35px] left-[6px] top-[402px] absolute" source={require('images/Cat.png')} />
-        <Image className="w-[46px] h-[35px] left-[6px] top-[660px] absolute" source={require('images/Cat.png')} />
+        <Image
+          className="w-[46px] h-[35px] left-[6px] top-[60px] absolute"
+          source={require('images/Cat.png')}
+        />
+        <Image
+          className="w-[46px] h-[35px] left-[6px] top-[402px] absolute"
+          source={require('images/Cat.png')}
+        />
+        <Image
+          className="w-[46px] h-[35px] left-[6px] top-[660px] absolute"
+          source={require('images/Cat.png')}
+        />
 
-        <Image className="w-16 h-9 left-[155px] top-[300px] absolute" source={require('images/Rabbit.png')} />
-        <Image className="w-16 h-9 left-[155px] top-[582px] absolute" source={require('images/Rabbit.png')} />
-        
-        <Image className="w-[53px] h-[35px] left-[293px] top-[69px] absolute" source={require('images/Dog.png')} />
-        <Image className="w-[53px] h-[35px] left-[293px] top-[430px] absolute" source={require('images/Dog.png')} />
-        
+        <Image
+          className="w-16 h-9 left-[155px] top-[300px] absolute"
+          source={require('images/Rabbit.png')}
+        />
+        <Image
+          className="w-16 h-9 left-[155px] top-[582px] absolute"
+          source={require('images/Rabbit.png')}
+        />
+
+        <Image
+          className="w-[53px] h-[35px] left-[293px] top-[69px] absolute"
+          source={require('images/Dog.png')}
+        />
+        <Image
+          className="w-[53px] h-[35px] left-[293px] top-[430px] absolute"
+          source={require('images/Dog.png')}
+        />
       </View>
-      
+
       {/* 인스타, 카카오톡, 로그아웃 */}
-      <View className='top-[37px] left-[49px] right-[49px] absolute'>
+      <View className="top-[37px] left-[49px] right-[49px] absolute">
         <TouchableOpacity className="absolute right-5" onPress={logout}>
-          <Text className="text-xs text-black underline">
-            로그아웃
-          </Text>
+          <Text className="text-xs text-black underline">로그아웃</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -175,7 +193,7 @@ export default function MainPageScreen({navigation}: {navigation: any}) {
       </View>
 
       {/* Campus Connect CC로 새로운 인연을 만들어보세요*/}
-      <View className='top-[166px] left-[49px] absolute'>
+      <View className="top-[166px] left-[49px] absolute">
         <Text
           style={{fontFamily: 'EmblemaOne-Regular'}}
           className=" text-orange-400 text-[45px]">
@@ -194,11 +212,13 @@ export default function MainPageScreen({navigation}: {navigation: any}) {
       </View>
 
       {/* 매칭 시작 버튼 */}
-      <View className='p-12 absolute bottom-0 w-full'>
+      <View className="p-12 absolute bottom-0 w-full">
         <TouchableOpacity
           className="p-2 rounded-[35px] bg-pink-500"
           onPress={handleSubmit(onSubmit)}>
-          <Text style={{fontFamily: 'GowunDodum-Regular'}} className="text-center text-[40px] text-white">
+          <Text
+            style={{fontFamily: 'GowunDodum-Regular'}}
+            className="text-center text-[40px] text-white">
             매칭 시작
           </Text>
         </TouchableOpacity>
@@ -213,19 +233,42 @@ export default function MainPageScreen({navigation}: {navigation: any}) {
             setModalVisible(!modalVisible);
           }}
           animationType="slide">
- 
           {/* 배경 이미지 */}
           <View className="w-[346px] h-[767px] left-[33px] top-[30px] absolute">
-            <Image className="w-[46px] h-[35px] left-0 top-0 absolute" source={require('images/Cat.png')} />
-            <Image className="w-[46px] h-[35px] left-[6px] top-[402px] absolute" source={require('images/Cat.png')} />
-            <Image className="w-[46px] h-[35px] left-[6px] top-[692px] absolute" source={require('images/Cat.png')} />
+            <Image
+              className="w-[46px] h-[35px] left-0 top-0 absolute"
+              source={require('images/Cat.png')}
+            />
+            <Image
+              className="w-[46px] h-[35px] left-[6px] top-[402px] absolute"
+              source={require('images/Cat.png')}
+            />
+            <Image
+              className="w-[46px] h-[35px] left-[6px] top-[692px] absolute"
+              source={require('images/Cat.png')}
+            />
 
-            <Image className="w-16 h-9 left-[155px] top-[191px] absolute" source={require('images/Rabbit.png')} />
-            <Image className="w-16 h-9 left-[155px] top-[582px] absolute" source={require('images/Rabbit.png')} />
-            
-            <Image className="w-[53px] h-[35px] left-[293px] top-[69px] absolute" source={require('images/Dog.png')} />
-            <Image className="w-[53px] h-[35px] left-[293px] top-[470px] absolute" source={require('images/Dog.png')} />
-            <Image className="w-[53px] h-[35px] left-[293px] top-[732px] absolute" source={require('images/Dog.png')} />
+            <Image
+              className="w-16 h-9 left-[155px] top-[191px] absolute"
+              source={require('images/Rabbit.png')}
+            />
+            <Image
+              className="w-16 h-9 left-[155px] top-[582px] absolute"
+              source={require('images/Rabbit.png')}
+            />
+
+            <Image
+              className="w-[53px] h-[35px] left-[293px] top-[69px] absolute"
+              source={require('images/Dog.png')}
+            />
+            <Image
+              className="w-[53px] h-[35px] left-[293px] top-[470px] absolute"
+              source={require('images/Dog.png')}
+            />
+            <Image
+              className="w-[53px] h-[35px] left-[293px] top-[732px] absolute"
+              source={require('images/Dog.png')}
+            />
           </View>
 
           <View className="top-[178px] mx-auto w-[391px] h-[207px] bg-white border">
@@ -242,7 +285,7 @@ export default function MainPageScreen({navigation}: {navigation: any}) {
             </View>
 
             <TextInput
-              className="w-[330px] h-[52px] ml-[30px] mt-[20px] border border-solid-100 bg-brown"
+              className="w-[330px] h-[52px] ml-[30px] mt-[20px] border border-solid-100 text-brown"
               value={kakaoId}
               onChangeText={t => {
                 setKakaoid(t);
@@ -278,19 +321,43 @@ export default function MainPageScreen({navigation}: {navigation: any}) {
             setModalVisible2(!modalVisible2);
           }}
           animationType="slide">
-        {/* 배경 이미지 */}
-        <View className="w-[346px] h-[767px] left-[33px] top-[30px] absolute">
-          <Image className="w-[46px] h-[35px] left-0 top-0 absolute" source={require('images/Cat.png')} />
-          <Image className="w-[46px] h-[35px] left-[6px] top-[402px] absolute" source={require('images/Cat.png')} />
-          <Image className="w-[46px] h-[35px] left-[6px] top-[692px] absolute" source={require('images/Cat.png')} />
+          {/* 배경 이미지 */}
+          <View className="w-[346px] h-[767px] left-[33px] top-[30px] absolute">
+            <Image
+              className="w-[46px] h-[35px] left-0 top-0 absolute"
+              source={require('images/Cat.png')}
+            />
+            <Image
+              className="w-[46px] h-[35px] left-[6px] top-[402px] absolute"
+              source={require('images/Cat.png')}
+            />
+            <Image
+              className="w-[46px] h-[35px] left-[6px] top-[692px] absolute"
+              source={require('images/Cat.png')}
+            />
 
-          <Image className="w-16 h-9 left-[155px] top-[191px] absolute" source={require('images/Rabbit.png')} />
-          <Image className="w-16 h-9 left-[155px] top-[582px] absolute" source={require('images/Rabbit.png')} />
-          
-          <Image className="w-[53px] h-[35px] left-[293px] top-[69px] absolute" source={require('images/Dog.png')} />
-          <Image className="w-[53px] h-[35px] left-[293px] top-[470px] absolute" source={require('images/Dog.png')} />
-          <Image className="w-[53px] h-[35px] left-[293px] top-[732px] absolute" source={require('images/Dog.png')} />
-        </View>
+            <Image
+              className="w-16 h-9 left-[155px] top-[191px] absolute"
+              source={require('images/Rabbit.png')}
+            />
+            <Image
+              className="w-16 h-9 left-[155px] top-[582px] absolute"
+              source={require('images/Rabbit.png')}
+            />
+
+            <Image
+              className="w-[53px] h-[35px] left-[293px] top-[69px] absolute"
+              source={require('images/Dog.png')}
+            />
+            <Image
+              className="w-[53px] h-[35px] left-[293px] top-[470px] absolute"
+              source={require('images/Dog.png')}
+            />
+            <Image
+              className="w-[53px] h-[35px] left-[293px] top-[732px] absolute"
+              source={require('images/Dog.png')}
+            />
+          </View>
 
           <View className="top-[178px] mx-auto w-[391px] h-[207px] bg-white border">
             <View className="flex-row mx-5 mt-5">
@@ -306,7 +373,7 @@ export default function MainPageScreen({navigation}: {navigation: any}) {
             </View>
 
             <TextInput
-              className="w-[330px] h-[52px] ml-[30px] mt-[20px] border border-solid-100 bg-brown"
+              className="w-[330px] h-[52px] ml-[30px] mt-[20px] border border-solid-100 text-brown"
               value={instaId}
               onChangeText={t => {
                 setInstaid(t);
@@ -332,8 +399,6 @@ export default function MainPageScreen({navigation}: {navigation: any}) {
           </View>
         </Modal>
       </View>
-
-      
     </View>
   );
 }

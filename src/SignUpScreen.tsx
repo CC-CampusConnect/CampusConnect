@@ -164,7 +164,7 @@ export default function SignUpScreen({navigation}: {navigation: any}) {
             render={({field: {onChange, onBlur, value}}) => (
               <TextInput
                 style={{fontFamily: 'Nunito-Regular'}}
-                className="mx-auto bg-brown w-[327px] h-[40px]"
+                className="mx-auto text-black w-[327px] h-[40px]"
                 placeholder="아이디"
                 onChangeText={onChange}
                 onBlur={onBlur}
@@ -187,7 +187,7 @@ export default function SignUpScreen({navigation}: {navigation: any}) {
             render={({field: {onChange, onBlur, value}}) => (
               <TextInput
                 style={{fontFamily: 'Nunito-Regular'}}
-                className="mx-auto bg-brown w-[327px] h-[40px]"
+                className="mx-auto text-black w-[327px] h-[40px]"
                 placeholder="비밀번호"
                 onChangeText={onChange}
                 onBlur={onBlur}
@@ -208,7 +208,7 @@ export default function SignUpScreen({navigation}: {navigation: any}) {
             render={({field: {onChange, onBlur, value}}) => (
               <TextInput
                 style={{fontFamily: 'Nunito-Regular'}}
-                className="mx-auto bg-brown w-[327px] h-[40px]"
+                className="mx-auto text-black w-[327px] h-[40px]"
                 placeholder="비밀번호 확인"
                 onChangeText={onChange}
                 onBlur={onBlur}

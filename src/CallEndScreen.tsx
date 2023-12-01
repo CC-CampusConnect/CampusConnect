@@ -144,7 +144,7 @@ export default function CallEndScreen({navigation, route}: any) {
       </View>
 
       {/* 신고 모달 */}
-      <View className='absolute justify-center items-center'>
+      <View className="absolute justify-center items-center">
         <Modal
           visible={modalVisible}
           // 안드로이드의 뒤로가기 버튼 클릭 시 모달 비활성화
@@ -152,8 +152,7 @@ export default function CallEndScreen({navigation, route}: any) {
             setModalVisible(!modalVisible);
           }}
           animationType="fade"
-          transparent={true}
-          >
+          transparent={true}>
           <View className="mx-auto my-auto w-[391px] h-[520px] bg-white border">
             <Text
               style={{fontFamily: 'GowunDodum-Regular'}}
@@ -170,7 +169,7 @@ export default function CallEndScreen({navigation, route}: any) {
               />
             ))}
             <TextInput
-              className="w-[330px] h-[147px] ml-[30px] mt-[27px] border border-solid-100 bg-brown"
+              className="w-[330px] h-[147px] ml-[30px] mt-[27px] border border-solid-100 text-black"
               value={text}
               onChangeText={t => {
                 setText(t);
@@ -198,8 +197,8 @@ export default function CallEndScreen({navigation, route}: any) {
       </View>
 
       {/* 설명 */}
-      <View className='justify-center items-center'>
-      <Image
+      <View className="justify-center items-center">
+        <Image
           className=""
           style={styles.CCDogImage}
           source={require('images/CCDog.png')}
